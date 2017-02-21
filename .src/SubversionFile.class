@@ -1,0 +1,37 @@
+' Gambas class file
+
+Public FullPath As String
+Public RelativePath As String
+Public FileName As String
+Public IsFolder As Boolean
+Public Props As String
+Public Item As String
+Public Revision As Integer
+Public Author As String
+Public Date As Date
+
+Public Function GetParent() As String
+
+  If Me.RelativePath = Null Then
+    Return Null
+  Else
+    Return Left(Me.FullPath, - Len(Me.FileName) - 1)
+  Endif
+
+End
+
+Public Function IsIgnored() As Boolean
+
+  If Right(Me.FullPath, 1) = "~" Then
+    Return True
+  Else
+    Return False
+  Endif
+
+End
+
+Public Function GetPicture() As Picture
+
+  Return Picture["icon://32/warning"]
+
+End

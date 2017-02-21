@@ -1,0 +1,51 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"#-#-#-#-#  #project.pot (gb.subversion 3.9.2)  #-#-#-#-#\n"
+"Project-Id-Version: gb.subversion 3.9.2\n"
+"POT-Creation-Date: 2017-02-21 13:43 UTC\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  FMain.pot ($(PACKAGE) $(VERSION))  #-#-#-#-#\n"
+"Project-Id-Version: $(PACKAGE) $(VERSION)\n"
+"POT-Creation-Date: 2017-02-21 13:40 UTC\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  SubversionFile.pot ($(PACKAGE) $(VERSION))  #-#-#-#-#\n"
+"Project-Id-Version: $(PACKAGE) $(VERSION)\n"
+"POT-Creation-Date: 2017-02-21 13:07 UTC\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  SubversionRoot.pot ($(PACKAGE) $(VERSION))  #-#-#-#-#\n"
+"Project-Id-Version: $(PACKAGE) $(VERSION)\n"
+"POT-Creation-Date: 2017-02-21 13:25 UTC\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .project:1
+msgid "gb.subversion"
+msgstr ""
+
+#: .project:2
+msgid "Gambas Subversion (SVN) Client Component and Tools"
+msgstr ""
+
+#: FMain.form:22
+msgid "Commit"
+msgstr ""
+
+#: FMain.form:27
+msgid "Update"
+msgstr ""
+
+#: FMain.class:40
+msgid "Revision: &1 - Author: &2 - Date: &3"
+msgstr ""
+
+#: FMain.class:40
+msgid "d mmmm yyyy hh:nn:ss"
+msgstr ""

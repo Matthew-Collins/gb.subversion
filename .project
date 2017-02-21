@@ -1,0 +1,18 @@
+# Gambas Project File 3.0
+# Compiled with Gambas 3.9.2
+Title=gb.subversion
+Startup=FMain
+Version=1.0.0
+Component=gb.image
+Component=gb.qt4
+Component=gb.form
+Component=gb.xml
+Description="Gambas Subversion (SVN) Client Component and Tools"
+Authors="Matthew Collins"
+Arguments=[["/home/matthew/Documents/gb.subversion"]]
+CurrentArgument=1
+TabSize=2
+Translate=1
+Language=en_GB
+Vendor=MatthewCollins
+Packager=1

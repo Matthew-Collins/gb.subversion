@@ -1,0 +1,34 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,157,112)
+  { CommitMessage TextArea
+    MoveScaled(43,11,113,14)
+  }
+  { Commit Button
+    MoveScaled(43,6,16,4)
+    Text = ("Commit")
+  }
+  { Update Button
+    MoveScaled(60,6,16,4)
+    Text = ("Update")
+  }
+  { Revision Label
+    MoveScaled(78,6.5714,78,3)
+  }
+  { WorkingDirectory TextBox
+    MoveScaled(1,1,149,4)
+    Expand = True
+  }
+  { PickWorkingDirectory Button
+    MoveScaled(151,1,5,4)
+    Text = ("") & "..."
+  }
+  { List ColumnView
+    MoveScaled(43,26,113,85)
+    Mode = Select.Multiple
+  }
+  { Tree TreeView
+    MoveScaled(1,6,41,105)
+  }
+}

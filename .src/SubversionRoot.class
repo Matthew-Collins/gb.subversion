@@ -1,0 +1,78 @@
+' Gambas class file
+
+Public WorkingDirectory As String
+Public Files As New SubversionFile[]
+
+Public Sub _new(WorkingDirectory As String)
+
+  Me.WorkingDirectory = WorkingDirectory
+
+End
+
+Public Sub LoadFromSubversion()
+
+  Dim File As SubversionFile
+
+  Dim xml As String
+  Dim xDoc As New XmlDocument
+
+  Dim Entry As XmlNode
+  Dim Status As XmlNode
+  Dim Commit As XmlNode
+  Dim Value As XmlNode
+
+  Dim First As Boolean = True
+
+  Me.Files.Clear
+
+  Shell "svn status --verbose --xml \"" & Me.WorkingDirectory & "\"" Wait To xml
+  xDoc.FromString(xml)
+
+  For Each Entry In xDoc.GetElementsByTagName("entry")
+
+    File = New SubversionFile
+    File.FullPath = Entry.Attributes["path"]
+    File.RelativePath = Right(File.FullPath, - Len(Me.WorkingDirectory))
+    File.FileName = Right(File.FullPath, - RInStr(File.FullPath, "/"))
+    File.IsFolder = IsDir(File.FullPath)
+
+    For Each Status In Entry.ChildNodes
+      If Status.name = "wc-status" Then
+
+        File.Item = Status.Attributes["item"]
+        File.Props = Status.Attributes["props"]
+
+        For Each Commit In Status.ChildNodes
+          If Commit.name = "commit" Then
+
+            File.Revision = CInt(Commit.Attributes["revision"])
+
+            For Each Value In Commit.ChildNodes
+
+              If Value.name = "author" Then
+                File.Author = Value.Value
+              Else If Value.name = "date" Then
+                Try File.Date = CDate(Val(Value.Value))
+              Endif
+
+            Next
+          Endif
+        Next
+      End If
+    Next
+
+    Me.Files.Add(File)
+  Next
+
+End
+
+Public Sub Update()
+
+  Shell "svn update \"" & Me.WorkingDirectory & "\"" Wait
+
+End
+
+Public Sub Commit(Message As String)
+
+End
+

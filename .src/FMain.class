@@ -1,0 +1,72 @@
+' Gambas class file
+
+Public Root As SubversionRoot
+
+Public Sub Form_Open()
+
+  Try WorkingDirectory.text = Args[1]
+
+End
+
+Public Sub PickWorkingDirectory_Click()
+
+  Try Dialog.Path = WorkingDirectory.text
+  If Not Dialog.SelectDirectory() Then
+    WorkingDirectory.text = Dialog.Path
+  Endif
+
+End
+
+Public Sub WorkingDirectory_Change()
+
+  Me.LoadFromSubversionAndDisplay()
+
+End
+
+Public Sub LoadFromSubversionAndDisplay()
+
+  Dim File As SubversionFile
+
+  Me.Root = New SubversionRoot(WorkingDirectory.Text)
+  Me.Root.LoadFromSubversion()
+
+  List.Clear
+  Tree.Clear
+  Revision.text = ""
+
+  If Me.Root.Files.Count > 0 Then
+
+    With Me.Root.Files[0]
+      Try Revision.Text = Subst(("Revision: &1 - Author: &2 - Date: &3"), .Revision, .Author, Format(.date, ("d mmmm yyyy hh:nn:ss")))
+    End With
+
+    For Each File In Me.Root.Files
+      With File
+        If Not .IsIgnored() Then
+          List.Add(.FullPath, .FullPath, .GetPicture())
+          Tree.Add(.FullPath, .FileName, .GetPicture(), .GetParent()).Expanded = True
+        Endif
+      End With
+    Next
+
+  Endif
+
+End
+
+Public Sub Commit_Click()
+
+  If Not Me.Root = Null Then
+    Me.Root.Commit(CommitMessage.Text)
+    Me.LoadFromSubversionAndDisplay()
+  Endif
+
+End
+
+Public Sub Update_Click()
+
+  If Not Me.Root = Null Then
+    Me.Root.Update()
+    Me.LoadFromSubversionAndDisplay()
+  Endif
+
+End

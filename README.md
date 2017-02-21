@@ -1,2 +1,2 @@
 # gb.subversion
-Gambas Subversion (SVN) Client Component 
+Gambas Subversion (SVN) Client Component and Tools
