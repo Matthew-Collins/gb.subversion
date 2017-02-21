@@ -23,6 +23,7 @@
   { List ColumnView
     MoveScaled(43,26,113,85)
     Mode = Select.Multiple
+    AutoResize = False
   }
   { WorkingDirectory TextBox
     MoveScaled(1,1,149.5714,4)

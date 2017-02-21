@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $(PACKAGE) $(VERSION)\n"
-"POT-Creation-Date: 2017-02-21 16:55 UTC\n"
+"POT-Creation-Date: 2017-02-21 17:47 UTC\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,6 +20,22 @@ msgstr ""
 
 #: FMain.form:33
 msgid "Refresh"
+msgstr ""
+
+#: FMain.class:10
+msgid "File"
+msgstr ""
+
+#: FMain.class:12
+msgid "Status"
+msgstr ""
+
+#: FMain.class:17
+msgid "Size"
+msgstr ""
+
+#: FMain.class:22
+msgid "Modified"
 msgstr ""
 
 #: FMain.class:65

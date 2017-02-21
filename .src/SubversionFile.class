@@ -67,7 +67,21 @@ End
 
 Public Function GetPicture() As Picture
 
-  Return Picture[("icon://32/warning")]
+  '/home/matthew/Documents/3rd Party/gambas/comp/src/gb.form.stock/stock
+
+  If Me.IsFolder Then
+    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/directory.png")
+  Else If Me.IsIgnored() Then
+    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/ignore.png")
+  Else If Me.IsModified() Then
+    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/edit.png")
+  Else If Me.IsNormal() Then
+    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/ok.png")
+  Else If Me.IsUnversioned() Then
+    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/new.png")
+  Else
+    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/file.png")
+  Endif
 
 End
 

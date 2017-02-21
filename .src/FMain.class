@@ -7,19 +7,19 @@ Public Sub _new()
   With List
     .AutoResize = False
     .Columns.Count = 4
-    .Columns[0].Text = "File"
+    .Columns[0].Text = "     " & ("File")
     With List.Columns[1]
-      .Text = "Status"
+      .Text = ("Status")
       .Alignment = Align.Center
       .Width = 120
     End With
     With List.Columns[2]
-      .Text = "Size"
+      .Text = ("Size")
       .Alignment = Align.Right
       .Width = 80
     End With
     With List.Columns[3]
-      .Text = "Modified"
+      .Text = ("Modified")
       .Alignment = Align.Center
       .Width = 150
     End With

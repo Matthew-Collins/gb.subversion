@@ -11,6 +11,15 @@ End
 
 Public Sub LoadFromSubversion()
 
+  Me.Files.Clear
+  Me.Load_Subversion_Information()
+  Me.Add_Any_Unversioned_Missing_Files()
+  Me.Add_FileName_RelativePath_IsFolder_ModifiedDate_And_Size()
+
+End
+
+Public Sub Load_Subversion_Information()
+
   Dim File As SubversionFile
 
   Dim xml As String
@@ -21,10 +30,6 @@ Public Sub LoadFromSubversion()
   Dim Commit As XmlNode
   Dim Value As XmlNode
 
-  Dim First As Boolean = True
-
-  Me.Files.Clear
-
   Shell "svn status --verbose --xml \"" & Me.WorkingDirectory & "\"" Wait To xml
   xDoc.FromString(xml)
 
@@ -32,17 +37,6 @@ Public Sub LoadFromSubversion()
 
     File = New SubversionFile
     File.FullPath = Entry.Attributes["path"]
-    File.RelativePath = Right(File.FullPath, - Len(Me.WorkingDirectory))
-    File.FileName = Right(File.FullPath, - RInStr(File.FullPath, "/"))
-
-    File.IsFolder = IsDir(File.FullPath)
-
-    If Not File.IsFolder Then
-      With Stat(File.FullPath)
-        File.ModifiedDate = .LastModified
-        File.Size = .Size
-      End With
-    Endif
 
     For Each Status In Entry.ChildNodes
       If Status.name = "wc-status" Then
@@ -75,6 +69,54 @@ Public Sub LoadFromSubversion()
   Next
 
 End
+
+Public Sub Add_Any_Unversioned_Missing_Files()
+
+  Dim FileName As String
+  Dim FullPath As String
+  Dim FileFound As Boolean = False
+  Dim File As SubversionFile
+
+  For Each FileName In RDir(Me.WorkingDirectory)
+    FullPath = Me.WorkingDirectory &/ FileName
+    FileFound = False
+
+    For Each File In Me.Files
+      If Lower(File.FullPath) = Lower(FullPath) Then
+        FileFound = True
+        Break
+      Endif
+    Next
+
+    If Not FileFound Then
+      File = New SubversionFile
+      File.FullPath = FullPath
+      Me.Files.Add(file)
+    Endif
+
+  Next
+
+End
+
+Public Sub Add_FileName_RelativePath_IsFolder_ModifiedDate_And_Size()
+
+  Dim File As SubversionFile
+
+  For Each File In Me.Files
+    File.FileName = Right(File.FullPath, - RInStr(File.FullPath, "/"))
+    File.RelativePath = Right(File.FullPath, - Len(Me.WorkingDirectory))
+    File.IsFolder = IsDir(File.FullPath)
+    If Not File.IsFolder Then
+      With Stat(File.FullPath)
+        File.ModifiedDate = .LastModified
+        File.Size = .Size
+      End With
+    Endif
+  Next
+
+End
+
+
 
 Public Sub Update()
 

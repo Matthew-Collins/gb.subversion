@@ -1,6 +1,3 @@
-[Bookmarks]
-FMain=[]
-
 [Breakpoints]
 Count=0
 
@@ -41,9 +38,7 @@ Geometry=[868,91,738,596]
 Geometry=[854,129,580,797]
 
 [OpenFile]
-Count=1
-Active=1
-File[1]=".src/SubversionRoot.class:3.88"
+Count=0
 
 [VersionControl]
 RememberPassword=0
