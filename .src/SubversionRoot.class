@@ -39,22 +39,22 @@ Public Sub Load_Subversion_Information()
     File.FullPath = Entry.Attributes["path"]
 
     For Each Status In Entry.ChildNodes
-      If Status.name = "wc-status" Then
+      If Status.Name = "wc-status" Then
 
         File.Status = Status.Attributes["item"]
         File.Props = Status.Attributes["props"]
 
         For Each Commit In Status.ChildNodes
-          If Commit.name = "commit" Then
+          If Commit.Name = "commit" Then
 
             File.Revision = CInt(Commit.Attributes["revision"])
 
             For Each Value In Commit.ChildNodes
 
-              If Value.name = "author" Then
+              If Value.Name = "author" Then
                 File.Author = Value.Value
 
-              Else If Value.name = "date" Then
+              Else If Value.Name = "date" Then
                 Try File.CommitDate = CDate(Val(Value.Value))
 
               Endif
@@ -74,7 +74,7 @@ Public Sub Add_Any_Unversioned_Missing_Files()
 
   Dim FileName As String
   Dim FullPath As String
-  Dim FileFound As Boolean = False
+  Dim FileFound As Boolean
   Dim File As SubversionFile
 
   For Each FileName In RDir(Me.WorkingDirectory)
@@ -94,7 +94,7 @@ Public Sub Add_Any_Unversioned_Missing_Files()
         File = New SubversionFile
         File.FullPath = FullPath
         File.Status = "unversioned"
-        Me.Files.Add(file)
+        Me.Files.Add(File)
       Endif
 
     End If
@@ -125,7 +125,7 @@ Public Function GetFile(FullPath As String) As SubversionFile
   Dim File As SubversionFile
 
   For Each File In Me.Files
-    If File.FullPath = fullpath Then
+    If File.FullPath = FullPath Then
       Return File
     Endif
   Next
