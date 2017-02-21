@@ -11,6 +11,7 @@ Public Author As String
 Public CommitDate As Date
 Public ModifiedDate As Date
 Public Size As Long
+Public IsChecked As Boolean
 
 Public Function GetParent() As String
 
@@ -21,6 +22,16 @@ Public Function GetParent() As String
   Endif
 
 End
+
+Public Function IsSquiggle() As Boolean
+
+  If Right(Me.FullPath, 1) = "~" Then
+    Return True
+  Else
+    Return False
+  End If
+
+End Function
 
 Public Function IsIgnored() As Boolean
 
@@ -69,18 +80,20 @@ Public Function GetPicture() As Picture
 
   '/home/matthew/Documents/3rd Party/gambas/comp/src/gb.form.stock/stock
 
-  If Me.IsFolder Then
-    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/directory.png")
+  If Me.IsChecked Then
+    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/checked.png")
+  Else If Me.IsFolder Then
+    Return Picture.Load("/home/matthew/Documents/icons/directory.png")
   Else If Me.IsIgnored() Then
     Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/ignore.png")
   Else If Me.IsModified() Then
-    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/edit.png")
+    Return Picture.Load("/home/matthew/Documents/icons/edit.png")
   Else If Me.IsNormal() Then
-    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/ok.png")
+    Return Picture.Load("/home/matthew/Documents/icons/ok.png")
   Else If Me.IsUnversioned() Then
-    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/new.png")
+    Return Picture.Load("/home/matthew/Documents/icons/new.png")
   Else
-    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/file.png")
+    Return Picture.Load("/home/matthew/Documents/icons/file.png")
   Endif
 
 End

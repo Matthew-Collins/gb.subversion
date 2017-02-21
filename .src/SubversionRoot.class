@@ -78,22 +78,26 @@ Public Sub Add_Any_Unversioned_Missing_Files()
   Dim File As SubversionFile
 
   For Each FileName In RDir(Me.WorkingDirectory)
-    FullPath = Me.WorkingDirectory &/ FileName
-    FileFound = False
+    If Lower(Left(FileName, 4)) <> ".svn" Then
 
-    For Each File In Me.Files
-      If Lower(File.FullPath) = Lower(FullPath) Then
-        FileFound = True
-        Break
+      FullPath = Me.WorkingDirectory &/ FileName
+      FileFound = False
+
+      For Each File In Me.Files
+        If Lower(File.FullPath) = Lower(FullPath) Then
+          FileFound = True
+          Break
+        Endif
+      Next
+
+      If Not FileFound Then
+        File = New SubversionFile
+        File.FullPath = FullPath
+        File.Status = "unversioned"
+        Me.Files.Add(file)
       Endif
-    Next
 
-    If Not FileFound Then
-      File = New SubversionFile
-      File.FullPath = FullPath
-      Me.Files.Add(file)
-    Endif
-
+    End If
   Next
 
 End
@@ -116,6 +120,19 @@ Public Sub Add_FileName_RelativePath_IsFolder_ModifiedDate_And_Size()
 
 End
 
+Public Function GetFile(FullPath As String) As SubversionFile
+
+  Dim File As SubversionFile
+
+  For Each File In Me.Files
+    If File.FullPath = fullpath Then
+      Return File
+    Endif
+  Next
+
+  Return Null
+
+End
 
 
 Public Sub Update()
@@ -125,6 +142,14 @@ Public Sub Update()
 End
 
 Public Sub Commit(Message As String)
+
+  Dim File As SubversionFile
+
+  For Each File In Me.Files
+    If File.IsChecked And File.IsUnversioned() Then
+      Shell "svn add \"" & File.FullPath & "\"" Wait
+    Endif
+  Next
 
   Shell "svn commit \"" & Me.WorkingDirectory & "\" --message \"" & Replace(message, "\"", "'") & "\"" Wait
 

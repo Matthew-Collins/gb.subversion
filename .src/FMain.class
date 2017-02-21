@@ -67,13 +67,19 @@ Public Sub LoadFromSubversionAndDisplay()
 
     For Each File In Me.Root.Files
       With File
-        Tree.Add(.FullPath, .FileName, .GetPicture(), .GetParent()).Expanded = True
+
+        If Not .IsSquiggle() Then
+          Tree.Add(.FullPath, .FileName, .GetPicture(), .GetParent()).Expanded = True
+        End If
+
         If .IsCommitable() Then
+          .IsChecked = True
           List.Add(.FullPath, .FullPath, .GetPicture())
           List[.FullPath][1] = File.StatusDisplay()
           List[.FullPath][2] = Format(File.Size, "#,##0")
           List[.FullPath][3] = Format(File.ModifiedDate, ("dd/mm/yyyy hh:nn:ss"))
         Endif
+
       End With
     Next
 
@@ -87,6 +93,7 @@ Public Sub Commit_Click()
     Me.Root.Commit(CommitMessage.Text)
     Me.LoadFromSubversionAndDisplay()
     Message.Info(("Committed!"))
+    Me.CommitMessage.Clear
   Endif
 
 End
@@ -106,6 +113,18 @@ Public Sub Refresh_Click()
   If Not IsNull(Me.Root) Then
     Me.LoadFromSubversionAndDisplay()
     Message.Info(("Refreshed!"))
+  Endif
+
+End
+
+Public Sub List_DblClick()
+
+  Dim Item As SubversionFile
+
+  Try Item = Me.Root.GetFile(List.Current.Key)
+  If Not IsNull(item) Then
+    Item.IsChecked = Not Item.IsChecked
+    List.Current.Picture = item.GetPicture()
   Endif
 
 End
