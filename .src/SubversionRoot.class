@@ -34,12 +34,20 @@ Public Sub LoadFromSubversion()
     File.FullPath = Entry.Attributes["path"]
     File.RelativePath = Right(File.FullPath, - Len(Me.WorkingDirectory))
     File.FileName = Right(File.FullPath, - RInStr(File.FullPath, "/"))
+
     File.IsFolder = IsDir(File.FullPath)
+
+    If Not File.IsFolder Then
+      With Stat(File.FullPath)
+        File.ModifiedDate = .LastModified
+        File.Size = .Size
+      End With
+    Endif
 
     For Each Status In Entry.ChildNodes
       If Status.name = "wc-status" Then
 
-        File.Item = Status.Attributes["item"]
+        File.Status = Status.Attributes["item"]
         File.Props = Status.Attributes["props"]
 
         For Each Commit In Status.ChildNodes
@@ -51,8 +59,10 @@ Public Sub LoadFromSubversion()
 
               If Value.name = "author" Then
                 File.Author = Value.Value
+
               Else If Value.name = "date" Then
-                Try File.Date = CDate(Val(Value.Value))
+                Try File.CommitDate = CDate(Val(Value.Value))
+
               Endif
 
             Next
@@ -73,6 +83,8 @@ Public Sub Update()
 End
 
 Public Sub Commit(Message As String)
+
+  Shell "svn commit \"" & Me.WorkingDirectory & "\" --message \"" & Replace(message, "\"", "'") & "\"" Wait
 
 End
 

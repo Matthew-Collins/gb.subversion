@@ -5,10 +5,12 @@ Public RelativePath As String
 Public FileName As String
 Public IsFolder As Boolean
 Public Props As String
-Public Item As String
+Public Status As String
 Public Revision As Integer
 Public Author As String
-Public Date As Date
+Public CommitDate As Date
+Public ModifiedDate As Date
+Public Size As Long
 
 Public Function GetParent() As String
 
@@ -24,14 +26,48 @@ Public Function IsIgnored() As Boolean
 
   If Right(Me.FullPath, 1) = "~" Then
     Return True
+  Else If Lower(Right(Me.FullPath, 5)) = ".lock" Then
+    Return True
   Else
     Return False
   Endif
 
 End
 
-Public Function GetPicture() As Picture
+Public Function IsUnversioned() As Boolean
 
-  Return Picture["icon://32/warning"]
+  Return Me.Status = "unversioned"
 
 End
+
+Public Function IsNormal() As Boolean
+
+  Return Me.Status = "normal"
+
+End
+
+Public Function IsModified() As Boolean
+
+  Return Me.Status = "modified"
+
+End
+
+Public Function IsCommitable() As Boolean
+
+  Return Not Me.IsNormal() And Not Me.IsIgnored() And Not Me.IsFolder
+
+End
+
+Public Function StatusDisplay() As String
+
+  Return Upper(Left(Me.Status, 1)) & Right(Me.Status, -1)
+
+End
+
+
+Public Function GetPicture() As Picture
+
+  Return Picture[("icon://32/warning")]
+
+End
+

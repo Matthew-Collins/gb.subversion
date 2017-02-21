@@ -13,20 +13,24 @@
     MoveScaled(60,6,16,4)
     Text = ("Update")
   }
+  { Refresh Button
+    MoveScaled(77,6,16,4)
+    Text = ("Refresh")
+  }
   { Revision Label
-    MoveScaled(78,6.5714,78,3)
+    MoveScaled(95,6.5714,61,3)
+  }
+  { List ColumnView
+    MoveScaled(43,26,113,85)
+    Mode = Select.Multiple
   }
   { WorkingDirectory TextBox
-    MoveScaled(1,1,149,4)
+    MoveScaled(1,1,149.5714,4)
     Expand = True
   }
   { PickWorkingDirectory Button
     MoveScaled(151,1,5,4)
     Text = ("") & "..."
-  }
-  { List ColumnView
-    MoveScaled(43,26,113,85)
-    Mode = Select.Multiple
   }
   { Tree TreeView
     MoveScaled(1,6,41,105)

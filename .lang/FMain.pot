@@ -5,24 +5,44 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $(PACKAGE) $(VERSION)\n"
-"POT-Creation-Date: 2017-02-21 13:40 UTC\n"
+"POT-Creation-Date: 2017-02-21 16:55 UTC\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: FMain.form:22
+#: FMain.form:23
 msgid "Commit"
 msgstr ""
 
-#: FMain.form:27
+#: FMain.form:28
 msgid "Update"
 msgstr ""
 
-#: FMain.class:40
+#: FMain.form:33
+msgid "Refresh"
+msgstr ""
+
+#: FMain.class:65
 msgid "Revision: &1 - Author: &2 - Date: &3"
 msgstr ""
 
-#: FMain.class:40
+#: FMain.class:65
 msgid "d mmmm yyyy hh:nn:ss"
+msgstr ""
+
+#: FMain.class:75
+msgid "dd/mm/yyyy hh:nn:ss"
+msgstr ""
+
+#: FMain.class:89
+msgid "Committed!"
+msgstr ""
+
+#: FMain.class:99
+msgid "Updated!"
+msgstr ""
+
+#: FMain.class:108
+msgid "Refreshed!"
 msgstr ""
 

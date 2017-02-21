@@ -2,6 +2,31 @@
 
 Public Root As SubversionRoot
 
+Public Sub _new()
+
+  With List
+    .AutoResize = False
+    .Columns.Count = 4
+    .Columns[0].Text = "File"
+    With List.Columns[1]
+      .Text = "Status"
+      .Alignment = Align.Center
+      .Width = 120
+    End With
+    With List.Columns[2]
+      .Text = "Size"
+      .Alignment = Align.Right
+      .Width = 80
+    End With
+    With List.Columns[3]
+      .Text = "Modified"
+      .Alignment = Align.Center
+      .Width = 150
+    End With
+  End With
+
+End
+
 Public Sub Form_Open()
 
   Try WorkingDirectory.text = Args[1]
@@ -37,14 +62,17 @@ Public Sub LoadFromSubversionAndDisplay()
   If Me.Root.Files.Count > 0 Then
 
     With Me.Root.Files[0]
-      Try Revision.Text = Subst(("Revision: &1 - Author: &2 - Date: &3"), .Revision, .Author, Format(.date, ("d mmmm yyyy hh:nn:ss")))
+      Try Revision.Text = Subst(("Revision: &1 - Author: &2 - Date: &3"), .Revision, .Author, Format(.CommitDate, ("d mmmm yyyy hh:nn:ss")))
     End With
 
     For Each File In Me.Root.Files
       With File
-        If Not .IsIgnored() Then
+        Tree.Add(.FullPath, .FileName, .GetPicture(), .GetParent()).Expanded = True
+        If .IsCommitable() Then
           List.Add(.FullPath, .FullPath, .GetPicture())
-          Tree.Add(.FullPath, .FileName, .GetPicture(), .GetParent()).Expanded = True
+          List[.FullPath][1] = File.StatusDisplay()
+          List[.FullPath][2] = Format(File.Size, "#,##0")
+          List[.FullPath][3] = Format(File.ModifiedDate, ("dd/mm/yyyy hh:nn:ss"))
         Endif
       End With
     Next
@@ -55,18 +83,29 @@ End
 
 Public Sub Commit_Click()
 
-  If Not Me.Root = Null Then
+  If Not IsNull(Me.Root) Then
     Me.Root.Commit(CommitMessage.Text)
     Me.LoadFromSubversionAndDisplay()
+    Message.Info(("Committed!"))
   Endif
 
 End
 
 Public Sub Update_Click()
 
-  If Not Me.Root = Null Then
+  If Not IsNull(Me.Root) Then
     Me.Root.Update()
     Me.LoadFromSubversionAndDisplay()
+    Message.Info(("Updated!"))
+  Endif
+
+End
+
+Public Sub Refresh_Click()
+
+  If Not IsNull(Me.Root) Then
+    Me.LoadFromSubversionAndDisplay()
+    Message.Info(("Refreshed!"))
   Endif
 
 End
