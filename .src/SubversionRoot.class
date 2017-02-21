@@ -146,7 +146,7 @@ Public Sub Commit(Message As String)
   Dim File As SubversionFile
 
   For Each File In Me.Files
-    If File.IsChecked And File.IsUnversioned() Then
+    If File.IsChecked And If File.IsUnversioned() Then
       Shell "svn add \"" & File.FullPath & "\"" Wait
     Endif
   Next
