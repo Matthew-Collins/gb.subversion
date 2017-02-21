@@ -5,24 +5,28 @@ Public Root As SubversionRoot
 Public Sub _new()
 
   With List
-    .AutoResize = False
+
     .Columns.Count = 4
     .Columns[0].Text = "     " & ("File")
+    
     With List.Columns[1]
       .Text = ("Status")
       .Alignment = Align.Center
       .Width = 120
     End With
+    
     With List.Columns[2]
       .Text = ("Size")
       .Alignment = Align.Right
       .Width = 80
     End With
+    
     With List.Columns[3]
       .Text = ("Modified")
       .Alignment = Align.Center
       .Width = 150
     End With
+    
   End With
 
 End
@@ -110,10 +114,8 @@ End
 
 Public Sub Refresh_Click()
 
-  If Not IsNull(Me.Root) Then
-    Me.LoadFromSubversionAndDisplay()
-    Message.Info(("Refreshed!"))
-  Endif
+  Me.LoadFromSubversionAndDisplay()
+  Message.Info(("Refreshed!"))
 
 End
 
@@ -122,9 +124,9 @@ Public Sub List_DblClick()
   Dim Item As SubversionFile
 
   Try Item = Me.Root.GetFile(List.Current.Key)
-  If Not IsNull(item) Then
+  If Not IsNull(Item) Then
     Item.IsChecked = Not Item.IsChecked
-    List.Current.Picture = item.GetPicture()
+    List.Current.Picture = Item.GetPicture()
   Endif
 
 End
