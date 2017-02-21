@@ -25,11 +25,7 @@ End
 
 Public Function IsSquiggle() As Boolean
 
-  If Right(Me.FullPath, 1) = "~" Then
-    Return True
-  Else
-    Return False
-  End If
+  Return Right(Me.FullPath, 1) = "~"
 
 End Function
 
@@ -65,7 +61,7 @@ End
 
 Public Function IsCommitable() As Boolean
 
-  Return Not Me.IsNormal() And Not Me.IsIgnored() And Not Me.IsFolder
+  Return Not Me.IsNormal() And If Not Me.IsIgnored() And If Not Me.IsFolder
 
 End
 
