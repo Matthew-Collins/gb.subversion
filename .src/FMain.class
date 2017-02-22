@@ -109,12 +109,6 @@ Public Sub CommitMessage_Change()
 
 End
 
-Public Sub Repository_Change()
-
-  'Me.Update_User_Interface()
-
-End
-
 Public Sub Update_User_Interface()
 
   Update.Enabled = False

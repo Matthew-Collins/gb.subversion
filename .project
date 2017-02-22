@@ -2,7 +2,7 @@
 # Compiled with Gambas 3.9.2
 Title=gb.subversion
 Startup=FMain
-Version=1.0.24
+Version=1.0.26
 Component=gb.image
 Component=gb.qt4
 Component=gb.form
