@@ -106,11 +106,11 @@ End
 
 Public Sub Update_User_Interface()
 
-  Commit.Enabled = List.Count > 0 And CommitMessage.text <> Null
+  Update.Enabled = False
+  Commit.Enabled = False
 
-  If IsNull(Me.Root) Then
-    Update.Enabled = False
-  Else
+  If Not IsNull(Me.Root) Then
+    Commit.Enabled = List.Count > 0 And CommitMessage.text <> Null And Me.Root.SelectedCount() > 0
     Update.Enabled = Me.Root.IsConnected
     Repository.text = Me.Root.RepositoryUrl
   Endif
@@ -159,6 +159,7 @@ Public Sub List_DblClick()
     If Not IsNull(Item) Then
       Item.IsChecked = Not Item.IsChecked
       List.Current.Picture = Item.GetCheckedPicture()
+      Me.Update_User_Interface()
     Endif
   End If
 
