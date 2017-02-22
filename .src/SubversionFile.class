@@ -207,18 +207,18 @@ End
 
 Public Function GetCheckedPicture() As Picture
 
-  Dim Image As New Image(36, 16, Color.Transparent, 0)
+  Dim NewImage As New Image(36, 16, Color.Transparent, 0)
 
   Dim Icon As Image = Me.GetPicture().Image
 
-  Image = Image.DrawImage(Icon, 20, 0, 16, 16, 0, 0, 16, 16)
+  NewImage = NewImage.DrawImage(Icon, 20, 0, 16, 16, 0, 0, 16, 16)
 
   If Me.IsChecked Then
     Icon = Image.Load("icons/checked.png")
-    Image = Image.DrawImage(Icon, 0, 0, 16, 16, 0, 0, 16, 16)
+    NewImage = NewImage.DrawImage(Icon, 0, 0, 16, 16, 0, 0, 16, 16)
   Endif
 
-  Return Image.Picture
+  Return NewImage.Picture
 
 End
 

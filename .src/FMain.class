@@ -53,7 +53,7 @@ End
 
 Public Sub LoadFromSubversionAndDisplay()
 
-  Dim File As SubversionFile
+  Dim SvnFile As SubversionFile
 
   Me.Root = New SubversionRoot(WorkingDirectory.Text)
   Me.Root.LoadFromSubversion()
@@ -69,8 +69,8 @@ Public Sub LoadFromSubversionAndDisplay()
       Try Revision.Text = Subst(("Revision: &1 - Author: &2 - Date: &3"), .Revision, .Author, Format(.CommitDate, ("d mmmm yyyy hh:nn:ss")))
     End With
 
-    For Each File In Me.Root.Files
-      With File
+    For Each SvnFile In Me.Root.Files
+      With SvnFile
 
         If Not .IsSquiggle() Then
           Tree.Add(.FullPath, .FileName, .GetPicture(), .GetParent()).Expanded = Me.Root.Should_Parent_Expand(.FullPath)
@@ -79,9 +79,9 @@ Public Sub LoadFromSubversionAndDisplay()
         If .IsCommitable() Then
           .IsChecked = True
           List.Add(.FullPath, .FullPath, .GetCheckedPicture())
-          List[.FullPath][1] = File.StatusDisplay()
-          List[.FullPath][2] = File.SizeDisplay()
-          List[.FullPath][3] = File.DateDisplay()
+          List[.FullPath][1] = .StatusDisplay()
+          List[.FullPath][2] = .SizeDisplay()
+          List[.FullPath][3] = .DateDisplay()
         Endif
 
       End With
@@ -121,9 +121,9 @@ Public Sub Commit_Click()
 
   If Not IsNull(Me.Root) Then
     Me.Mouse = Mouse.Wait
+    Clipboard.Copy(CommitMessage.Text)
     Me.Root.Commit(CommitMessage.Text, True)
     Me.LoadFromSubversionAndDisplay()
-    Clipboard.Copy(CommitMessage.Text)
     CommitMessage.Clear
     Me.Mouse = Mouse.Default
     Message.Info(("Committed!"))

@@ -63,14 +63,14 @@ End
 
 Public Sub Load_Subversion_Status()
 
-  Dim File As SubversionFile
+  Dim SvnFile As SubversionFile
 
   Dim xml As String
   Dim xDoc As New XmlDocument
 
   Dim Entry As XmlNode
   Dim Status As XmlNode
-  Dim Commit As XmlNode
+  Dim Commits As XmlNode
   Dim Value As XmlNode
 
   Shell "svn status --verbose --xml \"" & Me.WorkingDirectory & "\"" Wait To xml
@@ -78,29 +78,29 @@ Public Sub Load_Subversion_Status()
 
   For Each Entry In xDoc.GetElementsByTagName("entry")
 
-    File = New SubversionFile
-    File.FullPath = Entry.Attributes["path"]
+    SvnFile = New SubversionFile
+    SvnFile.FullPath = Entry.Attributes["path"]
 
     For Each Status In Entry.ChildNodes
       If Status.Name = "wc-status" Then
 
-        File.Status = Status.Attributes["item"]
-        File.Props = Status.Attributes["props"]
+        SvnFile.Status = Status.Attributes["item"]
+        SvnFile.Props = Status.Attributes["props"]
 
-        For Each Commit In Status.ChildNodes
-          If Commit.Name = "commit" Then
+        For Each Commits In Status.ChildNodes
+          If Commits.Name = "commit" Then
 
-            File.Revision = CInt(Commit.Attributes["revision"])
+            SvnFile.Revision = CInt(Commits.Attributes["revision"])
 
-            For Each Value In Commit.ChildNodes
+            For Each Value In Commits.ChildNodes
 
               If Value.Name = "author" Then
-                File.Author = Value.Value
+                SvnFile.Author = Value.Value
 
               Else If Value.Name = "date" Then
 
                 '2017-02-21T17:14:53.000000Z
-                Try File.CommitDate = Date(Left(Value.Value, 4), Right(Left(Value.value, 7), 2), Right(Left(Value.value, 10), 2),
+                Try SvnFile.CommitDate = Date(Left(Value.Value, 4), Right(Left(Value.value, 7), 2), Right(Left(Value.value, 10), 2),
                   Right(Left(Value.value, 13), 2), Right(Left(Value.value, 16), 2), Right(Left(Value.value, 19), 2))
 
               Endif
@@ -111,7 +111,7 @@ Public Sub Load_Subversion_Status()
       End If
     Next
 
-    Me.Files.Add(File)
+    Me.Files.Add(SvnFile)
   Next
 
 End
@@ -121,7 +121,7 @@ Public Sub Add_Any_Unversioned_Missing_Files()
   Dim FileName As String
   Dim FullPath As String
   Dim FileFound As Boolean
-  Dim File As SubversionFile
+  Dim SvnFile As SubversionFile
 
   For Each FileName In RDir(Me.WorkingDirectory)
     If Lower(Left(FileName, 4)) <> ".svn" Then
@@ -129,18 +129,18 @@ Public Sub Add_Any_Unversioned_Missing_Files()
       FullPath = Me.WorkingDirectory &/ FileName
       FileFound = False
 
-      For Each File In Me.Files
-        If Lower(File.FullPath) = Lower(FullPath) Then
+      For Each SvnFile In Me.Files
+        If Lower(SvnFile.FullPath) = Lower(FullPath) Then
           FileFound = True
           Break
         Endif
       Next
 
       If Not FileFound Then
-        File = New SubversionFile
-        File.FullPath = FullPath
-        File.Status = "unversioned"
-        Me.Files.Add(File)
+        SvnFile = New SubversionFile
+        SvnFile.FullPath = FullPath
+        SvnFile.Status = "unversioned"
+        Me.Files.Add(SvnFile)
       Endif
 
     End If
@@ -150,17 +150,17 @@ End
 
 Public Sub Add_FileName_RelativePath_IsFolder_ModifiedDate_And_Size()
 
-  Dim File As SubversionFile
+  Dim SvnFile As SubversionFile
 
-  For Each File In Me.Files
-    File.FileName = Right(File.FullPath, - RInStr(File.FullPath, "/"))
-    File.FolderName = Right(Left(File.FullPath, - Len(File.FileName) - 1), - RInStr(Left(File.FullPath, - Len(File.FileName) - 1), "/"))
-    File.RelativePath = Right(File.FullPath, - Len(Me.WorkingDirectory))
-    File.IsFolder = IsDir(File.FullPath)
-    If Not File.IsFolder Then
-      With Stat(File.FullPath)
-        File.ModifiedDate = .LastModified
-        File.Size = .Size
+  For Each SvnFile In Me.Files
+    SvnFile.FileName = Right(SvnFile.FullPath, - RInStr(SvnFile.FullPath, "/"))
+    SvnFile.FolderName = Right(Left(SvnFile.FullPath, - Len(SvnFile.FileName) - 1), - RInStr(Left(SvnFile.FullPath, - Len(SvnFile.FileName) - 1), "/"))
+    SvnFile.RelativePath = Right(SvnFile.FullPath, - Len(Me.WorkingDirectory))
+    SvnFile.IsFolder = IsDir(SvnFile.FullPath)
+    If Not SvnFile.IsFolder Then
+      With Stat(SvnFile.FullPath)
+        SvnFile.ModifiedDate = .LastModified
+        SvnFile.Size = .Size
       End With
     Endif
   Next
@@ -169,10 +169,10 @@ End
 
 Public Function GetFile(FullPath As String) As SubversionFile
 
-  Dim File As SubversionFile
+  Dim SvnFile As SubversionFile
 
-  For Each File In Me.Files
-    If File.FullPath = FullPath Then
+  For Each SvnFile In Me.Files
+    If SvnFile.FullPath = FullPath Then
       Return File
     Endif
   Next
@@ -188,20 +188,20 @@ Public Sub Update()
 
 End
 
-Public Sub Commit(Message As String, Optional UpdateAfter As Boolean = False)
+Public Sub Commit(CommitMessage As String, Optional UpdateAfter As Boolean = False)
 
-  Dim File As SubversionFile
+  Dim SvnFile As SubversionFile
 
-  For Each File In Me.Files
-    If File.IsChecked And If File.IsUnversioned() Then
-      Me.Add_All_Parent_Folders(File.GetParent())
-      Shell "svn add \"" & File.FullPath & "\"" Wait
-    Else If File.IsChecked And If File.IsIgnored() Then
-      Shell "svn delete \"" & File.FullPath & "\" --force" Wait
+  For Each SvnFile In Me.Files
+    If SvnFile.IsChecked And If SvnFile.IsUnversioned() Then
+      Me.Add_All_Parent_Folders(SvnFile.GetParent())
+      Shell "svn add \"" & SvnFile.FullPath & "\"" Wait
+    Else If SvnFile.IsChecked And If SvnFile.IsIgnored() Then
+      Shell "svn delete \"" & SvnFile.FullPath & "\" --force" Wait
     Endif
   Next
 
-  Shell "svn commit \"" & Me.WorkingDirectory & "\" --message \"" & Replace(message, "\"", "'") & "\"" Wait
+  Shell "svn commit \"" & Me.WorkingDirectory & "\" --message \"" & Replace(CommitMessage, "\"", "'") & "\"" Wait
 
   If UpdateAfter Then
     Me.Update
@@ -227,14 +227,14 @@ End
 
 Public Function Should_Parent_Expand(Parent As String) As Boolean
 
-  Dim File As SubversionFile
+  Dim SvnFile As SubversionFile
 
-  For Each File In Me.Files
-    If File.GetParent() = Parent Then
-      If Not File.IsIgnored() Then
+  For Each SvnFile In Me.Files
+    If SvnFile.GetParent() = Parent Then
+      If Not SvnFile.IsIgnored() Then
         Return True
       Endif
-      If File.IsFolder And If Me.Should_Parent_Expand(File.FullPath) Then
+      If SvnFile.IsFolder And If Me.Should_Parent_Expand(SvnFile.FullPath) Then
         Return True
       Endif
     Endif
