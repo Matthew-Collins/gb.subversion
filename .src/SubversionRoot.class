@@ -13,9 +13,9 @@ Public Sub _new(MyWorkingDirectory As String)
 
 End
 
-Static Public Sub Checkout(Url As String, WorkingDirectory As String)
+Static Public Sub Checkout(Url As String, NewWorkingDirectory As String)
 
-  Shell "svn checkout \"" & Url & "\" \"" & WorkingDirectory & "\"" Wait
+  Shell "svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\"" Wait
 
 End
 
