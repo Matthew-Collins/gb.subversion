@@ -153,6 +153,8 @@ Public Sub Commit(Message As String, Optional UpdateAfter As Boolean = False)
     If File.IsChecked And If File.IsUnversioned() Then
       Me.Add_All_Parent_Folders(File.GetParent())
       Shell "svn add \"" & File.FullPath & "\"" Wait
+    Else If File.IsChecked And If File.IsIgnored() Then
+      Shell "svn delete \"" & File.FullPath & "\"" Wait
     Endif
   Next
 

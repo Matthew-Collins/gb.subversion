@@ -135,13 +135,39 @@ End
 
 Public Function IsCommitable() As Boolean
 
-  Return Not Me.IsNormal() And Not Me.IsIgnored() And Not Me.IsFolder
+  If Not Me.IsNormal() And Not Me.IsIgnored() And Not Me.IsFolder
+    Return True
+  Else If Me.IsIgnored() And If Not Me.IsUnversioned() Then
+    Return True
+  Else
+    Return False
+  End If
 
 End
 
 Public Function VersionControlled() As Boolean
 
   Return Not Me.IsUnversioned()
+
+End
+
+Public Function SizeDisplay() As String
+
+  If Me.IsFolder Then
+    Return Null
+  Else
+    Return Format(Me.Size, "#,##0")
+  Endif
+
+End
+
+Public Function DateDisplay() As String
+
+  If Me.IsFolder Then
+    Return Null
+  Else
+    Return Format(Me.ModifiedDate, ("dd/mm/yyyy hh:nn:ss"))
+  Endif
 
 End
 

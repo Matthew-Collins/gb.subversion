@@ -79,8 +79,8 @@ Public Sub LoadFromSubversionAndDisplay()
           .IsChecked = True
           List.Add(.FullPath, .FullPath, .GetCheckedPicture())
           List[.FullPath][1] = File.StatusDisplay()
-          List[.FullPath][2] = Format(File.Size, "#,##0")
-          List[.FullPath][3] = Format(File.ModifiedDate, ("dd/mm/yyyy hh:nn:ss"))
+          List[.FullPath][2] = File.SizeDisplay()
+          List[.FullPath][3] = File.DateDisplay()
         Endif
 
       End With
