@@ -150,11 +150,13 @@ Public Sub List_DblClick()
 
   Dim Item As SubversionFile
 
-  Try Item = Me.Root.GetFile(List.Current.Key)
-  If Not IsNull(Item) Then
-    Item.IsChecked = Not Item.IsChecked
-    List.Current.Picture = Item.GetCheckedPicture()
-  Endif
+  If Not IsNull(Me.root)
+    Try Item = Me.Root.GetFile(List.Current.Key)
+    If Not IsNull(Item) Then
+      Item.IsChecked = Not Item.IsChecked
+      List.Current.Picture = Item.GetCheckedPicture()
+    Endif
+  End If
 
 End
 
@@ -167,3 +169,59 @@ Public Sub BrowseToRepository_Click()
   Endif
 
 End
+
+Public Sub ListDiff_Click()
+
+  Dim Item As SubversionFile
+
+  If Not IsNull(Me.root)
+    Try Item = Me.Root.GetFile(List.Current.Key)
+    If Not IsNull(Item) Then
+      Item.Diff()
+    Endif
+  End If
+
+End
+
+Public Sub ListRevert_Click()
+
+  Dim Item As SubversionFile
+
+  If Not IsNull(Me.root)
+    Try Item = Me.Root.GetFile(List.Current.Key)
+    If Not IsNull(Item) Then
+      Item.Revert()
+      Me.LoadFromSubversionAndDisplay()
+    Endif
+  End If
+
+End
+
+Public Sub TreeDiff_Click()
+
+  Dim Item As SubversionFile
+
+  If Not IsNull(Me.root)
+    Try Item = Me.Root.GetFile(Tree.Current.Key)
+    If Not IsNull(Item) Then
+      Item.Diff()
+    Endif
+  End If
+
+End
+
+Public Sub TreeRevert_Click()
+
+  Dim Item As SubversionFile
+
+  If Not IsNull(Me.root)
+    Try Item = Me.Root.GetFile(Tree.Current.Key)
+    If Not IsNull(Item) Then
+      Item.Revert()
+      Me.LoadFromSubversionAndDisplay()
+    Endif
+  End If
+
+End
+
+

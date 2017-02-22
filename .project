@@ -2,7 +2,7 @@
 # Compiled with Gambas 3.9.2
 Title=gb.subversion
 Startup=FMain
-Version=1.0.0
+Version=1.0.6
 Component=gb.image
 Component=gb.qt4
 Component=gb.form
@@ -16,5 +16,6 @@ CurrentArgument=1
 TabSize=2
 Translate=1
 Language=en_GB
+CreateShortcut=1
 Vendor=MatthewCollins
 Packager=1

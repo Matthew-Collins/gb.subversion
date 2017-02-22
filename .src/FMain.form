@@ -2,6 +2,28 @@
 
 { Form Form
   MoveScaled(0,0,157,112)
+  { TreeContextMenu Menu
+    Visible = False
+    { TreeDiff Menu
+      Text = ("Diff")
+      Picture = Picture["icon:/16/pause"]
+    }
+    { TreeRevert Menu
+      Text = ("Revert")
+      Picture = Picture["icon:/16/undo"]
+    }
+  }
+  { ListContextMenu Menu
+    Visible = False
+    { ListDiff Menu
+      Text = ("Diff")
+      Picture = Picture["icon:/16/pause"]
+    }
+    { ListRevert Menu
+      Text = ("Revert")
+      Picture = Picture["icon:/16/undo"]
+    }
+  }
   { CommitMessage TextArea
     MoveScaled(43,15,113,14)
   }
@@ -25,6 +47,7 @@
   }
   { List ColumnView
     MoveScaled(43,30,113,81)
+    PopupMenu = "ListContextMenu"
     Mode = Select.Multiple
     AutoResize = False
   }
@@ -46,5 +69,6 @@
   }
   { Tree TreeView
     MoveScaled(1,10,41,101)
+    PopupMenu = "TreeContextMenu"
   }
 }

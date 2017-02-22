@@ -221,3 +221,16 @@ Public Function GetCheckedPicture() As Picture
   Return Image.Picture
 
 End
+
+Public Sub Diff()
+
+  Shell "meld \"" & Me.FullPath & "\""
+
+End
+
+Public Sub Revert()
+
+  Shell "svn revert \"" & Me.FullPath & "\"" Wait
+
+End
+
