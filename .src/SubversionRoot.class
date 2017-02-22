@@ -191,21 +191,48 @@ End
 Public Sub Commit(CommitMessage As String, Optional UpdateAfter As Boolean = False)
 
   Dim SvnFile As SubversionFile
+  Dim FileNames As String
+  Dim Count As Integer
 
   For Each SvnFile In Me.Files
-    If SvnFile.IsChecked And If SvnFile.IsUnversioned() Then
+    If SvnFile.IsChecked And If SvnFile.IsUnversioned() And If SvnFile.Iscommitable() Then
       Me.Add_All_Parent_Folders(SvnFile.GetParent())
-      Shell "svn add \"" & SvnFile.FullPath & "\"" Wait
-    Else If SvnFile.IsChecked And If SvnFile.IsIgnored() Then
-      Shell "svn delete \"" & SvnFile.FullPath & "\" --force" Wait
+    Else If SvnFile.IsChecked And If SvnFile.IsIgnored() And If SvnFile.Iscommitable() Then
+      Shell "svn delete \"" & SvnFile.FullPath & "\" --force --keep-local" Wait
     Endif
   Next
 
-  Shell "svn commit \"" & Me.WorkingDirectory & "\" --message \"" & Replace(CommitMessage, "\"", "'") & "\"" Wait
+  For Each SvnFile In Me.Files
+    If SvnFile.IsChecked And If SvnFile.Iscommitable() Then
+      Count += 1
+      FileNames &= "\"" & SvnFile.FullPath & "\" "
+    Endif
+  Next
 
-  If UpdateAfter Then
-    Me.Update
-  Endif
+  If Count > 0 Then
+
+    Shell "svn commit " & FileNames & "--message \"" & Replace(CommitMessage, "\"", "'") & "\"" Wait
+
+    If UpdateAfter Then
+      Me.Update
+    Endif
+
+  End If
+
+End
+
+Public Function SelectedCount() As Integer
+
+  Dim SvnFile As SubversionFile
+  Dim Count As Integer
+
+  For Each SvnFile In Me.Files
+    If SvnFile.IsChecked And If SvnFile.Iscommitable() Then
+      Count += 1
+    Endif
+  Next
+
+  Return Count
 
 End
 
