@@ -154,7 +154,7 @@ Public Sub Commit(Message As String, Optional UpdateAfter As Boolean = False)
       Me.Add_All_Parent_Folders(File.GetParent())
       Shell "svn add \"" & File.FullPath & "\"" Wait
     Else If File.IsChecked And If File.IsIgnored() Then
-      Shell "svn delete \"" & File.FullPath & "\"" Wait
+      Shell "svn delete \"" & File.FullPath & "\" --force" Wait
     Endif
   Next
 
