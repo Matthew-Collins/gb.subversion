@@ -93,10 +93,11 @@ End
 Public Sub Commit_Click()
 
   If Not IsNull(Me.Root) Then
-    Me.Root.Commit(CommitMessage.Text)
+    Me.Root.Commit(CommitMessage.Text, True)
     Me.LoadFromSubversionAndDisplay()
-    Message.Info(("Committed!"))
+    Clipboard.Copy(CommitMessage.text, Clipboard.Text)
     CommitMessage.Clear
+    Message.Info(("Committed!"))
   Endif
 
 End
