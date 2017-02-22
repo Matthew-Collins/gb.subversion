@@ -73,7 +73,7 @@ Public Sub LoadFromSubversionAndDisplay()
       With File
 
         If Not .IsSquiggle() Then
-          Tree.Add(.FullPath, .FileName, .GetPicture(), .GetParent()).Expanded = True
+          Tree.Add(.FullPath, .FileName, .GetPicture(), .GetParent()).Expanded = Me.Root.Should_Parent_Expand(.FullPath)
         End If
 
         If .IsCommitable() Then

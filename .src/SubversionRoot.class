@@ -227,4 +227,21 @@ Public Sub Add_All_Parent_Folders(FullPath As String)
 
 End
 
+Public Function Should_Parent_Expand(Parent As String) As Boolean
+
+  Dim File As SubversionFile
+
+  For Each File In Me.Files
+    If File.GetParent() = Parent Then
+      If Not File.IsIgnored() Then
+        Return True
+      Endif
+      If File.IsFolder And If Me.Should_Parent_Expand(File.FullPath) Then
+        Return True
+      Endif
+    Endif
+  Next
+
+End
+
 

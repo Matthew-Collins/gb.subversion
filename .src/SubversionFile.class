@@ -221,4 +221,3 @@ Public Function GetCheckedPicture() As Picture
   Return Image.Picture
 
 End
-
