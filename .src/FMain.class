@@ -120,10 +120,13 @@ End
 Public Sub Commit_Click()
 
   If Not IsNull(Me.Root) Then
+    Commit.Enabled = False
+    Me.Mouse = Mouse.Wait
     Me.Root.Commit(CommitMessage.Text, True)
     Me.LoadFromSubversionAndDisplay()
     Clipboard.Copy(CommitMessage.Text)
     CommitMessage.Clear
+    Me.Mouse = Mouse.Default
     Message.Info(("Committed!"))
   Endif
 
