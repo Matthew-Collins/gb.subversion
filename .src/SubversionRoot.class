@@ -13,6 +13,12 @@ Public Sub _new(MyWorkingDirectory As String)
 
 End
 
+Static Public Sub Checkout(Url As String, WorkingDirectory As String)
+
+  Shell "svn checkout \"" & Url & "\" \"" & WorkingDirectory & "\"" Wait
+
+End
+
 Public Sub LoadFromSubversion()
 
   Me.Files.Clear
@@ -290,5 +296,8 @@ Public Sub Revert(FullPath As String)
   Endif
 
 End
+
+
+
 
 

@@ -33,6 +33,7 @@ End
 Public Sub Form_Open()
 
   Try WorkingDirectory.text = Args[1]
+  Me.Update_User_Interface
 
 End
 
@@ -40,6 +41,13 @@ Public Sub PickWorkingDirectory_Click()
 
   Try Dialog.Path = WorkingDirectory.text
   If Not Dialog.SelectDirectory() Then
+
+    If Repository.text And If Message.Question("Checkout:\n\"" & Repository.Text & "\"\nto: \n\"" & Dialog.Path & "\"", "Yes", "No") = 1
+      Me.Mouse = Mouse.Wait
+      SubversionRoot.Checkout(Repository.text, Dialog.Path)
+      Me.Mouse = Mouse.Default
+    Endif
+
     WorkingDirectory.text = Dialog.Path
   Endif
 
@@ -55,37 +63,40 @@ Public Sub LoadFromSubversionAndDisplay()
 
   Dim SvnFile As SubversionFile
 
-  Me.Root = New SubversionRoot(WorkingDirectory.Text)
-  Me.Root.LoadFromSubversion()
+  If Exist(WorkingDirectory.text) Then
 
-  List.Clear
-  Tree.Clear
-  Revision.text = ""
-  Commit.Enabled = False
+    Me.Root = New SubversionRoot(WorkingDirectory.Text)
+    Me.Root.LoadFromSubversion()
 
-  If Me.Root.Files.Count > 0 Then
+    List.Clear
+    Tree.Clear
+    Revision.text = ""
+    Commit.Enabled = False
 
-    With Me.Root.Files[0]
-      Try Revision.Text = Subst(("Revision: &1 - Author: &2 - Date: &3"), .Revision, .Author, Format(.CommitDate, ("d mmmm yyyy hh:nn:ss")))
-    End With
+    If Me.Root.Files.Count > 0 Then
 
-    For Each SvnFile In Me.Root.Files
-      With SvnFile
-
-        If Not .IsSquiggle() Then
-          Tree.Add(.FullPath, .FileName, .GetPicture(), .GetParent()).Expanded = Me.Root.Should_Parent_Expand(.FullPath)
-        End If
-
-        If .IsCommitable() Then
-          .IsChecked = True
-          List.Add(.FullPath, .FullPath, .GetCheckedPicture())
-          List[.FullPath][1] = .StatusDisplay()
-          List[.FullPath][2] = .SizeDisplay()
-          List[.FullPath][3] = .DateDisplay()
-        Endif
-
+      With Me.Root.Files[0]
+        Try Revision.Text = Subst(("Revision: &1 - Author: &2 - Date: &3"), .Revision, .Author, Format(.CommitDate, ("d mmmm yyyy hh:nn:ss")))
       End With
-    Next
+
+      For Each SvnFile In Me.Root.Files
+        With SvnFile
+
+          If Not .IsSquiggle() Then
+            Tree.Add(.FullPath, .FileName, .GetPicture(), .GetParent()).Expanded = Me.Root.Should_Parent_Expand(.FullPath)
+          End If
+
+          If .IsCommitable() Then
+            .IsChecked = True
+            List.Add(.FullPath, .FullPath, .GetCheckedPicture())
+            List[.FullPath][1] = .StatusDisplay()
+            List[.FullPath][2] = .SizeDisplay()
+            List[.FullPath][3] = .DateDisplay()
+          Endif
+
+        End With
+      Next
+    Endif
   Endif
 
   Me.Update_User_Interface()
@@ -108,6 +119,7 @@ Public Sub Update_User_Interface()
 
   Update.Enabled = False
   Commit.Enabled = False
+  Refresh.Enabled = WorkingDirectory.text <> ""
 
   If Not IsNull(Me.Root) Then
     Commit.Enabled = List.Count > 0 And CommitMessage.text <> Null And Me.Root.SelectedCount() > 0
@@ -167,9 +179,9 @@ End
 
 Public Sub BrowseToRepository_Click()
 
-  If Not IsNull(Me.Root) Then
+  If Not IsNull(Me.Root) And If Lower(Repository.text) = Lower(Me.Root.RepositoryUrl) Then
     Desktop.Open(Me.Root.RepositoryRootUrl)
-  Else
+  Else If Repository.Text
     Desktop.Open(Repository.Text)
   Endif
 
