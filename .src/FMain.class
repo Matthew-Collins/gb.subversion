@@ -61,6 +61,7 @@ Public Sub LoadFromSubversionAndDisplay()
   List.Clear
   Tree.Clear
   Revision.text = ""
+  Commit.Enabled = False
 
   If Me.Root.Files.Count > 0 Then
 
@@ -85,7 +86,33 @@ Public Sub LoadFromSubversionAndDisplay()
 
       End With
     Next
+  Endif
 
+  Me.Update_User_Interface()
+
+End
+
+Public Sub CommitMessage_Change()
+
+  Me.Update_User_Interface()
+
+End
+
+Public Sub Repository_Change()
+
+  'Me.Update_User_Interface()
+
+End
+
+Public Sub Update_User_Interface()
+
+  Commit.Enabled = List.Count > 0 And CommitMessage.text <> Null
+
+  If IsNull(Me.Root) Then
+    Update.Enabled = False
+  Else
+    Update.Enabled = Me.Root.IsConnected
+    Repository.text = Me.Root.RepositoryUrl
   Endif
 
 End
@@ -127,6 +154,16 @@ Public Sub List_DblClick()
   If Not IsNull(Item) Then
     Item.IsChecked = Not Item.IsChecked
     List.Current.Picture = Item.GetCheckedPicture()
+  Endif
+
+End
+
+Public Sub BrowseToRepository_Click()
+
+  If Not IsNull(Me.Root) Then
+    Desktop.Open(Me.Root.RepositoryRootUrl)
+  Else
+    Desktop.Open(Repository.Text)
   Endif
 
 End

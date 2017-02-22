@@ -1,5 +1,9 @@
 ' Gambas class file
 
+Public RepositoryRootUrl As String
+Public RepositoryUrl As String
+Public IsConnected As Boolean
+
 Public WorkingDirectory As String
 Public Files As New SubversionFile[]
 
@@ -12,13 +16,54 @@ End
 Public Sub LoadFromSubversion()
 
   Me.Files.Clear
+  Me.IsConnected = False
   Me.Load_Subversion_Information()
+  Me.Load_Subversion_Status()
   Me.Add_Any_Unversioned_Missing_Files()
   Me.Add_FileName_RelativePath_IsFolder_ModifiedDate_And_Size()
 
 End
 
 Public Sub Load_Subversion_Information()
+
+  Dim File As SubversionFile
+
+  Dim xml As String
+  Dim xDoc As New XmlDocument
+
+  Dim Entry As XmlNode
+  Dim Node As XmlNode
+  Dim Value As XmlNode
+
+  Shell "svn info --xml \"" & Me.WorkingDirectory & "\"" Wait To xml
+  xDoc.FromString(xml)
+
+  For Each Entry In xDoc.GetElementsByTagName("entry")
+
+    For Each Node In Entry.ChildNodes
+
+      If Node.Name = "url" Then
+        Me.RepositoryUrl = Node.Value
+
+      Else If Node.Name = "repository"
+        For Each Value In Node.ChildNodes
+
+          If Value.Name = "root" Then
+            Me.RepositoryRootUrl = Value.Value
+            Me.IsConnected = True
+
+          Endif
+
+        Next
+
+      End If
+    Next
+
+  Next
+
+End
+
+Public Sub Load_Subversion_Status()
 
   Dim File As SubversionFile
 

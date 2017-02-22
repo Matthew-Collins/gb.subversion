@@ -3,37 +3,48 @@
 { Form Form
   MoveScaled(0,0,157,112)
   { CommitMessage TextArea
-    MoveScaled(43,11,113,14)
+    MoveScaled(43,15,113,14)
   }
   { Commit Button
-    MoveScaled(43,6,16,4)
+    MoveScaled(43,10,16,4)
     Text = ("Commit")
+    Picture = Picture["icon:/16/ok"]
   }
   { Update Button
-    MoveScaled(60,6,16,4)
+    MoveScaled(60,10,16,4)
     Text = ("Update")
+    Picture = Picture["icon:/16/down"]
   }
   { Refresh Button
-    MoveScaled(77,6,16,4)
+    MoveScaled(77,10,16,4)
     Text = ("Refresh")
+    Picture = Picture["icon:/16/refresh"]
   }
   { Revision Label
-    MoveScaled(95,6.5714,61,3)
+    MoveScaled(95,10.5714,61,3)
   }
   { List ColumnView
-    MoveScaled(43,26,113,85)
+    MoveScaled(43,30,113,81)
     Mode = Select.Multiple
     AutoResize = False
   }
+  { Repository TextBox
+    MoveScaled(1,0.5714,149.5714,4)
+    Expand = True
+  }
+  { BrowseToRepository Button
+    MoveScaled(151,0.5714,5,4)
+    Picture = Picture["icon:/16/home"]
+  }
   { WorkingDirectory TextBox
-    MoveScaled(1,1,149.5714,4)
+    MoveScaled(1,5,149.5714,4)
     Expand = True
   }
   { PickWorkingDirectory Button
-    MoveScaled(151,1,5,4)
+    MoveScaled(151,5,5,4)
     Text = ("") & "..."
   }
   { Tree TreeView
-    MoveScaled(1,6,41,105)
+    MoveScaled(1,10,41,101)
   }
 }
