@@ -120,7 +120,6 @@ End
 Public Sub Commit_Click()
 
   If Not IsNull(Me.Root) Then
-    Commit.Enabled = False
     Me.Mouse = Mouse.Wait
     Me.Root.Commit(CommitMessage.Text, True)
     Me.LoadFromSubversionAndDisplay()
@@ -135,7 +134,9 @@ End
 Public Sub Update_Click()
 
   If Not IsNull(Me.Root) Then
+    Me.Mouse = Mouse.Wait
     Me.Root.Update()
+    Me.Mouse = Mouse.Default
     Me.LoadFromSubversionAndDisplay()
     Message.Info(("Updated!"))
   Endif
