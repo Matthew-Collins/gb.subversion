@@ -177,54 +177,32 @@ End
 
 Public Sub ListDiff_Click()
 
-  Dim Item As SubversionFile
-
   If Not IsNull(Me.root)
-    Try Item = Me.Root.GetFile(List.Current.Key)
-    If Not IsNull(Item) Then
-      Item.Diff()
-    Endif
+    Me.Root.Diff(List.Current.Key)
   End If
 
 End
 
 Public Sub ListRevert_Click()
 
-  Dim Item As SubversionFile
-
   If Not IsNull(Me.root)
-    Try Item = Me.Root.GetFile(List.Current.Key)
-    If Not IsNull(Item) Then
-      Item.Revert()
-      Me.LoadFromSubversionAndDisplay()
-    Endif
+    Me.Root.Revert(List.Current.Key)
   End If
 
 End
 
 Public Sub TreeDiff_Click()
 
-  Dim Item As SubversionFile
-
   If Not IsNull(Me.root)
-    Try Item = Me.Root.GetFile(Tree.Current.Key)
-    If Not IsNull(Item) Then
-      Item.Diff()
-    Endif
+    Me.Root.Diff(Tree.Current.Key)
   End If
 
 End
 
 Public Sub TreeRevert_Click()
 
-  Dim Item As SubversionFile
-
   If Not IsNull(Me.root)
-    Try Item = Me.Root.GetFile(Tree.Current.Key)
-    If Not IsNull(Item) Then
-      Item.Revert()
-      Me.LoadFromSubversionAndDisplay()
-    Endif
+    Me.Root.Revert(Tree.Current.Key)
   End If
 
 End

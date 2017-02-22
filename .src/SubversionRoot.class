@@ -269,4 +269,26 @@ Public Function Should_Parent_Expand(Parent As String) As Boolean
 
 End
 
+Public Sub Diff(FullPath As String)
+
+  Dim SvnFile As SubversionFile
+
+  Try SvnFile = Me.GetFile(FullPath)
+  If Not IsNull(SvnFile) Then
+    SvnFile.Diff()
+  Endif
+
+End
+
+Public Sub Revert(FullPath As String)
+
+  Dim SvnFile As SubversionFile
+
+  Try SvnFile = Me.GetFile(FullPath)
+  If Not IsNull(SvnFile) Then
+    SvnFile.Revert()
+  Endif
+
+End
+
 
