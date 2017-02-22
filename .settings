@@ -11,7 +11,7 @@ Geometry=[832,371,224,280]
 Geometry=[840,63,738,596]
 
 [DebugWindow/File]
-Geometry=[832,371,521,495]
+Geometry=[824,363,521,495]
 
 [DebugWindow/List]
 Geometry=[840,29,540,907]
@@ -27,6 +27,9 @@ Geometry=[848,387,224,280]
 
 [DebugWindow/Root]
 Geometry=[615,129,785,352]
+
+[DebugWindow/SvnFile]
+Geometry=[840,379,224,280]
 
 [DebugWindow/Value]
 Geometry=[1244,152,636,589]
@@ -50,7 +53,10 @@ Geometry=[854,129,580,797]
 Path="gb.subversion.gambas"
 
 [OpenFile]
-Count=0
+Count=2
+Active=1
+File[1]=".src/FMain.class:0.188"
+File[2]=".src/SubversionRoot.class:0.180"
 
 [VersionControl]
 RememberPassword=0

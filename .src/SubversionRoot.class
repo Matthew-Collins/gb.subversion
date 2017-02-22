@@ -173,7 +173,7 @@ Public Function GetFile(FullPath As String) As SubversionFile
 
   For Each SvnFile In Me.Files
     If SvnFile.FullPath = FullPath Then
-      Return File
+      Return SvnFile
     Endif
   Next
 
