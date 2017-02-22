@@ -150,6 +150,7 @@ Public Sub Commit(Message As String)
 
   For Each File In Me.Files
     If File.IsChecked And If File.IsUnversioned() Then
+      Me.Add_All_Parent_Folders(File.GetParent())
       Shell "svn add \"" & File.FullPath & "\"" Wait
     Endif
   Next
@@ -157,4 +158,21 @@ Public Sub Commit(Message As String)
   Shell "svn commit \"" & Me.WorkingDirectory & "\" --message \"" & Replace(message, "\"", "'") & "\"" Wait
 
 End
+
+Public Sub Add_All_Parent_Folders(FullPath As String)
+
+  Dim Folder As SubversionFile = Me.GetFile(fullpath)
+
+  If Not IsNull(folder) Then
+    If Not Folder.VersionControlled() Then
+
+      Me.Add_All_Parent_Folders(Folder.GetParent())
+      Shell "svn add \"" & Folder.FullPath & "\" --depth=empty" Wait
+      Folder.MarkAdded()
+
+    Endif
+  Endif
+
+End
+
 

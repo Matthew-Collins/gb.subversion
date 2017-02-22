@@ -59,9 +59,27 @@ Public Function IsModified() As Boolean
 
 End
 
+Public Function IsAdded() As Boolean
+
+  Return Me.Status = "added"
+
+End
+
+Public Sub MarkAdded()
+
+  Me.Status = "added"
+
+End
+
 Public Function IsCommitable() As Boolean
 
   Return Not Me.IsNormal() And Not Me.IsIgnored() And Not Me.IsFolder
+
+End
+
+Public Function VersionControlled() As Boolean
+
+  Return Not Me.IsUnversioned()
 
 End
 
@@ -87,6 +105,9 @@ Public Function GetPicture() As Picture
     Return Picture["icon:/16/ok"]
 
   Else If Me.IsUnversioned() Then
+    Return Picture["icon:/16/new"]
+
+  Else If Me.IsAdded() Then
     Return Picture["icon:/16/new"]
 
   Else
