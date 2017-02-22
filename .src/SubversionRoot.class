@@ -111,6 +111,7 @@ Public Sub Add_FileName_RelativePath_IsFolder_ModifiedDate_And_Size()
 
   For Each File In Me.Files
     File.FileName = Right(File.FullPath, - RInStr(File.FullPath, "/"))
+    File.FolderName = Right(Left(File.FullPath, - Len(File.FileName) - 1), - RInStr(Left(File.FullPath, - Len(File.FileName) - 1), "/"))
     File.RelativePath = Right(File.FullPath, - Len(Me.WorkingDirectory))
     File.IsFolder = IsDir(File.FullPath)
     If Not File.IsFolder Then

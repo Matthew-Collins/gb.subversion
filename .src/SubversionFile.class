@@ -2,6 +2,7 @@
 
 Public FullPath As String
 Public RelativePath As String
+Public FolderName As String
 Public FileName As String
 Public IsFolder As Boolean
 Public Props As String
@@ -25,19 +26,80 @@ End
 
 Public Function IsSquiggle() As Boolean
 
-  Return Right(Me.FullPath, 1) = "~"
+  Return EndsWith(Me.FileName, "~")
 
 End Function
 
 Public Function IsIgnored() As Boolean
 
-  If Right(Me.FullPath, 1) = "~" Then
+  'Gambas files to ignore (v1)
+
+  '*.gambas
+  '.lock
+  '*~
+  'core
+  'core.*
+  'vgcore
+  'vgcore.*
+  '.kdbg*
+  '.*.prof
+  '.lang/*.pot
+  '.gambas/*
+
+  If EndsWith(Me.FileName, ".gambas") Then
     Return True
-  Else If Lower(Right(Me.FullPath, 5)) = ".lock" Then
+
+  Else If EndsWith(Me.FileName, ".lock") Then
     Return True
+
+  Else If EndsWith(Me.FileName, "~") Then
+    Return True
+
+  Else If EndsWith(Me.FileName, "core") Then
+    Return True
+
+  Else If StartsWith(Me.FileName, "core") Then
+    Return True
+
+  Else If EndsWith(Me.FileName, "vgcore") Then
+    Return True
+
+  Else If StartsWith(Me.FileName, "vgcore") Then
+    Return True
+
+  Else If StartsWith(Me.FileName, ".kdbg") Then
+    Return True
+
+  Else If StartsWith(Me.FileName, ".") And If EndsWith(Me.FileName, ".prof") Then
+    Return True
+
+  Else If Equals(Me.FolderName, ".lang") And If EndsWith(Me.FileName, ".pot") Then
+    Return True
+
+  Else If Equals(Me.FolderName, ".gambas") Then
+    Return True
+
   Else
     Return False
   Endif
+
+End
+
+Public Function EndsWith(Value As String, WithValue As String) As Boolean
+
+  Return Right(Lower(Value), Len(WithValue)) = Lower(WithValue)
+
+End
+
+Public Function StartsWith(Value As String, WithValue As String) As Boolean
+
+  Return Left(Lower(Value), Len(WithValue)) = Lower(WithValue)
+
+End
+
+Public Function Equals(Value As String, WithValue As String) As Boolean
+
+  Return Lower(Value) = Lower(WithValue)
 
 End
 
@@ -92,11 +154,11 @@ End
 
 Public Function GetPicture() As Picture
 
-  If Me.IsFolder Then
-    Return Picture["icon:/16/directory"]
-
-  Else If Me.IsIgnored() Then
+  If Me.IsIgnored() Then
     Return Picture.Load("icons/ignore.png")
+
+  Else If Me.IsFolder Then
+    Return Picture["icon:/16/directory"]
 
   Else If Me.IsModified() Then
     Return Picture["icon:/16/edit"]
