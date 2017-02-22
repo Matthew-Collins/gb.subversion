@@ -55,7 +55,10 @@ Public Sub Load_Subversion_Information()
                 File.Author = Value.Value
 
               Else If Value.Name = "date" Then
-                Try File.CommitDate = CDate(Val(Value.Value))
+
+                '2017-02-21T17:14:53.000000Z
+                Try File.CommitDate = Date(Left(Value.Value, 4), Right(Left(Value.value, 7), 2), Right(Left(Value.value, 10), 2),
+                  Right(Left(Value.value, 13), 2), Right(Left(Value.value, 16), 2), Right(Left(Value.value, 19), 2))
 
               Endif
 

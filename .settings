@@ -1,5 +1,5 @@
 [Bookmarks]
-FMain=[]
+SubversionFile=[]
 
 [Breakpoints]
 Count=0
@@ -27,6 +27,9 @@ Geometry=[848,387,224,280]
 
 [DebugWindow/Root]
 Geometry=[615,129,785,352]
+
+[DebugWindow/Value]
+Geometry=[1244,152,636,589]
 
 [DebugWindow/WorkingDirectory]
 Geometry=[840,379,224,280]

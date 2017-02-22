@@ -61,7 +61,7 @@ End
 
 Public Function IsCommitable() As Boolean
 
-  Return Not Me.IsNormal() And If Not Me.IsIgnored() And If Not Me.IsFolder
+  Return Not Me.IsNormal() And Not Me.IsIgnored() And Not Me.IsFolder
 
 End
 
@@ -74,23 +74,42 @@ End
 
 Public Function GetPicture() As Picture
 
-  '/home/matthew/Documents/3rd Party/gambas/comp/src/gb.form.stock/stock
+  If Me.IsFolder Then
+    Return Picture["icon:/16/directory"]
+
+  Else If Me.IsIgnored() Then
+    Return Picture.Load("icons/ignore.png")
+
+  Else If Me.IsModified() Then
+    Return Picture["icon:/16/edit"]
+
+  Else If Me.IsNormal() Then
+    Return Picture["icon:/16/ok"]
+
+  Else If Me.IsUnversioned() Then
+    Return Picture["icon:/16/new"]
+
+  Else
+    Return Picture["icon:/16/file"]
+
+  Endif
+
+End
+
+Public Function GetCheckedPicture() As Picture
+
+  Dim Image As New Image(36, 16, Color.Transparent, 0)
+
+  Dim Icon As Image = Me.GetPicture().Image
+
+  Image = Image.DrawImage(Icon, 20, 0, 16, 16, 0, 0, 16, 16)
 
   If Me.IsChecked Then
-    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/checked.png")
-  Else If Me.IsFolder Then
-    Return Picture.Load("/home/matthew/Documents/icons/directory.png")
-  Else If Me.IsIgnored() Then
-    Return Picture.Load("/home/matthew/Documents/gb.subversion/icons/ignore.png")
-  Else If Me.IsModified() Then
-    Return Picture.Load("/home/matthew/Documents/icons/edit.png")
-  Else If Me.IsNormal() Then
-    Return Picture.Load("/home/matthew/Documents/icons/ok.png")
-  Else If Me.IsUnversioned() Then
-    Return Picture.Load("/home/matthew/Documents/icons/new.png")
-  Else
-    Return Picture.Load("/home/matthew/Documents/icons/file.png")
+    Icon = Image.Load("icons/checked.png")
+    Image = Image.DrawImage(Icon, 0, 0, 16, 16, 0, 0, 16, 16)
   Endif
+
+  Return Image.Picture
 
 End
 

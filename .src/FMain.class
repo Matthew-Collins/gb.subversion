@@ -7,26 +7,25 @@ Public Sub _new()
   With List
 
     .Columns.Count = 4
-    .Columns[0].Text = "     " & ("File")
-    
+
     With List.Columns[1]
       .Text = ("Status")
       .Alignment = Align.Center
       .Width = 120
     End With
-    
+
     With List.Columns[2]
       .Text = ("Size")
       .Alignment = Align.Right
       .Width = 80
     End With
-    
+
     With List.Columns[3]
       .Text = ("Modified")
       .Alignment = Align.Center
       .Width = 150
     End With
-    
+
   End With
 
 End
@@ -78,7 +77,7 @@ Public Sub LoadFromSubversionAndDisplay()
 
         If .IsCommitable() Then
           .IsChecked = True
-          List.Add(.FullPath, .FullPath, .GetPicture())
+          List.Add(.FullPath, .FullPath, .GetCheckedPicture())
           List[.FullPath][1] = File.StatusDisplay()
           List[.FullPath][2] = Format(File.Size, "#,##0")
           List[.FullPath][3] = Format(File.ModifiedDate, ("dd/mm/yyyy hh:nn:ss"))
@@ -97,7 +96,7 @@ Public Sub Commit_Click()
     Me.Root.Commit(CommitMessage.Text)
     Me.LoadFromSubversionAndDisplay()
     Message.Info(("Committed!"))
-    Me.CommitMessage.Clear
+    CommitMessage.Clear
   Endif
 
 End
@@ -126,7 +125,7 @@ Public Sub List_DblClick()
   Try Item = Me.Root.GetFile(List.Current.Key)
   If Not IsNull(Item) Then
     Item.IsChecked = Not Item.IsChecked
-    List.Current.Picture = Item.GetPicture()
+    List.Current.Picture = Item.GetCheckedPicture()
   Endif
 
 End
