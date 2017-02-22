@@ -199,6 +199,7 @@ Public Sub ListRevert_Click()
 
   If Not IsNull(Me.root)
     Me.Root.Revert(List.Current.Key)
+    Me.LoadFromSubversionAndDisplay()
   End If
 
 End
@@ -215,6 +216,7 @@ Public Sub TreeRevert_Click()
 
   If Not IsNull(Me.root)
     Me.Root.Revert(Tree.Current.Key)
+    Me.LoadFromSubversionAndDisplay()
   End If
 
 End
