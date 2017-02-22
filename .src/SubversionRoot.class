@@ -144,7 +144,7 @@ Public Sub Update()
 
 End
 
-Public Sub Commit(Message As String)
+Public Sub Commit(Message As String, Optional UpdateAfter As Boolean = False)
 
   Dim File As SubversionFile
 
@@ -156,6 +156,10 @@ Public Sub Commit(Message As String)
   Next
 
   Shell "svn commit \"" & Me.WorkingDirectory & "\" --message \"" & Replace(message, "\"", "'") & "\"" Wait
+
+  If UpdateAfter Then
+    Me.Update
+  Endif
 
 End
 
