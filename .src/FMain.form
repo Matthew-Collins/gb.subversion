@@ -5,7 +5,7 @@
   { TreeContextMenu Menu
     Visible = False
     { TreeDiff Menu
-      Text = ("Diff")
+      Text = ("Show Changes")
       Picture = Picture["icon:/16/pause"]
     }
     { TreeRevert Menu
@@ -16,7 +16,7 @@
   { ListContextMenu Menu
     Visible = False
     { ListDiff Menu
-      Text = ("Diff")
+      Text = ("Show Changes")
       Picture = Picture["icon:/16/pause"]
     }
     { ListRevert Menu
