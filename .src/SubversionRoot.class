@@ -18,7 +18,7 @@ Static Public Sub Checkout(Url As String, NewWorkingDirectory As String, UserNam
   If UserName And If Password Then
     Shell "svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\" --non-interactive --username " & UserName & " --password " & Password Wait
   Else
-    Shell "svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\"" Wait
+    Shell "svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\" --non-interactive" Wait
   Endif
 
 End
@@ -221,7 +221,11 @@ Public Sub Commit(CommitMessage As String, UpdateAfter As Boolean, UserName As S
 
   If Count > 0 Then
 
-    Shell "svn commit " & FileNames & "--message \"" & Replace(CommitMessage, "\"", "'") & "\" --non-interactive --username " & UserName & " --password " & Password Wait
+    If UserName And If Password Then
+      Shell "svn commit " & FileNames & "--message \"" & Replace(CommitMessage, "\"", "'") & "\" --non-interactive --username " & UserName & " --password " & Password Wait
+    Else
+      Shell "svn commit " & FileNames & "--message \"" & Replace(CommitMessage, "\"", "'") & "\" --non-interactive" Wait
+    Endif
 
     If UpdateAfter Then
       Me.Update
