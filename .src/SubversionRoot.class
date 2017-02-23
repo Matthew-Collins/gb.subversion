@@ -13,9 +13,13 @@ Public Sub _new(MyWorkingDirectory As String)
 
 End
 
-Static Public Sub Checkout(Url As String, NewWorkingDirectory As String)
+Static Public Sub Checkout(Url As String, NewWorkingDirectory As String, UserName As String, Password As String)
 
-  Shell "svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\"" Wait
+  If UserName And If Password Then
+    Shell "svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\" --non-interactive --username " & UserName & " --password " & Password Wait
+  Else
+    Shell "svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\"" Wait
+  Endif
 
 End
 
@@ -194,7 +198,7 @@ Public Sub Update()
 
 End
 
-Public Sub Commit(CommitMessage As String, Optional UpdateAfter As Boolean = False)
+Public Sub Commit(CommitMessage As String, UpdateAfter As Boolean, UserName As String, Password As String)
 
   Dim SvnFile As SubversionFile
   Dim FileNames As String
@@ -217,7 +221,7 @@ Public Sub Commit(CommitMessage As String, Optional UpdateAfter As Boolean = Fal
 
   If Count > 0 Then
 
-    Shell "svn commit " & FileNames & "--message \"" & Replace(CommitMessage, "\"", "'") & "\"" Wait
+    Shell "svn commit " & FileNames & "--message \"" & Replace(CommitMessage, "\"", "'") & "\" --non-interactive --username " & UserName & " --password " & Password Wait
 
     If UpdateAfter Then
       Me.Update

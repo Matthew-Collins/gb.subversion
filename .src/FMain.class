@@ -39,13 +39,21 @@ End
 
 Public Sub PickWorkingDirectory_Click()
 
+  Dim Credentials As Credentials
+
   Try Dialog.Path = WorkingDirectory.text
   If Not Dialog.SelectDirectory() Then
 
-    If Repository.text And If Message.Question("Checkout:\n\"" & Repository.Text & "\"\nto: \n\"" & Dialog.Path & "\"", "Yes", "No") = 1
-      Me.Mouse = Mouse.Wait
-      SubversionRoot.Checkout(Repository.text, Dialog.Path)
-      Me.Mouse = Mouse.Default
+    If Repository.Text And If Not WorkingDirectory.Text And If Message.Question("Checkout:\n\"" & Repository.Text & "\"\nto: \n\"" & Dialog.Path & "\"", "Yes", "No") = 1
+
+      Credentials = New Credentials
+      Credentials.ShowDialog
+      If Not Credentials.IsCancelled Then
+        Me.Mouse = Mouse.Wait
+        SubversionRoot.Checkout(Repository.text, Dialog.Path, Credentials.UserName.Text, Credentials.Password.Text)
+        Me.Mouse = Mouse.Default
+      End If
+
     Endif
 
     WorkingDirectory.text = Dialog.Path
@@ -125,14 +133,24 @@ End
 
 Public Sub Commit_Click()
 
+  Dim Credentials As Credentials
+
   If Not IsNull(Me.Root) Then
-    Me.Mouse = Mouse.Wait
-    Clipboard.Copy(CommitMessage.Text)
-    Me.Root.Commit(CommitMessage.Text, True)
-    Me.LoadFromSubversionAndDisplay()
-    CommitMessage.Clear
-    Me.Mouse = Mouse.Default
-    Message.Info(("Committed!"))
+
+    Credentials = New Credentials
+    Credentials.ShowDialog
+    If Not Credentials.IsCancelled Then
+
+      Me.Mouse = Mouse.Wait
+      Clipboard.Copy(CommitMessage.Text)
+      Me.Root.Commit(CommitMessage.Text, True, Credentials.UserName.Text, Credentials.Password.Text)
+      Me.LoadFromSubversionAndDisplay()
+      CommitMessage.Clear
+      Me.Mouse = Mouse.Default
+      Message.Info(("Committed!"))
+
+    Endif
+
   Endif
 
 End
