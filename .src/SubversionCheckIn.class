@@ -39,14 +39,14 @@ End
 
 Public Sub PickWorkingDirectory_Click()
 
-  Dim Credentials As Credentials
+  Dim Credentials As SubversionCredentials
 
   Try Dialog.Path = WorkingDirectory.text
   If Not Dialog.SelectDirectory() Then
 
     If Repository.Text And If Not WorkingDirectory.Text And If Message.Question("Checkout:\n\"" & Repository.Text & "\"\nto: \n\"" & Dialog.Path & "\"", "Yes", "No") = 1
 
-      Credentials = New Credentials
+      Credentials = New SubversionCredentials
       Credentials.ShowDialog
       If Not Credentials.IsCancelled Then
         Me.Mouse = Mouse.Wait
@@ -133,11 +133,11 @@ End
 
 Public Sub Commit_Click()
 
-  Dim Credentials As Credentials
+  Dim Credentials As SubversionCredentials
 
   If Not IsNull(Me.Root) Then
 
-    Credentials = New Credentials
+    Credentials = New SubversionCredentials
     Credentials.ShowDialog
     If Not Credentials.IsCancelled Then
 

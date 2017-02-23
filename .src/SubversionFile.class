@@ -121,6 +121,12 @@ Public Function IsModified() As Boolean
 
 End
 
+Public Function IsDeleted() As Boolean
+
+  Return Me.Status = "deleted"
+
+End
+
 Public Function IsAdded() As Boolean
 
   Return Me.Status = "added"
@@ -153,7 +159,7 @@ End
 
 Public Function SizeDisplay() As String
 
-  If Me.IsFolder Then
+  If Me.IsFolder Or Me.IsDeleted() Then
     Return Null
   Else
     Return Format(Me.Size, "#,##0")
@@ -163,7 +169,7 @@ End
 
 Public Function DateDisplay() As String
 
-  If Me.IsFolder Then
+  If Me.IsFolder Or Me.IsDeleted() Then
     Return Null
   Else
     Return Format(Me.ModifiedDate, ("dd/mm/yyyy hh:nn:ss"))
@@ -197,6 +203,9 @@ Public Function GetPicture() As Picture
 
   Else If Me.IsAdded() Then
     Return Picture["icon:/16/new"]
+
+  Else If Me.IsDeleted() Then
+    Return Picture["icon:/16/delete"]
 
   Else
     Return Picture["icon:/16/file"]

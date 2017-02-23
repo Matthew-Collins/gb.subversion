@@ -1,7 +1,7 @@
 # Gambas Project File 3.0
 # Compiled with Gambas 3.9.2
 Title=gb.subversion
-Startup=FMain
+Startup=SubversionCheckIn
 Version=1.0.33
 Component=gb.image
 Component=gb.qt4

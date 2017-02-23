@@ -167,7 +167,7 @@ Public Sub Add_FileName_RelativePath_IsFolder_ModifiedDate_And_Size()
     SvnFile.FolderName = Right(Left(SvnFile.FullPath, - Len(SvnFile.FileName) - 1), - RInStr(Left(SvnFile.FullPath, - Len(SvnFile.FileName) - 1), "/"))
     SvnFile.RelativePath = Right(SvnFile.FullPath, - Len(Me.WorkingDirectory))
     SvnFile.IsFolder = IsDir(SvnFile.FullPath)
-    If Not SvnFile.IsFolder Then
+    If Not SvnFile.IsFolder And If Exist(SvnFile.FullPath) Then
       With Stat(SvnFile.FullPath)
         SvnFile.ModifiedDate = .LastModified
         SvnFile.Size = .Size
