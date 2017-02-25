@@ -69,7 +69,6 @@ End
 
 Public Sub Load_Subversion_Information()
 
-  Dim xml As String
   Dim xDoc As New XmlDocument
 
   Dim Entry As XmlNode
@@ -107,7 +106,6 @@ Public Sub Load_Subversion_Status()
 
   Dim SvnFile As SubversionFile
 
-  Dim xml As String
   Dim xDoc As New XmlDocument
 
   Dim Entry As XmlNode
@@ -230,8 +228,6 @@ End
 
 Public Sub Commit(CommitMessage As String, UpdateAfter As Boolean, UserName As String, Password As String)
 
-  Dim Command As String
-
   Dim SvnFile As SubversionFile
   Dim FileNames As String
   Dim Count As Integer
@@ -280,7 +276,6 @@ End
 
 Public Sub Add_All_Parent_Folders(FullPath As String)
 
-  Dim Command As String
   Dim Folder As SubversionFile = Me.GetFile(fullpath)
 
   If Not IsNull(folder) Then

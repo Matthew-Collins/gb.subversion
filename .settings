@@ -1,6 +1,5 @@
 [Bookmarks]
-SubversionCredentials=[]
-SubversionCheckIn=[]
+SubversionRoot=[]
 
 [Breakpoints]
 Count=0
