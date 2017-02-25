@@ -46,13 +46,20 @@ Public Sub PickWorkingDirectory_Click()
 
     If Repository.Text And If Not WorkingDirectory.Text And If Message.Question("Checkout:\n\"" & Repository.Text & "\"\nto: \n\"" & Dialog.Path & "\"", "Yes", "No") = 1
 
-      Credentials = New SubversionCredentials
-      Credentials.ShowDialog
+      Credentials = New SubversionCredentials(Repository.Text)
+      Credentials.ShowIfRequired()
       If Not Credentials.IsCancelled Then
+
         Me.Mouse = Mouse.Wait
-        SubversionRoot.Checkout(Repository.text, Dialog.Path, Credentials.UserName.Text, Credentials.Password.Text)
+        Tabs.index = 1
+        Tabs.Refresh
+
+        SubversionRoot.Checkout(Repository.text, Dialog.Path, Credentials.UserName.Text, Credentials.Password.text)
+
+        Tabs.Index = 0
         Me.Mouse = Mouse.Default
-      End If
+
+      Endif
 
     Endif
 
@@ -137,19 +144,23 @@ Public Sub Commit_Click()
 
   If Not IsNull(Me.Root) Then
 
-    Credentials = New SubversionCredentials
-    Credentials.ShowDialog
+    Credentials = New SubversionCredentials(Repository.Text)
+    Credentials.ShowIfRequired()
     If Not Credentials.IsCancelled Then
 
       Me.Mouse = Mouse.Wait
+      Tabs.Index = 1
+      Tabs.Refresh
+
       Clipboard.Copy(CommitMessage.Text)
       Me.Root.Commit(CommitMessage.Text, True, Credentials.UserName.Text, Credentials.Password.Text)
       Me.LoadFromSubversionAndDisplay()
-      CommitMessage.Clear
+
+      Tabs.Index = 0
       Me.Mouse = Mouse.Default
       Message.Info(("Committed!"))
 
-    Endif
+    End If
 
   Endif
 
@@ -157,12 +168,27 @@ End
 
 Public Sub Update_Click()
 
+  Dim Credentials As SubversionCredentials
+
   If Not IsNull(Me.Root) Then
-    Me.Mouse = Mouse.Wait
-    Me.Root.Update()
-    Me.Mouse = Mouse.Default
-    Me.LoadFromSubversionAndDisplay()
-    Message.Info(("Updated!"))
+
+    Credentials = New SubversionCredentials(Repository.Text)
+    Credentials.ShowIfRequired()
+    If Not Credentials.IsCancelled Then
+
+      Me.Mouse = Mouse.Wait
+      Tabs.Index = 1
+      Tabs.Refresh
+
+      Me.Root.Update(Credentials.UserName.Text, Credentials.Password.Text)
+
+      Tabs.Index = 0
+      Me.Mouse = Mouse.Default
+
+      Me.LoadFromSubversionAndDisplay()
+      Message.Info(("Updated!"))
+
+    Endif
   Endif
 
 End
@@ -230,6 +256,12 @@ Public Sub TreeRevert_Click()
     Me.Root.Revert(Tree.Current.Key)
     Me.LoadFromSubversionAndDisplay()
   End If
+
+End
+
+Public Sub Root_GetOutput(Value As String)
+
+  Commands.Append(Value)
 
 End
 

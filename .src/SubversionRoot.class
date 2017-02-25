@@ -7,19 +7,19 @@ Public IsConnected As Boolean
 Public WorkingDirectory As String
 Public Files As New SubversionFile[]
 
+Event GetOutput(Value As String)
+
 Public Sub _new(MyWorkingDirectory As String)
 
   Me.WorkingDirectory = MyWorkingDirectory
+
+  Raise GetOutput(Me.WorkingDirectory)
 
 End
 
 Static Public Sub Checkout(Url As String, NewWorkingDirectory As String, UserName As String, Password As String)
 
-  If UserName And If Password Then
-    Shell "svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\" --non-interactive --username " & UserName & " --password " & Password Wait
-  Else
-    Shell "svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\" --non-interactive" Wait
-  Endif
+  Shell "svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password Wait 'For Read As "Process"
 
 End
 
@@ -192,9 +192,9 @@ Public Function GetFile(FullPath As String) As SubversionFile
 End
 
 
-Public Sub Update()
+Public Sub Update(UserName As String, Password As String)
 
-  Shell "svn update \"" & Me.WorkingDirectory & "\"" Wait
+  Shell "svn update \"" & Me.WorkingDirectory & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password Wait 'For Read As "Process"
 
 End
 
@@ -221,11 +221,7 @@ Public Sub Commit(CommitMessage As String, UpdateAfter As Boolean, UserName As S
 
   If Count > 0 Then
 
-    If UserName And If Password Then
-      Shell "svn commit " & FileNames & "--message \"" & Replace(CommitMessage, "\"", "'") & "\" --non-interactive --username " & UserName & " --password " & Password Wait
-    Else
-      Shell "svn commit " & FileNames & "--message \"" & Replace(CommitMessage, "\"", "'") & "\" --non-interactive" Wait
-    Endif
+    Shell "svn commit " & FileNames & "--message \"" & Replace(CommitMessage, "\"", "'") & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password Wait 'For Read As "Process"
 
     If UpdateAfter Then
       Me.Update
@@ -305,6 +301,16 @@ Public Sub Revert(FullPath As String)
 
 End
 
+Public Sub Process_Read()
+
+  ' Dim Line As String
+  '
+  ' Line = Read #Last, -256
+  ' Print "mcc: " & Line
+  '
+  ' Raise GetOutput( Line )
+
+End
 
 
 

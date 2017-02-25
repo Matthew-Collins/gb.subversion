@@ -8,6 +8,7 @@ Component=gb.qt4
 Component=gb.form
 Component=gb.desktop.x11
 Component=gb.desktop
+Component=gb.settings
 Component=gb.xml
 Description="Gambas Subversion (SVN) Client Component and Tools"
 Authors="Matthew Collins"

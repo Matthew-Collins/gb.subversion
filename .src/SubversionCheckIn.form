@@ -24,33 +24,6 @@
       Picture = Picture["icon:/16/undo"]
     }
   }
-  { CommitMessage TextArea
-    MoveScaled(43,15,113,14)
-  }
-  { Commit Button
-    MoveScaled(43,10,16,4)
-    Text = ("Commit")
-    Picture = Picture["icon:/16/ok"]
-  }
-  { Update Button
-    MoveScaled(60,10,16,4)
-    Text = ("Update")
-    Picture = Picture["icon:/16/down"]
-  }
-  { Refresh Button
-    MoveScaled(77,10,16,4)
-    Text = ("Refresh")
-    Picture = Picture["icon:/16/refresh"]
-  }
-  { Revision Label
-    MoveScaled(95,10.5714,61,3)
-  }
-  { List ColumnView
-    MoveScaled(43,30,113,81)
-    PopupMenu = "ListContextMenu"
-    Mode = Select.Multiple
-    AutoResize = False
-  }
   { Repository TextBox
     MoveScaled(1,0.5714,149.5714,4)
     Expand = True
@@ -70,5 +43,47 @@
   { Tree TreeView
     MoveScaled(1,10,41,101)
     PopupMenu = "TreeContextMenu"
+  }
+  { Tabs TabStrip
+    MoveScaled(43,10,113,101)
+    Count = 2
+    Index = 0
+    Text = ("Pending Changes")
+    { Update Button
+      MoveScaled(18,1,16,4)
+      Text = ("Update")
+      Picture = Picture["icon:/16/down"]
+    }
+    { Refresh Button
+      MoveScaled(35,1,16,4)
+      Text = ("Refresh")
+      Picture = Picture["icon:/16/refresh"]
+    }
+    { Revision Label
+      MoveScaled(53,1.5714,61,3)
+    }
+    { Commit Button
+      MoveScaled(1,1,16,4)
+      Text = ("Commit")
+      Picture = Picture["icon:/16/ok"]
+    }
+    { CommitMessage TextArea
+      MoveScaled(1,6,110,14)
+    }
+    { List ColumnView
+      MoveScaled(1,21,110,74)
+      PopupMenu = "ListContextMenu"
+      Mode = Select.Multiple
+      AutoResize = False
+    }
+    Index = 1
+    Text = ("Commands")
+    { Commands TextArea
+      MoveScaled(1,1,110,94)
+      Font = Font["Courier 10 Pitch"]
+      Background = Color.Black
+      Foreground = Color.White
+    }
+    Index = 0
   }
 }
