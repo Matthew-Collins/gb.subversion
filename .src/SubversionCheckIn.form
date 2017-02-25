@@ -2,6 +2,8 @@
 
 { Form Form
   MoveScaled(0,0,157,112)
+  Text = ("gb.Subversion")
+  Icon = Picture["icon:/16/apply"]
   { TreeContextMenu Menu
     Visible = False
     { TreeDiff Menu
