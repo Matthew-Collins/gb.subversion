@@ -1,6 +1,7 @@
 ' Gambas class file
 
 Public Root As SubversionRoot
+Public RootObserver As Observer
 
 Public Sub _new()
 
@@ -54,7 +55,9 @@ Public Sub PickWorkingDirectory_Click()
         Tabs.index = 1
         Tabs.Refresh
 
-        SubversionRoot.Checkout(Repository.text, Dialog.Path, Credentials.UserName.Text, Credentials.Password.text)
+        Me.Root = New SubversionRoot(WorkingDirectory.Text)
+        Me.RootObserver = New Observer(Me.Root, True) As "RootObserver"
+        Me.Root.Checkout(Repository.text, Dialog.Path, Credentials.UserName.Text, Credentials.Password.text)
 
         Tabs.Index = 0
         Me.Mouse = Mouse.Default
@@ -81,6 +84,7 @@ Public Sub LoadFromSubversionAndDisplay()
   If Exist(WorkingDirectory.text) Then
 
     Me.Root = New SubversionRoot(WorkingDirectory.Text)
+    Me.RootObserver = New Observer(Me.Root, True) As "RootObserver"
     Me.Root.LoadFromSubversion()
 
     List.Clear
@@ -260,10 +264,8 @@ Public Sub TreeRevert_Click()
 
 End
 
-Public Sub Root_GetOutput(Value As String)
+Public Sub RootObserver_Progress(Value As String)
 
-  Commands.Append(Value)
+  Commands.text &= Value & "\n"
 
-End
-
-
+End Sub
