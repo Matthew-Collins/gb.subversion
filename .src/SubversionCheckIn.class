@@ -52,14 +52,11 @@ Public Sub PickWorkingDirectory_Click()
       If Not Credentials.IsCancelled Then
 
         Me.Mouse = Mouse.Wait
-        Tabs.index = 1
-        Tabs.Refresh
 
         Me.Root = New SubversionRoot(WorkingDirectory.Text)
         Me.RootObserver = New Observer(Me.Root, True) As "RootObserver"
         Me.Root.Checkout(Repository.text, Dialog.Path, Credentials.UserName.Text, Credentials.Password.text)
 
-        Tabs.Index = 0
         Me.Mouse = Mouse.Default
 
       Endif
@@ -153,15 +150,12 @@ Public Sub Commit_Click()
     If Not Credentials.IsCancelled Then
 
       Me.Mouse = Mouse.Wait
-      Tabs.Index = 1
-      Tabs.Refresh
 
       Clipboard.Copy(CommitMessage.Text)
       Me.Root.Commit(CommitMessage.Text, True, Credentials.UserName.Text, Credentials.Password.Text)
       CommitMessage.Clear
       Me.LoadFromSubversionAndDisplay()
 
-      Tabs.Index = 0
       Me.Mouse = Mouse.Default
       Message.Info(("Committed!"))
 
@@ -182,12 +176,7 @@ Public Sub Update_Click()
     If Not Credentials.IsCancelled Then
 
       Me.Mouse = Mouse.Wait
-      Tabs.Index = 1
-      Tabs.Refresh
-
       Me.Root.Update(Credentials.UserName.Text, Credentials.Password.Text)
-
-      Tabs.Index = 0
       Me.Mouse = Mouse.Default
 
       Me.LoadFromSubversionAndDisplay()

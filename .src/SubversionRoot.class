@@ -17,14 +17,18 @@ Public Sub _new(MyWorkingDirectory As String)
 
 End
 
-Public Function ExecuteCommand(Command As String, Optional Show As Boolean = True) As String
+Public Function ExecuteCommand(Command As String, Optional Password As String = "", Optional Show As Boolean = True) As String
 
   Dim Result As String
   Dim Tool As Process
   Dim Text As String
 
   Raise Progress(NewCommandSeperator)
-  Raise Progress(">> " & Command)
+  If Password = "" Then
+    Raise Progress(">> " & Command)
+  Else
+    Raise Progress(">> " & Replace(Command, Password, Replace(Space(Len(Password)), " ", "*")))
+  Endif
   'Print Command
   Raise Progress(NewCommandSeperator)
 
@@ -48,7 +52,7 @@ End
 
 Public Sub Checkout(Url As String, NewWorkingDirectory As String, UserName As String, Password As String)
 
-  ExecuteCommand("svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password)
+  ExecuteCommand("svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password, Password)
 
 End
 
@@ -72,7 +76,7 @@ Public Sub Load_Subversion_Information()
   Dim Node As XmlNode
   Dim Value As XmlNode
 
-  xDoc.FromString(ExecuteCommand("svn info --xml \"" & Me.WorkingDirectory & "\"", False))
+  xDoc.FromString(ExecuteCommand("svn info --xml \"" & Me.WorkingDirectory & "\"", "", False))
 
   For Each Entry In xDoc.GetElementsByTagName("entry")
 
@@ -111,7 +115,7 @@ Public Sub Load_Subversion_Status()
   Dim Commits As XmlNode
   Dim Value As XmlNode
 
-  xDoc.FromString(ExecuteCommand("svn status --verbose --xml \"" & Me.WorkingDirectory & "\"", False))
+  xDoc.FromString(ExecuteCommand("svn status --verbose --xml \"" & Me.WorkingDirectory & "\"", "", False))
 
   For Each Entry In xDoc.GetElementsByTagName("entry")
 
@@ -220,7 +224,7 @@ End
 
 Public Sub Update(UserName As String, Password As String)
 
-  ExecuteCommand("svn update \"" & Me.WorkingDirectory & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password)
+  ExecuteCommand("svn update \"" & Me.WorkingDirectory & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password, Password)
 
 End
 
@@ -249,7 +253,7 @@ Public Sub Commit(CommitMessage As String, UpdateAfter As Boolean, UserName As S
 
   If Count > 0 Then
 
-    ExecuteCommand("svn commit " & FileNames & "--message \"" & Replace(CommitMessage, "\"", "'") & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password)
+    ExecuteCommand("svn commit " & FileNames & "--message \"" & Replace(CommitMessage, "\"", "'") & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password, Password)
 
     If UpdateAfter Then
       Me.Update(Username, Password)
