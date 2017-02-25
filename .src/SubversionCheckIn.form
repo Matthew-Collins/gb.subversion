@@ -3,7 +3,7 @@
 { Form Form
   MoveScaled(0,0,157,82)
   Text = ("gb.Subversion")
-  Icon = Picture["icon:/16/apply"]
+  Icon = Picture["icon:/48/apply"]
   { TreeContextMenu Menu
     Visible = False
     { TreeDiff Menu
@@ -13,6 +13,10 @@
     { TreeRevert Menu
       Text = ("Revert")
       Picture = Picture["icon:/16/undo"]
+    }
+    { TreeAdd Menu
+      Text = ("Add")
+      Picture = Picture["icon:/16/add"]
     }
   }
   { ListContextMenu Menu
@@ -24,6 +28,10 @@
     { ListRevert Menu
       Text = ("Revert")
       Picture = Picture["icon:/16/undo"]
+    }
+    { ListAdd Menu
+      Text = ("Add")
+      Picture = Picture["icon:/16/add"]
     }
   }
   { Repository TextBox

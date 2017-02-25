@@ -17,7 +17,7 @@ Public Sub _new(MyWorkingDirectory As String)
 
 End
 
-Public Function ExecuteCommand(Command As String, Optional Password As String = "", Optional Show As Boolean = True) As String
+Public Function ExecuteCommand(Command As String, Optional Password As String = "", Optional Show As Boolean = True, Optional WaitForExit As Boolean = True) As String
 
   Dim Result As String
   Dim Tool As Process
@@ -32,18 +32,22 @@ Public Function ExecuteCommand(Command As String, Optional Password As String = 
   'Print Command
   Raise Progress(NewCommandSeperator)
 
-  If Show Then
-    Tool = Shell Command For Read
-    Do While Not Tool.EndOfFile
-      Text = Tool.ReadLine()
-      'Result &= Text & "\n"
-      'Print Text & "\n"
-      Raise Progress(Text)
-    Loop
+  If WaitForExit Then
+    If Show Then
+      Tool = Shell Command For Read
+      Do While Not Tool.EndOfFile
+        Text = Tool.ReadLine()
+        'Result &= Text & "\n"
+        'Print Text & "\n"
+        Raise Progress(Text)
+      Loop
+    Else
+      Shell Command Wait To Result
+      'Raise Progress(Result)
+      'Print Result
+    End If
   Else
-    Shell Command Wait To Result
-    'Raise Progress(Result)
-    'Print Result
+    Shell Command To Result
   End If
 
   Return Result
@@ -315,7 +319,7 @@ Public Sub Diff(FullPath As String)
 
   Try SvnFile = Me.GetFile(FullPath)
   If Not IsNull(SvnFile) Then
-    SvnFile.Diff()
+    ExecuteCommand("meld \"" & SvnFile.FullPath & "\"", "", True, False)
   Endif
 
 End
@@ -326,7 +330,19 @@ Public Sub Revert(FullPath As String)
 
   Try SvnFile = Me.GetFile(FullPath)
   If Not IsNull(SvnFile) Then
-    SvnFile.Revert()
+    ExecuteCommand("svn revert \"" & Me.FullPath & "\"")
   Endif
 
 End
+
+Public Sub Add(FullPath As String)
+
+  Dim SvnFile As SubversionFile
+
+  Try SvnFile = Me.GetFile(FullPath)
+  If Not IsNull(SvnFile) Then
+    ExecuteCommand("svn add \"" & Me.FullPath & "\"")
+  Endif
+
+End
+
