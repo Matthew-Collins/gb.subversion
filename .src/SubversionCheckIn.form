@@ -78,12 +78,12 @@
       Padding = 5
       Count = 2
       Index = 0
-      Text = ("Pending Changes")
+      Text = ("&Pending Changes")
       { Panel7 HBox
         MoveScaled(5,1,97,4)
         { Commit Button
           MoveScaled(0,0,16,4)
-          Text = ("Commit")
+          Text = Shortcut(("Commit"), "C")
           Picture = Picture["icon:/16/ok"]
         }
         { Panel10 Panel
@@ -91,7 +91,7 @@
         }
         { Update Button
           MoveScaled(19,0,16,4)
-          Text = ("Update")
+          Text = Shortcut(("Update"), "U")
           Picture = Picture["icon:/16/down"]
         }
         { Panel9 Panel
@@ -99,7 +99,7 @@
         }
         { Refresh Button
           MoveScaled(40,0,16,4)
-          Text = ("Refresh")
+          Text = Shortcut(("Refresh"), "R")
           Picture = Picture["icon:/16/refresh"]
         }
         { Panel8 Panel
@@ -127,7 +127,7 @@
         AutoResize = False
       }
       Index = 1
-      Text = ("Commands")
+      Text = ("Co&mmands")
       { Commands TextArea
         MoveScaled(2,5,110,51)
         Font = Font["Courier 10 Pitch"]

@@ -152,6 +152,8 @@ Public Sub Commit_Click()
     If Not Credentials.IsCancelled Then
 
       Me.Mouse = Mouse.Wait
+      Tabs.Index = 1
+      Wait
 
       Clipboard.Copy(CommitMessage.Text)
       Me.Root.Commit(CommitMessage.Text, True, Credentials.UserName.Text, Credentials.Password.Text)
@@ -159,8 +161,11 @@ Public Sub Commit_Click()
       Me.LoadFromSubversionAndDisplay()
 
       Me.Mouse = Mouse.Default
+      Message.Title = ("Commit")
       Message.Info(("Committed!"))
 
+      Tabs.Index = 0
+      
     End If
 
   Endif
@@ -178,11 +183,17 @@ Public Sub Update_Click()
     If Not Credentials.IsCancelled Then
 
       Me.Mouse = Mouse.Wait
+      Tabs.Index = 1
+      Wait
+      
       Me.Root.Update(Credentials.UserName.Text, Credentials.Password.Text)
       Me.Mouse = Mouse.Default
 
       Me.LoadFromSubversionAndDisplay()
+      Message.Title = ("Update")
       Message.Info(("Updated!"))
+      
+      Tabs.Index = 0
 
     Endif
   Endif
@@ -192,6 +203,7 @@ End
 Public Sub Refresh_Click()
 
   Me.LoadFromSubversionAndDisplay()
+  Message.Title = ("Refresh")
   Message.Info(("Refreshed!"))
 
 End
