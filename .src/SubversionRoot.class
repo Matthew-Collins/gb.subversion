@@ -224,7 +224,7 @@ Public Sub Commit(CommitMessage As String, UpdateAfter As Boolean, UserName As S
     Shell "svn commit " & FileNames & "--message \"" & Replace(CommitMessage, "\"", "'") & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password Wait 'For Read As "Process"
 
     If UpdateAfter Then
-      Me.Update
+      Me.Update(Username, Password)
     Endif
 
   End If
