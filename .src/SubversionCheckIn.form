@@ -4,6 +4,8 @@
   MoveScaled(0,0,157,82)
   Text = ("gb.Subversion")
   Icon = Picture["icon:/48/apply"]
+  Arrangement = Arrange.Vertical
+  Padding = 5
   { TreeContextMenu Menu
     Visible = False
     { TreeDiff Menu
@@ -34,67 +36,107 @@
       Picture = Picture["icon:/16/add"]
     }
   }
-  { Repository TextBox
-    MoveScaled(1,0.5714,149.5714,4)
+  { Panel1 HBox
+    MoveScaled(1,1,156,4)
+    { Repository TextBox
+      MoveScaled(0,0,42,3)
+      Expand = True
+    }
+    { Panel4 Panel
+      MoveScaled(132,1,0.2857,3)
+    }
+    { BrowseToRepository Button
+      MoveScaled(150,0,5,4)
+      Picture = Picture["icon:/16/home"]
+    }
+  }
+  { Panel2 HBox
+    MoveScaled(1.2857,5.2857,156,4)
+    { WorkingDirectory TextBox
+      MoveScaled(0,0,28,4)
+      Expand = True
+    }
+    { Panel5 Panel
+      MoveScaled(117,1,0.2857,3)
+    }
+    { PickWorkingDirectory Button
+      MoveScaled(150,0,5,4)
+      Text = ("") & "..."
+    }
+  }
+  { HSplitTree HSplit
+    MoveScaled(1,10,156,73)
     Expand = True
-  }
-  { BrowseToRepository Button
-    MoveScaled(151,0.5714,5,4)
-    Picture = Picture["icon:/16/home"]
-  }
-  { WorkingDirectory TextBox
-    MoveScaled(1,5,149.5714,4)
-    Expand = True
-  }
-  { PickWorkingDirectory Button
-    MoveScaled(151,5,5,4)
-    Text = ("") & "..."
-  }
-  { Tree TreeView
-    MoveScaled(1,10,41,71)
-    PopupMenu = "TreeContextMenu"
-  }
-  { Tabs TabStrip
-    MoveScaled(43,10,113,71)
-    Count = 2
-    Index = 0
-    Text = ("Pending Changes")
-    { Update Button
-      MoveScaled(18,1,16,4)
-      Text = ("Update")
-      Picture = Picture["icon:/16/down"]
+    { Tree TreeView
+      MoveScaled(0,0,41,71)
+      PopupMenu = "TreeContextMenu"
     }
-    { Refresh Button
-      MoveScaled(35,1,16,4)
-      Text = ("Refresh")
-      Picture = Picture["icon:/16/refresh"]
+    { Tabs TabStrip
+      MoveScaled(42,0,113,71)
+      Expand = True
+      Arrangement = Arrange.Vertical
+      Padding = 5
+      Count = 2
+      Index = 0
+      Text = ("Pending Changes")
+      { Panel7 HBox
+        MoveScaled(5,1,97,4)
+        { Commit Button
+          MoveScaled(0,0,16,4)
+          Text = ("Commit")
+          Picture = Picture["icon:/16/ok"]
+        }
+        { Panel10 Panel
+          MoveScaled(17,0,0.2857,3)
+        }
+        { Update Button
+          MoveScaled(19,0,16,4)
+          Text = ("Update")
+          Picture = Picture["icon:/16/down"]
+        }
+        { Panel9 Panel
+          MoveScaled(36,0,0.2857,3)
+        }
+        { Refresh Button
+          MoveScaled(40,0,16,4)
+          Text = ("Refresh")
+          Picture = Picture["icon:/16/refresh"]
+        }
+        { Panel8 Panel
+          MoveScaled(57,0,0.2857,3)
+        }
+        { Revision Label
+          MoveScaled(60,1,19,3)
+          Expand = True
+        }
+      }
+      { Panel12 Panel
+        MoveScaled(1,6,14,1)
+      }
+      { CommitMessage TextArea
+        MoveScaled(0,8,110,14)
+      }
+      { Panel11 Panel
+        MoveScaled(41,25,14,1)
+      }
+      { List ColumnView
+        MoveScaled(2,28,109,35)
+        Expand = True
+        PopupMenu = "ListContextMenu"
+        Mode = Select.Multiple
+        AutoResize = False
+      }
+      Index = 1
+      Text = ("Commands")
+      { Commands TextArea
+        MoveScaled(2,5,110,51)
+        Font = Font["Courier 10 Pitch"]
+        Background = Color.Black
+        Foreground = Color.White
+        Expand = True
+        Wrap = True
+      }
+      Index = 0
     }
-    { Revision Label
-      MoveScaled(53,1.5714,61,3)
-    }
-    { Commit Button
-      MoveScaled(1,1,16,4)
-      Text = ("Commit")
-      Picture = Picture["icon:/16/ok"]
-    }
-    { CommitMessage TextArea
-      MoveScaled(1,6,110,14)
-    }
-    { List ColumnView
-      MoveScaled(1,21,110,44)
-      PopupMenu = "ListContextMenu"
-      Mode = Select.Multiple
-      AutoResize = False
-    }
-    Index = 1
-    Text = ("Commands")
-    { Commands TextArea
-      MoveScaled(1,1,110,94)
-      Font = Font["Courier 10 Pitch"]
-      Background = Color.Black
-      Foreground = Color.White
-      Wrap = True
-    }
-    Index = 0
   }
 }

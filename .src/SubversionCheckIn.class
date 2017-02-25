@@ -29,6 +29,8 @@ Public Sub _new()
 
   End With
 
+  HSplitTree.Layout = [25, 75]
+
 End
 
 Public Sub Form_Open()
@@ -276,3 +278,4 @@ Public Sub RootObserver_Progress(Value As String)
   Commands.text &= Value & "\n"
 
 End Sub
+

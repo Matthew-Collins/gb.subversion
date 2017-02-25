@@ -1,6 +1,3 @@
-[Bookmarks]
-SubversionRoot=[]
-
 [Breakpoints]
 Count=0
 
@@ -56,9 +53,14 @@ Geometry=[854,129,580,797]
 Path="gb.subversion.gambas"
 
 [OpenFile]
-Count=1
-Active=1
-File[1]=".src/SubversionRoot.class:0.278"
+Count=6
+Active=6
+File[1]=".src/SubversionRoot.class:42.15"
+File[2]=".src/SubversionCheckIn.form"
+File[3]=".src/SubversionCheckIn.class:0.279"
+File[4]=".src/SubversionCredentials.form"
+File[5]=".src/SubversionFile.class:7.214"
+File[6]=".src/SubversionCredentials.class:3.22"
 
 [VersionControl]
 RememberPassword=0
