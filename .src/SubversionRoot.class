@@ -330,7 +330,7 @@ Public Sub Revert(FullPath As String)
 
   Try SvnFile = Me.GetFile(FullPath)
   If Not IsNull(SvnFile) Then
-    ExecuteCommand("svn revert \"" & Me.FullPath & "\"")
+    ExecuteCommand("svn revert \"" & SvnFile.FullPath & "\"")
   Endif
 
 End
@@ -341,7 +341,7 @@ Public Sub Add(FullPath As String)
 
   Try SvnFile = Me.GetFile(FullPath)
   If Not IsNull(SvnFile) Then
-    ExecuteCommand("svn add \"" & Me.FullPath & "\"")
+    ExecuteCommand("svn add \"" & SvnFile.FullPath & "\"")
   Endif
 
 End
