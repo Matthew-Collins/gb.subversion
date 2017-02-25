@@ -1,7 +1,7 @@
 # Gambas Form File 3.0
 
 { Form Form
-  MoveScaled(0,0,157,112)
+  MoveScaled(0,0,157,82)
   Text = ("gb.Subversion")
   Icon = Picture["icon:/16/apply"]
   { TreeContextMenu Menu
@@ -43,11 +43,11 @@
     Text = ("") & "..."
   }
   { Tree TreeView
-    MoveScaled(1,10,41,101)
+    MoveScaled(1,10,41,71)
     PopupMenu = "TreeContextMenu"
   }
   { Tabs TabStrip
-    MoveScaled(43,10,113,101)
+    MoveScaled(43,10,113,71)
     Count = 2
     Index = 0
     Text = ("Pending Changes")
@@ -73,7 +73,7 @@
       MoveScaled(1,6,110,14)
     }
     { List ColumnView
-      MoveScaled(1,21,110,74)
+      MoveScaled(1,21,110,44)
       PopupMenu = "ListContextMenu"
       Mode = Select.Multiple
       AutoResize = False

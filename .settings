@@ -56,7 +56,9 @@ Geometry=[854,129,580,797]
 Path="gb.subversion.gambas"
 
 [OpenFile]
-Count=0
+Count=1
+Active=1
+File[1]=".src/SubversionRoot.class:0.278"
 
 [VersionControl]
 RememberPassword=0
