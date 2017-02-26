@@ -84,6 +84,7 @@
         MoveScaled(5,1,97,4)
         { Commit Button
           MoveScaled(0,0,16,4)
+          AutoResize = True
           Text = Shortcut(("Commit"), "C")
           Picture = Picture["icon:/16/ok"]
         }
@@ -92,6 +93,7 @@
         }
         { Update Button
           MoveScaled(19,0,16,4)
+          AutoResize = True
           Text = Shortcut(("Update"), "U")
           Picture = Picture["icon:/16/down"]
         }
@@ -100,6 +102,7 @@
         }
         { Refresh Button
           MoveScaled(40,0,16,4)
+          AutoResize = True
           Text = Shortcut(("Refresh"), "R")
           Picture = Picture["icon:/16/refresh"]
         }

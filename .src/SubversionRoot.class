@@ -4,6 +4,11 @@ Public RepositoryRootUrl As String
 Public RepositoryUrl As String
 Public IsConnected As Boolean
 
+Public Revision As Integer
+Public RevisionLatest As Integer
+Public Author As String
+Public CommitDate As Date
+
 Public WorkingDirectory As String
 Public Files As New SubversionFile[]
 
@@ -124,6 +129,7 @@ Public Sub Load_Subversion_Status()
   Dim xDoc As New XmlDocument
 
   Dim Entry As XmlNode
+  Dim First As Boolean = True
   Dim Status As XmlNode
   Dim Commits As XmlNode
   Dim Value As XmlNode
@@ -162,7 +168,32 @@ Public Sub Load_Subversion_Status()
       End If
     Next
 
+    If First Then
+      First = False
+
+      Me.Revision = SvnFile.Revision
+      Me.RevisionLatest = Me.Revision
+      Me.Author = SvnFile.Author
+      Me.CommitDate = SvnFile.CommitDate
+
+    Endif
+
     Me.Files.Add(SvnFile)
+  Next
+
+End
+
+Public Sub Load_Subversion_Repository_Latest_Status(UserName As String, Password As String)
+
+  Dim xDoc As New XmlDocument
+  Dim Against As XmlNode
+
+  xDoc.FromString(ExecuteCommand("svn status --show-updates --xml \"" & Me.WorkingDirectory & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password, Password, False))
+
+  For Each Against In xDoc.GetElementsByTagName("against")
+
+    Me.RevisionLatest = Against.Attributes["revision"]
+
   Next
 
 End

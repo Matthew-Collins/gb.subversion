@@ -1,7 +1,3 @@
-[Bookmarks]
-SubversionRoot=[]
-SubversionCheckIn=[]
-
 [Breakpoints]
 Count=0
 
@@ -32,6 +28,9 @@ Geometry=[840,115,580,797]
 [DebugWindow/Node.Attributes]
 Geometry=[848,387,224,280]
 
+[DebugWindow/Revision]
+Geometry=[1156,73,342,864]
+
 [DebugWindow/Root]
 Geometry=[615,129,785,352]
 
@@ -56,11 +55,20 @@ Geometry=[868,91,738,596]
 [DebugWindow/XmlElement(Node).Attributes]
 Geometry=[854,129,580,797]
 
+[DebugWindow/xDoc]
+Geometry=[0,13,1405,661]
+
+[DebugWindow/xDoc.GetElementsByTagName("against")]
+Geometry=[0,13,224,280]
+
 [Executable]
 Path="gb.subversion.gambas"
 
 [OpenFile]
-Count=0
+Count=2
+File[1]=".src/SubversionCheckIn.class:27.133"
+Active=2
+File[2]=".src/SubversionRoot.class:6.196"
 
 [VersionControl]
 RememberPassword=0

@@ -87,6 +87,7 @@ End
 Public Sub LoadFromSubversionAndDisplay()
 
   Dim SvnFile As SubversionFile
+  Dim Credentials As SubversionCredentials
 
   If Exist(WorkingDirectory.text) Then
 
@@ -100,16 +101,11 @@ Public Sub LoadFromSubversionAndDisplay()
     Commit.Enabled = False
 
     If Me.Root.Files.Count > 0 Then
-
-      With Me.Root.Files[0]
-        Try Revision.Text = Subst(("Revision: &1 - Author: &2 - Date: &3"), .Revision, .Author, Format(.CommitDate, ("d mmmm yyyy hh:nn:ss")))
-      End With
-
       For Each SvnFile In Me.Root.Files
         With SvnFile
 
           If Not .IsSquiggle() Then
-            Tree.Add(.FullPath, .FileName, .GetPicture(), .GetParent()).Expanded = Me.Root.Should_Parent_Expand(.FullPath)
+            Try Tree.Add(.FullPath, .FileName, .GetPicture(), .GetParent()).Expanded = Me.Root.Should_Parent_Expand(.FullPath)
           End If
 
           If .IsCommitable() Then
@@ -125,7 +121,20 @@ Public Sub LoadFromSubversionAndDisplay()
     Endif
   Endif
 
+  With Me.Root
+    Try Revision.Text = "  " & Subst(("Revision: &1 - Author: &2 - Date: &3"), .Revision, .Author, Format(.CommitDate, ("d mmmm yyyy hh:nn:ss")))
+  End With
+
   Me.Update_User_Interface()
+
+  If Message.Question("Check for Updates Available?", "Yes", "No") = 1 Then
+    Credentials = New SubversionCredentials(Repository.Text)
+    Credentials.ShowIfRequired()
+    If Not Credentials.IsCancelled Then
+      Me.Root.Load_Subversion_Repository_Latest_Status(Credentials.UserName.Text, Credentials.Password.Text)
+      Me.Update_User_Interface()
+    Endif
+  Endif
 
 End
 
@@ -142,10 +151,20 @@ Public Sub Update_User_Interface()
   Refresh.Enabled = WorkingDirectory.text <> ""
 
   If Not IsNull(Me.Root) Then
+
     Commit.Enabled = List.Count > 0 And CommitMessage.text <> Null And Me.Root.SelectedCount() > 0
     Update.Enabled = Me.Root.IsConnected
     Repository.text = Me.Root.RepositoryUrl
+
+    If Me.Root.Revision = Me.Root.RevisionLatest Then
+      Update.Text = ("&Update")
+    Else
+      Update.Text = ("&Updates Available")
+    Endif
+
   Endif
+
+  Wait
 
 End
 
