@@ -166,7 +166,7 @@ Public Sub Commit_Click()
       Clipboard.Copy(CommitMessage.Text)
 
       Me.Root.FlagError = False
-      Me.Root.Commit(CommitMessage.Text, True, Credentials.UserName.Text, Credentials.Password.Text)
+      Me.Root.Commit(CommitMessage.Text, False, Credentials.UserName.Text, Credentials.Password.Text)
 
       If Not Me.Root.FlagError Then
 
