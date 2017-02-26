@@ -1,0 +1,27 @@
+' Gambas class file
+
+Const SettingName As String = ".Window/"
+
+Static Public Sub ApplySavedLocationAndSize(Window As Form)
+
+  Window.Left = Settings[Window.Name & SettingName & "Left", Window.Left]
+  Window.Top = Settings[Window.Name & SettingName & "Top", Window.Top]
+  Window.Width = Settings[Window.Name & SettingName & "Width", Window.Width]
+  Window.Height = Settings[Window.Name & SettingName & "Height", Window.Height]
+  Window.Maximized = Settings[Window.Name & SettingName & "Maximized", False]
+
+End Sub
+
+Static Public Sub SaveLocationAndSize(Window As Form)
+
+  If Window.Maximized Then
+    Settings[Window.Name & SettingName & "Maximized"] = True
+  Else
+    Settings[Window.Name & SettingName & "Maximized"] = False
+    Settings[Window.Name & SettingName & "Left"] = Window.Left
+    Settings[Window.Name & SettingName & "Top"] = Window.Top
+    Settings[Window.Name & SettingName & "Width"] = Window.Width
+    Settings[Window.Name & SettingName & "Height"] = Window.Height
+  Endif
+
+End Sub
