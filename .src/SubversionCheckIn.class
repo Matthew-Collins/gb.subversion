@@ -54,12 +54,20 @@ Public Sub PickWorkingDirectory_Click()
       If Not Credentials.IsCancelled Then
 
         Me.Mouse = Mouse.Wait
+        Tabs.Index = 1
+        Wait
 
         Me.Root = New SubversionRoot(WorkingDirectory.Text)
         Me.RootObserver = New Observer(Me.Root, True) As "RootObserver"
+
+        Me.Root.FlagError = False
         Me.Root.Checkout(Repository.text, Dialog.Path, Credentials.UserName.Text, Credentials.Password.text)
 
         Me.Mouse = Mouse.Default
+        If Not Me.Root.FlagError Then
+          Tabs.Index = 0
+          Wait
+        Endif
 
       Endif
 
@@ -156,14 +164,28 @@ Public Sub Commit_Click()
       Wait
 
       Clipboard.Copy(CommitMessage.Text)
-      Me.Root.Commit(CommitMessage.Text, True, Credentials.UserName.Text, Credentials.Password.Text)
-      CommitMessage.Clear
-      Me.LoadFromSubversionAndDisplay()
 
-      Me.Mouse = Mouse.Default
-      Message.Title = ("Commit")
-      Message.Info(("Committed!"))
-      Tabs.index = 0
+      Me.Root.FlagError = False
+      Me.Root.Commit(CommitMessage.Text, True, Credentials.UserName.Text, Credentials.Password.Text)
+
+      If Not Me.Root.FlagError Then
+
+        CommitMessage.Clear
+
+        Me.LoadFromSubversionAndDisplay()
+
+        Me.Mouse = Mouse.Default
+        Message.Title = ("Commit")
+        Message.Info(("Committed!"))
+        Tabs.index = 0
+
+      Else
+
+        Me.Mouse = Mouse.Default
+        Message.Title = ("Commit")
+        Message.Info(("Errors Detected!"))
+
+      Endif
 
     End If
 
@@ -185,14 +207,27 @@ Public Sub Update_Click()
       Tabs.Index = 1
       Wait
 
+      Me.Root.FlagError = False
       Me.Root.Update(Credentials.UserName.Text, Credentials.Password.Text)
-      Me.Mouse = Mouse.Default
 
-      Me.LoadFromSubversionAndDisplay()
-      Message.Title = ("Update")
-      Message.Info(("Updated!"))
+      If Not Me.Root.FlagError Then
 
-      Tabs.Index = 0
+        Me.Mouse = Mouse.Default
+
+        Me.LoadFromSubversionAndDisplay()
+        Message.Title = ("Update")
+        Message.Info(("Updated!"))
+
+        Tabs.Index = 0
+
+      Else
+
+        Me.Mouse = Mouse.Default
+
+        Message.Title = ("Update")
+        Message.Info(("Errors Detected!"))
+
+      Endif
 
     Endif
   Endif
@@ -284,9 +319,9 @@ Public Sub TreeAdd_Click()
 
 End
 
-Public Sub RootObserver_Progress(Value As String)
+Public Sub RootObserver_Progress(Value As String, Optional NewLine As Boolean = True)
 
-  Commands.text &= Value & "\n"
+  Commands.text &= Value & If(Newline, "\n", "")
   Wait
 
 End Sub

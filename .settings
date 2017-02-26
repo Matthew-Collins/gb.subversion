@@ -1,3 +1,7 @@
+[Bookmarks]
+SubversionRoot=[]
+SubversionCheckIn=[]
+
 [Breakpoints]
 Count=0
 
@@ -12,6 +16,9 @@ Geometry=[840,63,738,596]
 
 [DebugWindow/File]
 Geometry=[824,363,521,495]
+
+[DebugWindow/Last]
+Geometry=[-8,5,383,648]
 
 [DebugWindow/List]
 Geometry=[840,29,540,907]

@@ -11,6 +11,8 @@ Event Progress(Value As String)
 
 Public NewCommandSeperator As String = String$(70, "-")
 
+Public FlagError As Boolean = False
+
 Public Sub _new(MyWorkingDirectory As String)
 
   Me.WorkingDirectory = MyWorkingDirectory
@@ -21,36 +23,45 @@ Public Function ExecuteCommand(Command As String, Optional Password As String = 
 
   Dim Result As String
   Dim Tool As Process
-  Dim Text As String
 
-  Raise Progress(NewCommandSeperator)
-  If Password = "" Then
-    Raise Progress(">> " & Command)
-  Else
-    Raise Progress(">> " & Replace(Command, Password, String$(Len(Password), "*")))
-  Endif
-  'Print Command
-  Raise Progress(NewCommandSeperator)
+  If Show
+    Raise Progress(NewCommandSeperator)
+    If Password = "" Then
+      Raise Progress(">> " & Command & "\n")
+    Else
+      Raise Progress(">> " & Replace(Command, Password, String$(Len(Password), "*")) & "\n")
+    Endif
+  End If
 
   If WaitForExit Then
     If Show Then
-      Tool = Shell Command For Read
-      Do While Not Tool.EndOfFile
-        Text = Tool.ReadLine()
-        'Result &= Text & "\n"
-        'Print Text & "\n"
-        Raise Progress(Text)
-      Loop
+      Tool = Shell Command For Read As "Tool"
+      Tool.Wait
     Else
       Shell Command Wait To Result
-      'Raise Progress(Result)
-      'Print Result
     End If
   Else
     Shell Command To Result
   End If
 
   Return Result
+
+End
+
+Public Sub Tool_Read()
+
+  Do While Not Eof(Last)
+    Raise Progress(Last.ReadLine())
+  Loop
+
+Catch
+
+End
+
+Public Sub Tool_Error(Value As String)
+
+  Me.FlagError = True
+  Raise Progress(Value, False)
 
 End
 
