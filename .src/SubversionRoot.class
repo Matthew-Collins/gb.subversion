@@ -158,8 +158,11 @@ End
 
 Public Function XmlDate(Value As String) As Date
   '2017-02-21T17:14:53.000000Z
+
   Dim Parts As String[] = Split(Replace(Replace(Left(value, 19), "-", ":"), "T", ":"), ":")
+
   Return Date(Parts[0], Parts[1], Parts[2], Parts[3], Parts[4], Parts[5])
+
 End
 
 Public Sub Add_Any_Unversioned_Missing_Files()

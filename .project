@@ -2,7 +2,7 @@
 # Compiled with Gambas 3.9.2
 Title=gb.subversion
 Startup=SubversionCheckIn
-Version=1.0.38
+Version=1.0.39
 Component=gb.image
 Component=gb.qt4
 Component=gb.form
@@ -11,9 +11,9 @@ Component=gb.desktop
 Component=gb.settings
 Component=gb.xml
 Description="Gambas Subversion (SVN) Client Component and Tools"
-Authors="Matthew Collins"
+Authors="Matthew Collins\nCharlie Ogier"
 Arguments=[["/home/matthew/Documents/gb.subversion"],["~/Documents/gb.subversion"],["/home/charlie/GitHub/gb.subversion"]]
-CurrentArgument=3
+CurrentArgument=1
 TabSize=2
 Translate=1
 Language=en_GB

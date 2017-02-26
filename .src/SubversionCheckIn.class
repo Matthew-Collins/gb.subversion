@@ -164,7 +164,7 @@ Public Sub Commit_Click()
       Message.Title = ("Commit")
       Message.Info(("Committed!"))
       Tabs.index = 0
-      
+
     End If
 
   Endif
@@ -184,14 +184,14 @@ Public Sub Update_Click()
       Me.Mouse = Mouse.Wait
       Tabs.Index = 1
       Wait
-      
+
       Me.Root.Update(Credentials.UserName.Text, Credentials.Password.Text)
       Me.Mouse = Mouse.Default
 
       Me.LoadFromSubversionAndDisplay()
       Message.Title = ("Update")
       Message.Info(("Updated!"))
-      
+
       Tabs.Index = 0
 
     Endif
