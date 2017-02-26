@@ -1,10 +1,10 @@
 # Gambas Form File 3.0
 
 { Form Form
-  MoveScaled(0,0,157,82)
+  MoveScaled(0,0,157,85)
+  ToolTip = ("Open the URL")
   Text = ("gb.Subversion")
   Icon = Picture["icon:/48/apply"]
-  Maximized = True
   Arrangement = Arrange.Vertical
   Padding = 5
   { TreeContextMenu Menu
@@ -38,9 +38,9 @@
     }
   }
   { Panel1 HBox
-    MoveScaled(1,1,156,4)
-    { Repository TextBox
-      MoveScaled(0,0,42,3)
+    MoveScaled(1,1,156,5)
+    { Repository ComboBox
+      MoveScaled(2,0,42,4)
       Expand = True
     }
     { Panel4 Panel
@@ -52,7 +52,7 @@
     }
   }
   { Panel2 HBox
-    MoveScaled(1.2857,5.2857,156,4)
+    MoveScaled(3,7,156,5)
     { WorkingDirectory TextBox
       MoveScaled(0,0,28,4)
       Expand = True
@@ -61,19 +61,20 @@
       MoveScaled(117,1,0.2857,3)
     }
     { PickWorkingDirectory Button
-      MoveScaled(150,0,5,4)
+      MoveScaled(148,0,5,4)
+      ToolTip = ("Pick the working directory")
       Text = ("") & "..."
     }
   }
   { HSplitTree HSplit
-    MoveScaled(1,10,156,73)
+    MoveScaled(1,13,156,70)
     Expand = True
     { Tree TreeView
-      MoveScaled(0,0,41,71)
+      MoveScaled(0,0,41,66)
       PopupMenu = "TreeContextMenu"
     }
     { Tabs TabStrip
-      MoveScaled(42,0,113,71)
+      MoveScaled(42,0,113,67)
       Expand = True
       Arrangement = Arrange.Vertical
       Padding = 5

@@ -28,6 +28,9 @@ Geometry=[840,115,580,797]
 [DebugWindow/Node.Attributes]
 Geometry=[848,387,224,280]
 
+[DebugWindow/Repository.List]
+Geometry=[1276,32,527,280]
+
 [DebugWindow/Revision]
 Geometry=[1156,73,342,864]
 
@@ -66,9 +69,9 @@ Path="gb.subversion.gambas"
 
 [OpenFile]
 Count=2
-File[1]=".src/SubversionCheckIn.class:27.133"
-Active=2
-File[2]=".src/SubversionRoot.class:6.196"
+File[1]=".src/SubversionCheckIn.class:3.126"
+Active=1
+File[2]=".src/SubversionCheckIn.form"
 
 [VersionControl]
 RememberPassword=0

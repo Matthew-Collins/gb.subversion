@@ -2,7 +2,8 @@
 # Compiled with Gambas 3.9.2
 Title=gb.subversion
 Startup=SubversionCheckIn
-Version=1.0.44
+Icon=icons/desktopicon.png
+Version=1.0.48
 Component=gb.image
 Component=gb.qt4
 Component=gb.form
