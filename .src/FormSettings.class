@@ -17,6 +17,7 @@ Static Public Sub SaveLocationAndSize(Window As Form)
   If Window.Maximized Then
     Settings[Window.Name & SettingName & "Maximized"] = True
   Else If Window.Minimized Then
+    Settings[Window.Name & SettingName & "Maximized"] = False
   Else
     Settings[Window.Name & SettingName & "Maximized"] = False
     Settings[Window.Name & SettingName & "Left"] = Window.Left

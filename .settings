@@ -68,7 +68,7 @@ Geometry=[0,13,224,280]
 Path="gb.subversion.gambas"
 
 [OpenFile]
-Count=2
+Count=0
 File[1]=".src/SubversionCheckIn.class:3.126"
 Active=1
 File[2]=".src/SubversionCheckIn.form"

@@ -404,8 +404,9 @@ Public Sub Form_Resize()
 
 End
 
-Public Sub Form_close()                                                       'What to do when the Form closes
+Public Sub Form_Close()                                                         'What to do when the Form closes
 
   Settings["sURLs"] = Repository.List                                           'Store the ComboBox list
+  FormSettings.SaveLocationAndSize(Me)
 
 End
