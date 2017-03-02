@@ -3,9 +3,12 @@
 Public Root As SubversionRoot
 Public RootObserver As Observer
 
+Public Recent As New SubversionRecentRoot
+
 Public Sub _new()
 
   FormSettings.ApplySavedLocationAndSize(Me)
+  Recent.LoadRecentUrlsAndWorkingDirectories()
 
   With List
 
@@ -132,14 +135,14 @@ Public Sub LoadFromSubversionAndDisplay()
 
   Me.Update_User_Interface()
 
-  If Message.Question("Check for Updates Available?", "Yes", "No") = 1 Then
-    Credentials = New SubversionCredentials(Repository.Text)
-    Credentials.ShowIfRequired()
-    If Not Credentials.IsCancelled Then
-      Me.Root.Load_Subversion_Repository_Latest_Status(Credentials.UserName.Text, Credentials.Password.Text)
-      Me.Update_User_Interface()
-    Endif
-  Endif
+  ' If Message.Question("Check for Updates Available?", "Yes", "No") = 1 Then
+  '   Credentials = New SubversionCredentials(Repository.Text)
+  '   Credentials.ShowIfRequired()
+  '   If Not Credentials.IsCancelled Then
+  '     Me.Root.Load_Subversion_Repository_Latest_Status(Credentials.UserName.Text, Credentials.Password.Text)
+  '     Me.Update_User_Interface()
+  '   Endif
+  ' Endif
 
 End
 
@@ -318,6 +321,15 @@ Public Sub ListAdd_Click()
 
 End
 
+Public Sub ListDelete_Click()
+
+  If Not IsNull(Me.root)
+    Me.Root.Delete(List.Current.Key)
+    Me.LoadFromSubversionAndDisplay()
+  End If
+
+End
+
 Public Sub TreeDiff_Click()
 
   If Not IsNull(Me.root)
@@ -339,6 +351,15 @@ Public Sub TreeAdd_Click()
 
   If Not IsNull(Me.root)
     Me.Root.Add(Tree.Current.Key)
+    Me.LoadFromSubversionAndDisplay()
+  End If
+
+End
+
+Public Sub TreeDelete_Click()
+
+  If Not IsNull(Me.root)
+    Me.Root.Delete(Tree.Current.Key)
     Me.LoadFromSubversionAndDisplay()
   End If
 

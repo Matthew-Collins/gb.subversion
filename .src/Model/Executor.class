@@ -1,0 +1,20 @@
+' Gambas class file
+
+Event Executing(Commands As String[])
+Event ErrorMessage(Value As String)
+
+Public Function Execute(FileAndArgs As String[], Optional WaitForExit As Boolean = True, Optional GetOutput As Boolean = False, Optional ByRef TextOutput As String = "") As Boolean
+
+  Raise Executing(FileAndArgs)
+
+  If WaitForExit And GetOutput Then
+    Exec FileAndArgs To TextOutput
+  Else If WaitForExit Then
+    Exec FileAndArgs Wait
+  Else
+    Exec FileAndArgs
+  Endif
+Catch
+  Raise ErrorMessage(Error.Text)
+
+End

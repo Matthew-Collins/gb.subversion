@@ -1,0 +1,28 @@
+' Gambas class file
+
+Static Public Sub Main()
+
+  Dim RepositoryPath As String = "/home/matthew/.testing/Repository/Local Test 002"
+  Dim RepositoryUrl As String = "file:///home/matthew/.testing/Repository/Local Test 002"
+  Dim WorkingDirectoryPath As String = "/home/matthew/.testing/WorkingDirectory/Local Test 002"
+  Dim Repository As New Repository(RepositoryUrl, RepositoryPath)
+  Dim WorkingDirectory As New WorkingDirectory(WorkingDirectoryPath)
+
+  Directory.DeleteDirectory(RepositoryPath)
+  Directory.DeleteDirectory(WorkingDirectoryPath)
+
+  Assert.Section = "Repository"
+  Assert.Test = "Test_002_Repository_CheckOut"
+  Assert.Part = "CleanUp Repository"
+  Assert.IsFalse(Exist(RepositoryPath), "Failed To Remove Repository Directory Before Test Starts")
+  Assert.Part = "CleanUp Working Directory"
+  Assert.IsFalse(Exist(WorkingDirectoryPath), "Failed To Remove Working Directory Before Test Starts")
+
+  Repository.CreateLocalRepository()
+  Repository.CheckOut(WorkingDirectory)
+
+  Assert.Part = ""
+  Assert.IsTrue(Exist(RepositoryPath), "Failed To Create Repository Directory Before Test Starts")
+  Assert.IsTrue(Exist(WorkingDirectoryPath), "Failed To Create Working Directory Before Test Starts")
+
+End

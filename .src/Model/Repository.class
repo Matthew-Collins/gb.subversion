@@ -1,0 +1,31 @@
+' Gambas class file
+
+Public Url As String
+Public Path As String
+Public Revision As Integer
+
+Public Sub _new(SiteUrl As String, Optional LocalPath As String)
+
+  Me.Url = SiteUrl
+  Me.Path = LocalPath
+
+End
+
+Public Sub DeleteRepository()
+
+  Directory.DeleteDirectory(Me.Path)
+
+End
+
+Public Sub CreateLocalRepository()
+
+  Directory.CreateDirectory(Directory.GetDirectoryName(Me.Path))
+  Global.Run.Execute(["svnadmin", "create", Me.Path])
+
+End
+
+Public Sub CheckOut(WorkingDirectory As WorkingDirectory)
+
+  Global.Run.Execute(["svn", "checkout", Me.Url, WorkingDirectory.FullPath])
+
+End

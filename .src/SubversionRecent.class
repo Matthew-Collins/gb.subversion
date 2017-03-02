@@ -1,0 +1,5 @@
+' Gambas class file
+
+Public Url As String
+Public WorkingDirectory As String
+Public LastUsed As Date

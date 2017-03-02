@@ -281,12 +281,12 @@ End
 Public Sub Commit(CommitMessage As String, UpdateAfter As Boolean, UserName As String, Password As String)
 
   Dim SvnFile As SubversionFile
-  Dim FileNames As String
+  Dim FileNames As New String[]
   Dim Count As Integer
 
   For Each SvnFile In Me.Files
-    If SvnFile.IsChecked And If SvnFile.IsUnversioned() And If SvnFile.Iscommitable() Then
-      Me.Add_All_Parent_Folders(SvnFile.GetParent())
+    If SvnFile.IsChecked And If SvnFile.Iscommitable() Then
+      Me.Add_All_Parent_Folders(SvnFile.GetParent(), FileNames)
     Else If SvnFile.IsChecked And If SvnFile.IsIgnored() And If SvnFile.Iscommitable() Then
       ExecuteCommand("svn delete \"" & SvnFile.FullPath & "\" --force --keep-local")
     Endif
@@ -295,13 +295,13 @@ Public Sub Commit(CommitMessage As String, UpdateAfter As Boolean, UserName As S
   For Each SvnFile In Me.Files
     If SvnFile.IsChecked And If SvnFile.Iscommitable() Then
       Count += 1
-      FileNames &= "\"" & SvnFile.FullPath & "\" "
+      FileNames.Add(SvnFile.FullPath)
     Endif
   Next
 
   If Count > 0 Then
 
-    ExecuteCommand("svn commit " & FileNames & "--message \"" & Replace(CommitMessage, "\"", "'") & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password, Password)
+    ExecuteCommand("svn commit \"" & FileNames.Join("\" \"") & "\" --message \"" & Replace(CommitMessage, "\"", "'") & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password, Password)
 
     If UpdateAfter Then
       Me.Update(Username, Password)
@@ -326,18 +326,23 @@ Public Function SelectedCount() As Integer
 
 End
 
-Public Sub Add_All_Parent_Folders(FullPath As String)
+Public Sub Add_All_Parent_Folders(FullPath As String, ByRef FileNames As String[])
 
   Dim Folder As SubversionFile = Me.GetFile(fullpath)
 
   If Not IsNull(folder) Then
     If Not Folder.VersionControlled() Then
 
-      Me.Add_All_Parent_Folders(Folder.GetParent())
+      Me.Add_All_Parent_Folders(Folder.GetParent(), FileNames)
 
       ExecuteCommand("svn add \"" & Folder.FullPath & "\" --depth=empty")
 
+      FileNames.Add(Folder.FullPath)
+
       Folder.MarkAdded()
+
+    Else If Folder.IsModified() Or If Folder.IsAdded() Then
+      FileNames.Add(Folder.FullPath)
 
     Endif
   Endif
@@ -394,3 +399,13 @@ Public Sub Add(FullPath As String)
 
 End
 
+Public Sub Delete(FullPath As String)
+
+  Dim SvnFile As SubversionFile
+
+  Try SvnFile = Me.GetFile(FullPath)
+  If Not IsNull(SvnFile) Then
+    ExecuteCommand("svn delete \"" & SvnFile.FullPath & "\" --force")
+  Endif
+
+End

@@ -1,0 +1,20 @@
+' Gambas class file
+
+Static Public Sub Main()
+
+  Dim Path As String = "/home/matthew/.testing/Repository/Local Test 002"
+  Dim Repository As New Repository("", Path)
+
+  Repository.DeleteRepository()
+
+  Assert.Section = "Repository"
+  Assert.Test = "Test_001_New_Local_Repository"
+  Assert.Part = "CleanUp"
+  Assert.IsFalse(Exist(Path), "Failed To Remove Repository Directory Before Test Starts")
+
+  Repository.CreateLocalRepository()
+
+  Assert.Part = ""
+  Assert.IsTrue(Exist(Path), "Failed To Create Local Repository")
+
+End

@@ -1,0 +1,16 @@
+' Gambas class file
+
+Public Repository As Repository
+Public FullPath As String
+
+Public Sub _new(FullPath As String)
+
+  Me.FullPath = FullPath
+
+End
+
+Public Sub DeleteWorkingDirectory()
+
+  Directory.DeleteDirectory(Me.FullPath)
+
+End

@@ -1,5 +1,9 @@
+[Bookmarks]
+Test_001_GetDirectoryName=[3]
+
 [Breakpoints]
-Count=0
+Count=1
+Breakpoint[1]="SubversionRoot.287"
 
 [DebugWindow]
 Count=0
@@ -12,6 +16,9 @@ Geometry=[840,63,738,596]
 
 [DebugWindow/File]
 Geometry=[824,363,521,495]
+
+[DebugWindow/Folder]
+Geometry=[920,139,682,528]
 
 [DebugWindow/Last]
 Geometry=[-8,5,383,648]
@@ -28,6 +35,15 @@ Geometry=[840,115,580,797]
 [DebugWindow/Node.Attributes]
 Geometry=[848,387,224,280]
 
+[DebugWindow/Paths]
+Geometry=[848,387,224,498]
+
+[DebugWindow/Recent]
+Geometry=[848,387,224,280]
+
+[DebugWindow/Repository]
+Geometry=[-8,176,224,280]
+
 [DebugWindow/Repository.List]
 Geometry=[1276,32,527,280]
 
@@ -38,7 +54,7 @@ Geometry=[1156,73,342,864]
 Geometry=[615,129,785,352]
 
 [DebugWindow/SvnFile]
-Geometry=[840,379,224,280]
+Geometry=[832,371,539,565]
 
 [DebugWindow/Value]
 Geometry=[1244,152,636,589]
@@ -68,10 +84,9 @@ Geometry=[0,13,224,280]
 Path="gb.subversion.gambas"
 
 [OpenFile]
-Count=0
-File[1]=".src/SubversionCheckIn.class:3.126"
+Count=1
 Active=1
-File[2]=".src/SubversionCheckIn.form"
+File[1]=".src/Model/Executor.class:0.2"
 
 [VersionControl]
 RememberPassword=0

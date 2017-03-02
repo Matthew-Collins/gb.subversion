@@ -1,0 +1,13 @@
+' Gambas class file
+
+Static Public Sub Main()
+
+  Dim List As String
+
+  Global.Run.Execute(["ls"], True, True, ByRef List)
+
+  Assert.Section = "Executor"
+  Assert.Test = "Test_001_DisplayReadAndErrors"
+  Assert.IsNotExpected(Split(List, "\n").Count, 0, "Return List Is Empty")
+
+End

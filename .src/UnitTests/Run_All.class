@@ -1,0 +1,16 @@
+' Gambas class file
+
+Static Public Sub Main()
+
+  'Directory
+  Test_001_GetDirectoryName.Main
+  Test_002_CreateDirectory.Main
+
+  'Executor
+  Test_001_DisplayReadAndErrors.Main
+
+  'Repository
+  Test_001_New_Local_Repository.Main
+  Test_002_Repository_CheckOut.Main
+
+End

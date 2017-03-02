@@ -1,0 +1,20 @@
+' Gambas class file
+
+Static Public Sub Main()
+
+  Dim Root As String = "/home/matthew/.testing/Root"
+  Dim Path As String = "/home/matthew/.testing/Root/1/2/3/4/5/File.Txt"
+
+  Directory.DeleteDirectory(Root)
+
+  Assert.Section = "Directory"
+  Assert.Test = "Test_002_CreateDirectory"
+  Assert.Part = "CleanUp"
+  Assert.IsFalse(Exist(Root), "Failed To Remove Directory Before Test Starts")
+
+  Directory.CreateDirectory(Directory.GetDirectoryName(Path))
+
+  Assert.Part = ""
+  Assert.IsTrue(Exist(Root), "Failed To Create Full Directory")
+
+End

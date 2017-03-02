@@ -1,0 +1,31 @@
+' Gambas class file
+
+Static Public Sub DeleteDirectory(FullPath As String)
+
+  If Exist(FullPath) Then
+    Global.Run.Execute(["rm", "-rf", FullPath])
+  End If
+
+End
+
+Static Public Function GetDirectoryName(FullPath As String) As String
+
+  Return Left(FullPath, RInStr(FullPath, "/") - 1)
+
+End
+
+Static Public Sub CreateDirectory(FullPath As String)
+
+  Dim Paths As String[] = Split(FUllPath, "/")
+  Dim Path As String
+  Dim PathName As String = "/"
+  Dim First As Boolean = True
+
+  For Each Path In Paths
+    PathName = PathName &/ Path
+    If Not Exist(PathName) Then
+      Mkdir PathName
+    Endif
+  Next
+
+End

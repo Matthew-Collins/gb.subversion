@@ -21,6 +21,10 @@
       Text = ("Add")
       Picture = Picture["icon:/16/add"]
     }
+    { TreeDelete Menu
+      Text = ("Delete")
+      Picture = Picture["icon:/16/delete"]
+    }
   }
   { ListContextMenu Menu
     Visible = False
@@ -35,6 +39,10 @@
     { ListAdd Menu
       Text = ("Add")
       Picture = Picture["icon:/16/add"]
+    }
+    { ListDelete Menu
+      Text = ("Delete")
+      Picture = Picture["icon:/16/delete"]
     }
   }
   { Panel1 HBox
