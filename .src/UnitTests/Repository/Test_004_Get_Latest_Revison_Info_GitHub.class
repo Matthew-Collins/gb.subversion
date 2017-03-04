@@ -1,0 +1,31 @@
+' Gambas class file
+
+Static Public Function Setup_Repository(StartFromScratch As Boolean) As Repository
+
+  Dim RepositoryUrl As String = "https://github.com/Matthew-Collins/gb.subversion/trunk"
+  Dim WorkingDirectoryPath As String = "/home/matthew/.testing/WorkingDirectory/Local Test 004"
+  Dim Repository As New Repository(RepositoryUrl)
+  Dim WorkingDirectory As New WorkingDirectory(WorkingDirectoryPath)
+
+  If StartFromScratch Then
+    Directory.DeleteDirectory(WorkingDirectoryPath)
+    Repository.CheckOut(WorkingDirectory)
+  Else
+    Repository.WorkingDirectory = WorkingDirectory
+  End If
+
+  Return Repository
+
+End
+
+Static Public Sub Main()
+
+  Dim Repository As Repository = Setup_Repository(True)
+
+  Repository.Load_Subversion_Repository_Latest_Status("", "")
+
+  Assert.Section = "Repository"
+  Assert.Test = "Test_004_Get_Latest_Revision_Info > " & Repository.Revision
+  Assert.IsNotExpected(Repository.Revision, 0, "Initial Revision Incorrect")
+
+End

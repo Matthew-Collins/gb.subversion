@@ -1,0 +1,23 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,92,19)
+  { Urls ComboBox
+    MoveScaled(1,2,84,4)
+  }
+  { WorkingDirectories ComboBox
+    MoveScaled(1,7,84,4)
+  }
+  { LastUsed Label
+    MoveScaled(2,13,89,4)
+  }
+  { PickWorkingDirectory Button
+    MoveScaled(86,7,5,4)
+    ToolTip = ("Pick the working directory")
+    Text = ("") & "..."
+  }
+  { BrowseToRepository Button
+    MoveScaled(86,2,5,4)
+    Picture = Picture["icon:/16/home"]
+  }
+}

@@ -3,9 +3,13 @@
 Event Executing(Commands As String[])
 Event ErrorMessage(Value As String)
 
-Public Function Execute(FileAndArgs As String[], Optional WaitForExit As Boolean = True, Optional GetOutput As Boolean = False, Optional ByRef TextOutput As String = "") As Boolean
+Public Function Execute(FileAndArgs As String[], Optional FileAndArgsShowable As String[], Optional WaitForExit As Boolean = True, Optional GetOutput As Boolean = False, Optional ByRef TextOutput As String = "") As Boolean
 
-  Raise Executing(FileAndArgs)
+  If FileAndArgsShowable = Null Then
+    FileAndArgsShowable = FileAndArgs
+  Endif
+
+  Raise Executing(FileAndArgsShowable)
 
   If WaitForExit And GetOutput Then
     Exec FileAndArgs To TextOutput
@@ -14,7 +18,11 @@ Public Function Execute(FileAndArgs As String[], Optional WaitForExit As Boolean
   Else
     Exec FileAndArgs
   Endif
+
+  Return True
+
 Catch
   Raise ErrorMessage(Error.Text)
+  Return False
 
 End

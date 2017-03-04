@@ -2,7 +2,8 @@
 
 Public Url As String
 Public Path As String
-Public Revision As Integer
+Public Revision As Integer = -1
+Public WorkingDirectory As WorkingDirectory
 
 Public Sub _new(SiteUrl As String, Optional LocalPath As String)
 
@@ -24,8 +25,27 @@ Public Sub CreateLocalRepository()
 
 End
 
-Public Sub CheckOut(WorkingDirectory As WorkingDirectory)
+Public Sub CheckOut(CheckOutToWorkingDirectory As WorkingDirectory)
 
-  Global.Run.Execute(["svn", "checkout", Me.Url, WorkingDirectory.FullPath])
+  Me.WorkingDirectory = CheckOutToWorkingDirectory
+  Global.Run.Execute(["svn", "checkout", Me.Url, Me.WorkingDirectory.FullPath])
+
+End
+
+Public Sub Load_Subversion_Repository_Latest_Status(UserName As String, Password As String)
+
+  Dim Xml As String
+  Dim xDoc As New XmlDocument
+  Dim Against As XmlNode
+
+  Global.Run.Execute(["svn", "status", "--show-updates", "--xml", Me.WorkingDirectory.FullPath, "--no-auth-cache", "--trust-server-cert", "--non-interactive", "--username", UserName, "--password", Password], Null, True, True, ByRef Xml)
+
+  xDoc.FromString(Xml)
+
+  For Each Against In xDoc.GetElementsByTagName("against")
+
+    Me.Revision = Against.Attributes["revision"]
+
+  Next
 
 End

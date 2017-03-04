@@ -9,8 +9,13 @@ Static Public Sub Main()
   'Executor
   Test_001_DisplayReadAndErrors.Main
 
+  'Recent
+  'Test_001_Load_And_Save_Recent_Urls.Main 'Clears Settings
+
   'Repository
   Test_001_New_Local_Repository.Main
   Test_002_Repository_CheckOut.Main
+  Test_003_Get_Latest_Revision_Info.Main
+  'Test_004_Get_Latest_Revison_Info_GitHub.Main 'Connects Over Web
 
 End

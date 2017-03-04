@@ -2,8 +2,7 @@
 Test_001_GetDirectoryName=[3]
 
 [Breakpoints]
-Count=1
-Breakpoint[1]="SubversionRoot.287"
+Count=0
 
 [DebugWindow]
 Count=0
@@ -17,8 +16,14 @@ Geometry=[840,63,738,596]
 [DebugWindow/File]
 Geometry=[824,363,521,495]
 
+[DebugWindow/FileAndArgs]
+Geometry=[0,13,224,280]
+
 [DebugWindow/Folder]
 Geometry=[920,139,682,528]
+
+[DebugWindow/Global]
+Geometry=[0,13,224,280]
 
 [DebugWindow/Last]
 Geometry=[-8,5,383,648]
@@ -53,6 +58,12 @@ Geometry=[1156,73,342,864]
 [DebugWindow/Root]
 Geometry=[615,129,785,352]
 
+[DebugWindow/RunObserver]
+Geometry=[-8,5,224,280]
+
+[DebugWindow/Split(List)]
+Geometry=[-8,5,224,280]
+
 [DebugWindow/SvnFile]
 Geometry=[832,371,539,565]
 
@@ -84,9 +95,7 @@ Geometry=[0,13,224,280]
 Path="gb.subversion.gambas"
 
 [OpenFile]
-Count=1
-Active=1
-File[1]=".src/Model/Executor.class:0.2"
+Count=0
 
 [VersionControl]
 RememberPassword=0

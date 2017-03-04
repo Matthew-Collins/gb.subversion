@@ -1,0 +1,24 @@
+' Gambas class file
+
+Public RunObserver As New Observer(Global.Run) As "Run"
+
+Public Sub Form_Open()
+
+  Assert.IsTrue(Global.Run.Execute(["ls"]), "Error Detected")
+  Assert.IsFalse(Global.Run.Execute(["ls"]), "Error Should Have Been Rasied")
+
+  Assert.IsTrue(Global.Run.Execute(["ls --recursive"], ["ls", "< ShowAll>"]), "Should See \"< ShowAll>\" Instead of \"--recursive\"")
+
+End
+
+Public Sub Run_Executing(Commands As String[])
+
+  TextCommands.Text &= "Command: " & Commands.Join(" ") & "\n"
+
+End
+
+Public Sub Run_ErrorMessage(Value As String)
+
+  TextCommands.Text &= "Error: " & Value & "\n"
+
+End

@@ -1,0 +1,61 @@
+' Gambas class file
+
+Public AllRecent As New RecentRoot
+
+Public Sub _new()
+
+  AllRecent.LoadRecentUrlsAndWorkingDirectories()
+
+End
+
+Public Sub Form_Open()
+
+  Dim Recent As Recent
+
+  For Each Recent In Me.AllRecent.List
+    Urls.Add(Recent.Url)
+    WorkingDirectories.Add(Recent.WorkingDirectory)
+  Next
+
+  Me.UpdateLastUsed
+
+End
+
+Public Sub Urls_Change()
+
+  WorkingDirectories.Index = Urls.Index
+  Me.UpdateLastUsed
+
+End
+
+Public Sub WorkingDirectories_Change()
+
+  Urls.Index = WorkingDirectories.Index
+  Me.UpdateLastUsed
+
+End
+
+Public Sub UpdateLastUsed()
+
+  Dim Used As Date
+
+  If WorkingDirectories.Index >= 0 Then
+    Used = AllRecent.List[WorkingDirectories.Index].LastUsed
+    LastUsed.Text = Subst("Last Used: &1", Format(Used, "dd/mm/yyyy hh:nn"))
+  End If
+
+End
+
+Public Sub Form_Close()
+
+  AllRecent.SaveRecentUrlsAndWorkingDirectories()
+
+End
+
+Public Sub BrowseToRepository_Click()
+
+  If Urls.Index >= 0 Then
+    Desktop.Open(Urls.Text)
+  End If
+
+End

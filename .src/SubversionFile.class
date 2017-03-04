@@ -183,7 +183,6 @@ Public Function StatusDisplay() As String
 
 End
 
-
 Public Function GetPicture() As Picture
 
   If Me.IsIgnored() Then

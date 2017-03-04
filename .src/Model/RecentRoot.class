@@ -1,0 +1,76 @@
+' Gambas class file
+
+Public List As New Recent[]
+
+Public Sub LoadRecentUrlsAndWorkingDirectories()
+
+  Dim Set As New Recent
+  Dim SettingName As String
+
+  Dim Index As Integer
+
+  For Index = 1 To 25
+
+    SettingName = "Recent." & Format(Index, "00") & "/"
+
+    Set = New Recent
+    Set.Url = Settings[SettingName & "Url", ""]
+    Set.WorkingDirectory = Settings[SettingName & "WorkingDirectory", ""]
+    Set.LastUsed = Settings[SettingName & "LastUsed", ""]
+
+    If Exist(Set.WorkingDirectory) Then
+      List.Add(Set)
+    Endif
+
+  Next
+
+End
+
+Public Function AddNewRecentItem(SiteUrl As String, WorkingDirectoryPath As String) As Recent
+
+  Dim Recent As Recent
+  Dim AlreadyInList As Boolean
+
+  For Each Recent In Me.List
+    If Recent.Url = SiteUrl And If Recent.WorkingDirectory = WorkingDirectory Then
+      AlreadyInList = True
+      Break
+    Endif
+  Next
+
+  If Not AlreadyInList Then
+    Recent = New Recent
+    With Recent
+      .Url = SiteUrl
+      .WorkingDirectory = WorkingDirectoryPath
+      .LastUsed = Now()
+    End With
+    Me.List.Add(Recent)
+  End If
+
+End
+
+Public Sub SaveRecentUrlsAndWorkingDirectories()
+
+  Dim Set As New Recent
+  Dim SettingName As String
+
+  Dim Index As Integer
+
+  For Index = 1 To 25
+
+    SettingName = "Recent." & Format(Index, "00") & "/"
+
+    If Index <= Me.List.Count Then
+      Set = Me.List[Index - 1]
+    Else
+      Set = New Recent
+    Endif
+
+    Settings[SettingName & "Url"] = Set.Url
+    Settings[SettingName & "WorkingDirectory"] = Set.WorkingDirectory
+    Settings[SettingName & "LastUsed"] = Set.LastUsed
+
+  Next
+
+End

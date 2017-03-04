@@ -1,7 +1,7 @@
 # Gambas Project File 3.0
 # Compiled with Gambas 3.9.2
 Title=gb.subversion
-Startup=SubversionCheckIn
+Startup=SubversionCommitForm
 Icon=icons/desktopicon.png
 Version=1.0.48
 Component=gb.image
@@ -14,7 +14,7 @@ Component=gb.xml
 Description="Gambas Subversion (SVN) Client Component and Tools"
 Authors="Matthew Collins\nCharlie Ogier"
 Arguments=[["/home/matthew/Documents/gb.subversion"],["~/Documents/gb.subversion"],["/home/charlie/GitHub/gb.subversion"]]
-CurrentArgument=1
+CurrentArgument=0
 TabSize=2
 Translate=1
 Language=en_GB

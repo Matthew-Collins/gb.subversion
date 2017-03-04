@@ -3,11 +3,11 @@
 Static Public Sub Main()
 
   Dim List As String
-
-  Global.Run.Execute(["ls"], True, True, ByRef List)
+  Dim Actual As Boolean = Global.Run.Execute(["ls"], Null, True, True, ByRef List)
 
   Assert.Section = "Executor"
   Assert.Test = "Test_001_DisplayReadAndErrors"
+  Assert.IsTrue(Actual, "Errors Detected")
   Assert.IsNotExpected(Split(List, "\n").Count, 0, "Return List Is Empty")
 
 End

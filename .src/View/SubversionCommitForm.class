@@ -3,7 +3,7 @@
 Public Root As SubversionRoot
 Public RootObserver As Observer
 
-Public Recent As New SubversionRecentRoot
+Public Recent As New RecentRoot
 
 Public Sub _new()
 

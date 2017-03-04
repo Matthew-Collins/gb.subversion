@@ -21,8 +21,10 @@ Static Public Sub Main()
   Repository.CreateLocalRepository()
   Repository.CheckOut(WorkingDirectory)
 
-  Assert.Part = ""
-  Assert.IsTrue(Exist(RepositoryPath), "Failed To Create Repository Directory Before Test Starts")
-  Assert.IsTrue(Exist(WorkingDirectoryPath), "Failed To Create Working Directory Before Test Starts")
+  Assert.Part = "Repository"
+  Assert.IsTrue(Exist(RepositoryPath), "Failed To Create Repository Directory")
+
+  Assert.Part = "Working Directory"
+  Assert.IsTrue(Exist(WorkingDirectoryPath), "Failed To Create Working Directory")
 
 End
