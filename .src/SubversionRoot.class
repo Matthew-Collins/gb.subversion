@@ -372,7 +372,7 @@ Public Sub Diff(FullPath As String)
 
   Try SvnFile = Me.GetFile(FullPath)
   If Not IsNull(SvnFile) Then
-    ExecuteCommand("meld \"" & SvnFile.FullPath & "\"", "", True, False)
+    ExecuteCommand("meld \"" & SvnFile.FullPath & "\"", "", False, False)
   Endif
 
 End
