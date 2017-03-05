@@ -2,28 +2,28 @@
 
 Const SettingName As String = ".Window/"
 
-Static Public Sub ApplySavedLocationAndSize(Window As Form)
+Static Public Sub ApplySavedLocationAndSize(View As Form)
 
-  Window.Left = Settings[Window.Name & SettingName & "Left", Window.Left]
-  Window.Top = Settings[Window.Name & SettingName & "Top", Window.Top]
-  Window.Width = Settings[Window.Name & SettingName & "Width", Window.Width]
-  Window.Height = Settings[Window.Name & SettingName & "Height", Window.Height]
-  Window.Maximized = Settings[Window.Name & SettingName & "Maximized", False]
+  View.Left = Settings[View.Name & SettingName & "Left", View.Left]
+  View.Top = Settings[View.Name & SettingName & "Top", View.Top]
+  View.Width = Settings[View.Name & SettingName & "Width", View.Width]
+  View.Height = Settings[View.Name & SettingName & "Height", View.Height]
+  View.Maximized = Settings[View.Name & SettingName & "Maximized", False]
 
 End Sub
 
-Static Public Sub SaveLocationAndSize(Window As Form)
+Static Public Sub SaveLocationAndSize(View As Form)
 
-  If Window.Maximized Then
-    Settings[Window.Name & SettingName & "Maximized"] = True
-  Else If Window.Minimized Then
-    Settings[Window.Name & SettingName & "Maximized"] = False
+  If View.Maximized Then
+    Settings[View.Name & SettingName & "Maximized"] = True
+  Else If View.Minimized Then
+    Settings[View.Name & SettingName & "Maximized"] = False
   Else
-    Settings[Window.Name & SettingName & "Maximized"] = False
-    Settings[Window.Name & SettingName & "Left"] = Window.Left
-    Settings[Window.Name & SettingName & "Top"] = Window.Top
-    Settings[Window.Name & SettingName & "Width"] = Window.Width
-    Settings[Window.Name & SettingName & "Height"] = Window.Height
+    Settings[View.Name & SettingName & "Maximized"] = False
+    Settings[View.Name & SettingName & "Left"] = View.Left
+    Settings[View.Name & SettingName & "Top"] = View.Top
+    Settings[View.Name & SettingName & "Width"] = View.Width
+    Settings[View.Name & SettingName & "Height"] = View.Height
   Endif
 
 End Sub

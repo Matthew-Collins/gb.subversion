@@ -3,7 +3,7 @@
 Static Public Function Setup_Repository(StartFromScratch As Boolean) As Repository
 
   Dim RepositoryUrl As String = "https://github.com/Matthew-Collins/gb.subversion/trunk"
-  Dim WorkingDirectoryPath As String = "/home/matthew/.testing/WorkingDirectory/Local Test 004"
+  Dim WorkingDirectoryPath As String = "/tmp/.testing/WorkingDirectory/Local Test 004"
   Dim Repository As New Repository(RepositoryUrl)
   Dim WorkingDirectory As New WorkingDirectory(WorkingDirectoryPath)
 

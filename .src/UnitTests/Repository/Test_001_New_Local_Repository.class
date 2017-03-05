@@ -2,7 +2,7 @@
 
 Static Public Sub Main()
 
-  Dim Path As String = "/home/matthew/.testing/Repository/Local Test 002"
+  Dim Path As String = "/tmp/.testing/Repository/Local Test 002"
   Dim Repository As New Repository("", Path)
 
   Repository.DeleteRepository()

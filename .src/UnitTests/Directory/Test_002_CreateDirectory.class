@@ -2,8 +2,8 @@
 
 Static Public Sub Main()
 
-  Dim Root As String = "/home/matthew/.testing/Root"
-  Dim Path As String = "/home/matthew/.testing/Root/1/2/3/4/5/File.Txt"
+  Dim Root As String = "/tmp/.testing/Root"
+  Dim Path As String = "/tmp/.testing/Root/1/2/3/4/5/File.Txt"
 
   Directory.DeleteDirectory(Root)
 

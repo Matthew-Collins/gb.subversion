@@ -2,9 +2,9 @@
 
 Static Public Function Setup_Repository() As Repository
 
-  Dim RepositoryPath As String = "/home/matthew/.testing/Repository/Local Test 003"
-  Dim RepositoryUrl As String = "file:///home/matthew/.testing/Repository/Local Test 003"
-  Dim WorkingDirectoryPath As String = "/home/matthew/.testing/WorkingDirectory/Local Test 003"
+  Dim RepositoryPath As String = "/tmp/.testing/Repository/Local Test 003"
+  Dim RepositoryUrl As String = "file:///tmp/.testing/Repository/Local Test 003"
+  Dim WorkingDirectoryPath As String = "/tmp/.testing/WorkingDirectory/Local Test 003"
   Dim Repository As New Repository(RepositoryUrl, RepositoryPath)
   Dim WorkingDirectory As New WorkingDirectory(WorkingDirectoryPath)
 

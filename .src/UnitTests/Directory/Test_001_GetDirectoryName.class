@@ -2,8 +2,8 @@
 
 Static Public Sub Main()
 
-  Dim InputValue As String = "/home/matthew/.testing"
-  Dim Expected As String = "/home/matthew"
+  Dim InputValue As String = "/tmp/.testing"
+  Dim Expected As String = "/tmp"
   Dim Actual As String = Directory.GetDirectoryName(InputValue)
 
   Assert.Section = "Directory"

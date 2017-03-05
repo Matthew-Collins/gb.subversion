@@ -12,7 +12,6 @@ End
 Static Public Sub Main()
 
   Dim Root As New RecentRoot
-  Dim Recent As Recent
 
   Setup_Settings(True)
 

@@ -2,9 +2,9 @@
 
 Static Public Sub Main()
 
-  Dim RepositoryPath As String = "/home/matthew/.testing/Repository/Local Test 002"
-  Dim RepositoryUrl As String = "file:///home/matthew/.testing/Repository/Local Test 002"
-  Dim WorkingDirectoryPath As String = "/home/matthew/.testing/WorkingDirectory/Local Test 002"
+  Dim RepositoryPath As String = "/tmp/.testing/Repository/Local Test 002"
+  Dim RepositoryUrl As String = "file:///tmp/.testing/Repository/Local Test 002"
+  Dim WorkingDirectoryPath As String = "/tmp/.testing/WorkingDirectory/Local Test 002"
   Dim Repository As New Repository(RepositoryUrl, RepositoryPath)
   Dim WorkingDirectory As New WorkingDirectory(WorkingDirectoryPath)
 

@@ -3,9 +3,9 @@
 Public Repository As Repository
 Public FullPath As String
 
-Public Sub _new(FullPath As String)
+Public Sub _new(WorkingDirectoryFullPath As String)
 
-  Me.FullPath = FullPath
+  Me.FullPath = WorkingDirectoryFullPath
 
 End
 
