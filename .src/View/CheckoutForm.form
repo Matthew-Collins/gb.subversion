@@ -1,0 +1,28 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,104,17)
+  Icon = Picture["icon:/huge/down"]
+  Persistent = True
+  { PickWorkingDirectory Button
+    MoveScaled(98,7,5,4)
+    ToolTip = ("Pick the working directory")
+    Text = ("") & "..."
+  }
+  { !WorkingDirectory TextBox
+    MoveScaled(1,7,97,4)
+    #Public = True
+  }
+  { ButtonCheckout Button
+    MoveScaled(44,12,16,4)
+    Text = Shortcut(("Checkout"), "C")
+    Picture = Picture["icon:/16/down"]
+  }
+  { BrowseToRepository Button
+    MoveScaled(98,2,5,4)
+    Picture = Picture["icon:/16/home"]
+  }
+  { Repository ComboBox
+    MoveScaled(1,2,97,4)
+  }
+}

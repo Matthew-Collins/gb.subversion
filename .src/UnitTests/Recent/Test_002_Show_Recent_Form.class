@@ -1,6 +1,7 @@
 ' Gambas class file
 
 Public AllRecent As New RecentRoot
+Public IgnoreChange As Boolean
 
 Public Sub _new()
 
@@ -10,27 +11,23 @@ End
 
 Public Sub Form_Open()
 
-  Dim Recent As Recent
+  Me.LoadRecent
 
-  For Each Recent In Me.AllRecent.List
-    Urls.Add(Recent.Url)
-    WorkingDirectories.Add(Recent.WorkingDirectory)
+End
+
+Public Sub LoadRecent()
+
+  Dim RecentWebAddress As RecentWebAddress
+  Dim RecentWorkingDirectory As RecentWorkingDirectory
+
+  For Each RecentWebAddress In Me.AllRecent.WebAddressses
+    Urls.Add(RecentWebAddress.Url)
   Next
 
-  Me.UpdateLastUsed
+  For Each RecentWorkingDirectory In Me.AllRecent.WorkingDirectories
+    WorkingDirectories.Add(RecentWorkingDirectory.Path)
+  Next
 
-End
-
-Public Sub Urls_Change()
-
-  WorkingDirectories.Index = Urls.Index
-  Me.UpdateLastUsed
-
-End
-
-Public Sub WorkingDirectories_Change()
-
-  Urls.Index = WorkingDirectories.Index
   Me.UpdateLastUsed
 
 End
@@ -40,7 +37,7 @@ Public Sub UpdateLastUsed()
   Dim Used As Date
 
   If WorkingDirectories.Index >= 0 Then
-    Used = AllRecent.List[WorkingDirectories.Index].LastUsed
+    Used = AllRecent.WorkingDirectories[WorkingDirectories.Index].LastUsed
     LastUsed.Text = Subst("Last Used: &1", Format(Used, "dd/mm/yyyy hh:nn"))
   End If
 
@@ -54,8 +51,22 @@ End
 
 Public Sub BrowseToRepository_Click()
 
+  Dim Url As String = Urls.Text
+
+  If Lower(Left(Url, 18)) = "https://github.com" And If Lower(Right(url, 6)) = "/trunk" Then
+    Url = Left(Url, RInStr(Url, "/trunk") - 1)
+  Endif
+
   If Urls.Index >= 0 Then
-    Desktop.Open(Urls.Text)
+    Desktop.Open(Url)
+  End If
+
+End
+
+Public Sub PickWorkingDirectory_Click()
+
+  If Not Dialog.SelectDirectory() Then
+    WorkingDirectories.Text = Dialog.Path
   End If
 
 End

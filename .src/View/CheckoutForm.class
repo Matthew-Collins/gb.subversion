@@ -1,0 +1,39 @@
+' Gambas class file
+
+Public Result As Boolean
+Public Recent As New RecentRoot
+
+Public Sub Form_Open()
+
+  Dim RecentWebAddress As RecentWebAddress
+
+  Me.Recent.LoadRecentUrls()
+  Repository.Clear
+  For Each RecentWebAddress In Me.Recent.WebAddressses
+    Repository.Add(RecentWebAddress.Url)
+  Next
+
+End
+
+Public Sub PickWorkingDirectory_Click()
+
+  If Not Dialog.SelectDirectory() Then
+    WorkingDirectory.text = Dialog.Path
+  Endif
+
+End
+
+Public Sub BrowseToRepository_Click()
+
+  Browse.LaunchUrl(Repository.Text)
+
+End
+
+Public Sub ButtonCheckout_Click()
+
+  If Repository.Text And If WorkingDirectory.Text
+    Me.Result = True
+    Me.Close
+  Endif
+
+End

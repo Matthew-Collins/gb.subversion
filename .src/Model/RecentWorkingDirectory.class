@@ -1,0 +1,16 @@
+' Gambas class file
+
+Public Path As String
+Public LastUsed As Date
+
+Public Function _compare(Other As RecentWorkingDirectory) As Integer
+
+  If Me.LastUsed = Other.LastUsed Then
+    Return 0
+  Else If Me.LastUsed < Other.LastUsed Then
+    Return -1
+  Else
+    Return 1
+  Endif
+
+End

@@ -2,6 +2,7 @@
 Test_001_GetDirectoryName=[3]
 SubversionCommitForm=[42]
 Test_003_Get_Latest_Revision_Info=[5]
+Test_001_Load_And_Save_Recent_Urls=[47]
 
 [Breakpoints]
 Count=0
@@ -46,7 +47,10 @@ Geometry=[848,387,224,280]
 Geometry=[848,387,224,498]
 
 [DebugWindow/Recent]
-Geometry=[848,387,224,280]
+Geometry=[848,387,706,280]
+
+[DebugWindow/Recent.WebAddressses]
+Geometry=[862,401,706,280]
 
 [DebugWindow/Repository]
 Geometry=[-8,176,224,280]
@@ -58,10 +62,37 @@ Geometry=[1276,32,527,280]
 Geometry=[1156,73,342,864]
 
 [DebugWindow/Root]
-Geometry=[615,129,785,352]
+Geometry=[607,121,785,352]
+
+[DebugWindow/Root.List]
+Geometry=[621,135,785,352]
+
+[DebugWindow/Root.List[0]]
+Geometry=[635,149,785,352]
+
+[DebugWindow/Root.List[1]]
+Geometry=[635,149,785,352]
+
+[DebugWindow/Root.WebAddressses]
+Geometry=[88,70,224,280]
+
+[DebugWindow/Root.WebAddressses[0]]
+Geometry=[102,84,224,280]
+
+[DebugWindow/Root.WebAddressses[1]]
+Geometry=[102,84,224,280]
+
+[DebugWindow/Root.WebAddressses[2]]
+Geometry=[102,84,224,280]
+
+[DebugWindow/Root.WorkingDirectories]
+Geometry=[-10,-8,224,280]
 
 [DebugWindow/RunObserver]
 Geometry=[-8,5,224,280]
+
+[DebugWindow/Set]
+Geometry=[0,13,224,280]
 
 [DebugWindow/Split(List)]
 Geometry=[-8,5,224,280]
@@ -97,7 +128,10 @@ Geometry=[0,13,224,280]
 Path="gb.subversion.gambas"
 
 [OpenFile]
-Count=0
+Count=2
+Active=2
+File[1]=".src/View/CommitForm.class:0.400"
+File[2]=".src/View/CheckoutForm.form"
 
 [VersionControl]
 RememberPassword=0

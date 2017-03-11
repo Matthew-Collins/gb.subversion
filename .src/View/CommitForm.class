@@ -5,10 +5,13 @@ Public RootObserver As Observer
 
 Public Recent As New RecentRoot
 
+Public IgnoreChanges As Boolean
+
 Public Sub _new()
 
   FormSettings.ApplySavedLocationAndSize(Me)
-  Recent.LoadRecentUrlsAndWorkingDirectories()
+  Me.Recent.LoadRecentUrlsAndWorkingDirectories()
+  Me.UpdateRecentRepositoryAndWorkingDirectoriesDropDowns()
 
   With List
 
@@ -40,47 +43,36 @@ End
 
 Public Sub Form_Open()
 
-  Try WorkingDirectory.text = Settings["LastWorkingDirectory", ""]
-  Me.Update_User_Interface
-  'PopulateRepository                                                          'Populate the Repository ComboBox
+  Me.LoadFromSubversionAndDisplay()
+
+End
+
+Public Sub UpdateRecentRepositoryAndWorkingDirectoriesDropDowns()
+
+  Dim RecentWebAddress As RecentWebAddress
+  Dim RecentWorkingDirectory As RecentWorkingDirectory
+
+  Me.IgnoreChanges = True
+
+  Repository.Clear
+  WorkingDirectory.Clear
+
+  For Each RecentWebAddress In Me.Recent.WebAddressses
+    Repository.Add(RecentWebAddress.Url)
+  Next
+
+  For Each RecentWorkingDirectory In Me.Recent.WorkingDirectories
+    WorkingDirectory.Add(RecentWorkingDirectory.Path)
+  Next
+
+  Me.IgnoreChanges = False
 
 End
 
 Public Sub PickWorkingDirectory_Click()
 
-  Dim Credentials As SubversionCredentials
-
-  'Repository_Click                                                            'Update the Repository ComboBox
-
   Try Dialog.Path = WorkingDirectory.text
   If Not Dialog.SelectDirectory() Then
-
-    If Repository.Text And If Not WorkingDirectory.Text And If Message.Question("Checkout:\n\"" & Repository.Text & "\"\nto: \n\"" & Dialog.Path & "\"", "Yes", "No") = 1
-
-      Credentials = New SubversionCredentials(Repository.Text)
-      Credentials.ShowIfRequired()
-      If Not Credentials.IsCancelled Then
-
-        Me.Mouse = Mouse.Wait
-        Tabs.Index = 1
-        Wait
-
-        Me.Root = New SubversionRoot(WorkingDirectory.Text)
-        Me.RootObserver = New Observer(Me.Root, True) As "RootObserver"
-
-        Me.Root.FlagError = False
-        Me.Root.Checkout(Repository.text, Dialog.Path, Credentials.UserName.Text, Credentials.Password.text)
-
-        Me.Mouse = Mouse.Default
-        If Not Me.Root.FlagError Then
-          Tabs.Index = 0
-          Wait
-        Endif
-
-      Endif
-
-    Endif
-
     WorkingDirectory.text = Dialog.Path
   Endif
 
@@ -88,7 +80,9 @@ End
 
 Public Sub WorkingDirectory_Change()
 
-  Me.LoadFromSubversionAndDisplay()
+  If Not IgnoreChanges Then
+    Me.LoadFromSubversionAndDisplay()
+  End If
 
 End
 
@@ -129,8 +123,15 @@ Public Sub LoadFromSubversionAndDisplay()
   Endif
 
   With Me.Root
-    Try Repository.Text = .RepositoryUrl
+
+    Try Me.Recent.AddNewRecentWebAddress(.RepositoryUrl)
+    Try Me.Recent.AddNewRecentWorkingDirectory(.WorkingDirectory)
+    Try Me.UpdateRecentRepositoryAndWorkingDirectoriesDropDowns
+    Try WorkingDirectory.Index = 0
+    Try Repository.Index = 0
+
     Try Revision.Text = "  " & Subst(("Revision: &1 - Author: &2 - Date: &3"), .Revision, .Author, Format(.CommitDate, ("d mmmm yyyy hh:nn:ss")))
+
   End With
 
   Me.Update_User_Interface()
@@ -178,11 +179,11 @@ End
 
 Public Sub Commit_Click()
 
-  Dim Credentials As SubversionCredentials
+  Dim Credentials As CredentialsForm
 
   If Not IsNull(Me.Root) Then
 
-    Credentials = New SubversionCredentials(Repository.Text)
+    Credentials = New CredentialsForm(Repository.Text)
     Credentials.ShowIfRequired()
     If Not Credentials.IsCancelled Then
 
@@ -222,7 +223,7 @@ End
 
 Public Sub Update_Click()
 
-  Dim Credentials As SubversionCredentials
+  Dim Credentials As CredentialsForm
 
   If Not IsNull(Me.Root) Then
 
@@ -286,12 +287,7 @@ End
 
 Public Sub BrowseToRepository_Click()
 
-  'Repository_Click                                                            'Update the Repository ComboBox
-  If Not IsNull(Me.Root) And If Lower(Repository.text) = Lower(Me.Root.RepositoryUrl) Then
-    Desktop.Open(Me.Root.RepositoryRootUrl)
-  Else If Repository.Text
-    Desktop.Open(Trim(Repository.Text))
-  Endif
+  Browse.LaunchUrl(Repository.Text)
 
 End
 
@@ -372,47 +368,6 @@ Public Sub RootObserver_Progress(Value As String, Optional NewLine As Boolean = 
 
 End Sub
 
-' Public Sub PopulateRepository()                                               'To Populate the Repository ComboBox
-'
-'   Dim sTemp As String                                                           'Temp string
-'
-'   For Each sTemp In Settings["sURLs", [" ", " "]]                               'Loop through each stored URL
-'     Repository.Add(sTemp)                                                       'Add each item to the ComboBox
-'   Next
-'
-' End
-
-' Public Sub Repository_Click()                                                 'What to do if the Combobox list changes
-'
-'   Dim sList As String[] = Repository.List                                       'Store the list of URLs in sList
-'   Dim sNewList As New String[]                                                  'This will store the revised ComboBox list
-'   Dim sHold, sTemp As String                                                    'Temp strings
-'   Dim sDuplicateCheck As String                                                 'This is used to test for string duplications
-'   Dim siCount As Short = -1                                                     'Counter
-'
-'   If Repository.Length > 10 Then                                                'Make sure whatever is in the ComboBox TextBox is worth storing
-'     sHold = Trim(Repository.Text)                                               'This holds the URL displayed
-'
-'     For Each sTemp In sList                                                     'For each item in the URL List..
-'       Stemp = Trim(sTemp)                                                       'Trim the line
-'       Inc siCount                                                               'Increase counter
-'       If siCount > 9 Then Break                                                 'If there are more than 10 items in the list get out of here
-'       If siCount = 0 Then                                                       'If this is the first item in the new list..
-'         sNewList.Add(sHold)                                                     'Add the first item to the new list
-'         sNewList.Add(sTemp)                                                     'Add the nex item to the new list
-'       Else                                                                      'Else..
-'         sDuplicateCheck = sNewList.Join()                                       'Create a string from the new list array
-'         If InStr(sDuplicateCheck, sTemp) Then Continue                          'If there is duplication then jump out of loop
-'         sNewList.Add(sTemp)                                                     'Add the item to the new list
-'       End If
-'     Next
-'
-'     If sNewList.max = 10 Then sNewList[sNewList.max] = ""                       'If the list is greater that 10 then delete the last item
-'     Repository.list = sNewList                                                'Replace the old ComboBox list with the new one
-'   End If
-'
-' End
-
 Public Sub Form_Move()
 
   FormSettings.SaveLocationAndSize(Me)
@@ -425,10 +380,54 @@ Public Sub Form_Resize()
 
 End
 
-Public Sub Form_Close()                                                         'What to do when the Form closes
+Public Sub Form_Close()
 
-  'Settings["sURLs"] = Repository.List                                           'Store the ComboBox list
-  Settings["LastWorkingDirectory"] = WorkingDirectory.Text
   FormSettings.SaveLocationAndSize(Me)
+  Me.Recent.SaveRecentUrlsAndWorkingDirectories()
+
+End
+
+Public Sub Checkout_Click()
+
+  Dim CheckoutForm As New CheckoutForm
+  Dim Credentials As CredentialsForm
+
+  CheckoutForm.ShowDialog
+
+  If CheckoutForm.Result Then
+
+    Credentials = New CredentialsForm(CheckoutForm.Repository.Text)
+    Credentials.ShowIfRequired()
+    If Not Credentials.IsCancelled Then
+
+      Me.Mouse = Mouse.Wait
+      Tabs.Index = 1
+      Wait
+
+      Me.Root = New SubversionRoot(CheckoutForm.WorkingDirectory.Text)
+      Me.RootObserver = New Observer(Me.Root, True) As "RootObserver"
+
+      Me.Root.FlagError = False
+      Me.Root.Checkout(Repository.text, Dialog.Path, Credentials.UserName.Text, Credentials.Password.text)
+
+      Me.Mouse = Mouse.Default
+      If Not Me.Root.FlagError Then
+        Tabs.Index = 0
+        Wait
+      Endif
+
+      Try Me.Recent.AddNewRecentWorkingDirectory(CheckoutForm.WorkingDirectory.Text)
+      Try Me.UpdateRecentRepositoryAndWorkingDirectoriesDropDowns
+      Try WorkingDirectory.Index = 0
+      Me.LoadFromSubversionAndDisplay
+
+    End If
+  End If
+
+End
+
+Public Sub Exit_Click()
+
+  Me.Close
 
 End

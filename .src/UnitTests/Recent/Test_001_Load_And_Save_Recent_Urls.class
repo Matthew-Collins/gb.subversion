@@ -21,18 +21,31 @@ Static Public Sub Main()
   Assert.Test = "Test_001_Load_And_Save_Recent_Urls"
 
   Assert.Part = "CleanUp"
-  Assert.IsExpected(Root.List.Count, 0, "Initial Number of Recent Not Zero")
+  Assert.IsExpected(Root.WebAddressses.Count, 0, "Initial Number of Recent Not Zero")
+  Assert.IsExpected(Root.WorkingDirectories.Count, 0, "Initial Number of Recent Not Zero")
 
-  Root.AddNewRecentItem("https://github.com/Matthew-Collins/gb.subversion/trunk", "/home/matthew/Documents/gb.subversion")
-  Root.AddNewRecentItem("https://github.com/Matthew-Collins/gb.PiconZero/trunk", "/home/matthew/Documents/gb.PiconZero")
-  Root.AddNewRecentItem("https://github.com/Matthew-Collins/gb.subversion/trunk", "/home/matthew/Documents/gb.subversion")
-  Root.AddNewRecentItem("https://github.com/Matthew-Collins/gb.PiconZero/trunk", "/home/matthew/Documents/gb.PiconZero")
+  Root.AddNewRecentWebAddress("https://github.com/Matthew-Collins/gb.subversion/trunk")
+  Root.AddNewRecentWebAddress("https://github.com/Matthew-Collins/gb.PiconZero/trunk")
+  Root.AddNewRecentWebAddress("https://github.com/Matthew-Collins/gb.subversion/trunk")
+  Root.AddNewRecentWebAddress("https://www.raspberrypi.org")
+  Wait 1
+  Root.AddNewRecentWebAddress("https://github.com/Matthew-Collins/gb.subversion/trunk")
+
+  Root.AddNewRecentWorkingDirectory("/home/matthew/Documents/gb.subversion")
+  Root.AddNewRecentWorkingDirectory("/home/matthew/Documents/gb.PiconZero")
+  Root.AddNewRecentWorkingDirectory("/home/matthew/Documents/gb.subversion")
+  Wait 1
+  Root.AddNewRecentWorkingDirectory("/home/matthew/Documents/gb.subversion")
 
   Root.SaveRecentUrlsAndWorkingDirectories()
 
   Root = New RecentRoot
   Root.LoadRecentUrlsAndWorkingDirectories
 
-  Assert.IsExpected(Root.List.Count, 2, "Recent Item Not Saved")
+  Assert.IsExpected(Root.WebAddressses.Count, 3, "Recent Item Not Saved")
+  Assert.IsExpected(Root.WebAddressses[0].Url, "https://github.com/Matthew-Collins/gb.subversion/trunk", "Did Not Order Correctly")
+
+  Assert.IsExpected(Root.WorkingDirectories.Count, 2, "Recent Item Not Saved")
+  Assert.IsExpected(Root.WorkingDirectories[0].Path, "/home/matthew/Documents/gb.subversion", "Did Not Order Correctly")
 
 End

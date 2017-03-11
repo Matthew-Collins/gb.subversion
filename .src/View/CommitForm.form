@@ -1,12 +1,22 @@
 # Gambas Form File 3.0
 
 { Form Form
-  MoveScaled(0,0,157,85)
+  MoveScaled(0,0,157,84)
   ToolTip = ("Open the URL")
   Text = ("gb.Subversion")
   Icon = Picture["icon:/48/apply"]
   Arrangement = Arrange.Vertical
   Padding = 5
+  { MenuFile Menu
+    Text = ("File")
+    { Checkout Menu
+      Text = ("Checkout")
+      Picture = Picture["icon:/16/down"]
+    }
+    { Exit Menu
+      Text = ("Exit")
+    }
+  }
   { TreeContextMenu Menu
     Visible = False
     { TreeDiff Menu
@@ -48,11 +58,11 @@
   { Panel1 HBox
     MoveScaled(1,1,156,5)
     { Repository ComboBox
-      MoveScaled(2,0,42,4)
+      MoveScaled(0,0,149,4)
       Expand = True
     }
     { Panel4 Panel
-      MoveScaled(132,1,0.2857,3)
+      MoveScaled(149,1,0.2857,3)
     }
     { BrowseToRepository Button
       MoveScaled(150,0,5,4)
@@ -60,16 +70,16 @@
     }
   }
   { Panel2 HBox
-    MoveScaled(3,7,156,5)
-    { WorkingDirectory TextBox
-      MoveScaled(0,0,28,4)
+    MoveScaled(1,7,156,5)
+    { WorkingDirectory ComboBox
+      MoveScaled(0,0,149,4)
       Expand = True
     }
     { Panel5 Panel
-      MoveScaled(117,1,0.2857,3)
+      MoveScaled(149,0,0.2857,3)
     }
     { PickWorkingDirectory Button
-      MoveScaled(148,0,5,4)
+      MoveScaled(150,0,5,4)
       ToolTip = ("Pick the working directory")
       Text = ("") & "..."
     }
@@ -78,11 +88,11 @@
     MoveScaled(1,13,156,70)
     Expand = True
     { Tree TreeView
-      MoveScaled(0,0,41,66)
+      MoveScaled(0,0,41,70)
       PopupMenu = "TreeContextMenu"
     }
     { Tabs TabStrip
-      MoveScaled(42,0,113,67)
+      MoveScaled(42,0,113,70)
       Expand = True
       Arrangement = Arrange.Vertical
       Padding = 5
@@ -90,7 +100,7 @@
       Index = 0
       Text = ("&Pending Changes")
       { Panel7 HBox
-        MoveScaled(5,1,97,4)
+        MoveScaled(1,1,110,4)
         { Commit Button
           MoveScaled(0,0,16,4)
           AutoResize = True
@@ -127,13 +137,13 @@
         MoveScaled(1,6,14,1)
       }
       { CommitMessage TextArea
-        MoveScaled(0,8,110,14)
+        MoveScaled(1,8,110,14)
       }
       { Panel11 Panel
-        MoveScaled(41,25,14,1)
+        MoveScaled(1,23,14,1)
       }
       { List ColumnView
-        MoveScaled(2,28,109,35)
+        MoveScaled(1,25,110,39)
         Expand = True
         PopupMenu = "ListContextMenu"
         Mode = Select.Multiple

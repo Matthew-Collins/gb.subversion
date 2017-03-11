@@ -1,0 +1,13 @@
+' Gambas class file
+
+Static Public Sub LaunchUrl(Url As String)
+
+  If Lower(Left(Url, 18)) = "https://github.com" And If Lower(Right(url, 6)) = "/trunk" Then
+    Url = Left(Url, RInStr(Url, "/trunk") - 1)
+  Endif
+
+  If Url Then
+    Desktop.Open(Url)
+  End If
+
+End Sub
