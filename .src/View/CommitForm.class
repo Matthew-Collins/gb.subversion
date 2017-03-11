@@ -227,7 +227,7 @@ Public Sub Update_Click()
 
   If Not IsNull(Me.Root) Then
 
-    Credentials = New SubversionCredentials(Repository.Text)
+    Credentials = New CredentialsForm(Repository.Text)
     Credentials.ShowIfRequired()
     If Not Credentials.IsCancelled Then
 
