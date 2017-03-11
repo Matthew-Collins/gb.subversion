@@ -89,6 +89,7 @@ End
 Public Sub LoadFromSubversionAndDisplay()
 
   Dim SvnFile As SubversionFile
+  Dim Credentials As CredentialsForm
 
   If Exist(WorkingDirectory.text) Then
 
@@ -136,14 +137,14 @@ Public Sub LoadFromSubversionAndDisplay()
 
   Me.Update_User_Interface()
 
-  ' If Message.Question("Check for Updates Available?", "Yes", "No") = 1 Then
-  '   Credentials = New SubversionCredentials(Repository.Text)
-  '   Credentials.ShowIfRequired()
-  '   If Not Credentials.IsCancelled Then
-  '     Me.Root.Load_Subversion_Repository_Latest_Status(Credentials.UserName.Text, Credentials.Password.Text)
-  '     Me.Update_User_Interface()
-  '   Endif
-  ' Endif
+  If Message.Question("Check for Updates Available?", "Yes", "No") = 1 Then
+    Credentials = New CredentialsForm(Repository.Text)
+    Credentials.ShowIfRequired()
+    If Not Credentials.IsCancelled Then
+      Me.Root.Load_Subversion_Repository_Latest_Status(Credentials.UserName.Text, Credentials.Password.Text)
+      Me.Update_User_Interface()
+    Endif
+  Endif
 
 End
 
