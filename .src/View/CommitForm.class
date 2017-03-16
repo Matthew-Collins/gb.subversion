@@ -165,8 +165,10 @@ End
 Public Sub Task_Kill()
 
   'Print "Background Task Completed"
-  Me.Root.RevisionLatest = Me.Task.Value
-  Me.Update_User_Interface
+  If Me.Task.Value Then
+    Me.Root.RevisionLatest = Me.Task.Value
+    Me.Update_User_Interface
+  End If
 
 End
 
