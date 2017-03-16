@@ -183,21 +183,6 @@ Public Sub Load_Subversion_Status()
 
 End
 
-Public Sub Load_Subversion_Repository_Latest_Status(UserName As String, Password As String)
-
-  Dim xDoc As New XmlDocument
-  Dim Against As XmlNode
-
-  xDoc.FromString(ExecuteCommand("svn status --show-updates --xml \"" & Me.WorkingDirectory & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password, Password, False))
-
-  For Each Against In xDoc.GetElementsByTagName("against")
-
-    Me.RevisionLatest = Against.Attributes["revision"]
-
-  Next
-
-End
-
 Public Function XmlDate(Value As String) As Date
   '2017-02-21T17:14:53.000000Z
 

@@ -1,0 +1,49 @@
+' Gambas class file
+
+Inherits Task
+
+Public WorkingDirectory As String
+Public UserName As String
+Public Password As String
+
+Public Sub _new(TaskWorkingDirectory As String, TaskUserName As String, TaskPassword As String)
+
+  Me.WorkingDirectory = TaskWorkingDirectory
+  Me.UserName = TaskUserName
+  Me.Password = TaskPassword
+
+End
+
+Public Function Main() As Integer
+
+  'Print "Running Background Task..."
+  Return Me.Load_Subversion_Repository_Latest_Status()
+  'Print "Finished Background Task..."
+Catch
+  Print Error.Text
+
+End
+
+Public Sub Load_Subversion_Repository_Latest_Status() As Integer
+
+  Dim xDoc As New XmlDocument
+  Dim Against As XmlNode
+  Dim FileAndArgs As String[]
+  Dim Xml As String
+  Dim Revision As Integer
+
+  FileAndArgs = ["svn", "status", "--show-updates", "--xml", Me.WorkingDirectory, "--no-auth-cache", "--trust-server-cert", "--non-interactive", "--username", Me.UserName, "--password", Password]
+  Global.Run.Execute(FileAndArgs,, True, True, ByRef Xml)
+
+  xDoc.FromString(Xml)
+
+  For Each Against In xDoc.GetElementsByTagName("against")
+
+    Revision = Against.Attributes["revision"]
+    'Print "Latest: " & Revision
+
+  Next
+
+  Return Revision
+
+End

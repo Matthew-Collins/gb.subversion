@@ -2,6 +2,7 @@
 
 Public Root As SubversionRoot
 Public RootObserver As Observer
+Public Task As RepositoryLatestTask
 
 Public Recent As New RecentRoot
 
@@ -137,14 +138,35 @@ Public Sub LoadFromSubversionAndDisplay()
 
   Me.Update_User_Interface()
 
-  If Message.Question("Check for Updates Available?", "Yes", "No") = 1 Then
-    Credentials = New CredentialsForm(Repository.Text)
-    Credentials.ShowIfRequired()
-    If Not Credentials.IsCancelled Then
-      Me.Root.Load_Subversion_Repository_Latest_Status(Credentials.UserName.Text, Credentials.Password.Text)
-      Me.Update_User_Interface()
-    Endif
+  'If Message.Question("Check for Updates Available?", "Yes", "No") = 1 Then
+  Credentials = New CredentialsForm(Repository.Text)
+  Credentials.ShowIfRequired()
+  If Not Credentials.IsCancelled Then
+
+    Task = New RepositoryLatestTask(WorkingDirectory.Text, Credentials.UserName.Text, Credentials.Password.Text) As "Task"
+
   Endif
+  'Endif
+
+End
+
+Public Sub Task_Read(Value As String)
+
+  Print Value
+
+End
+
+Public Sub Task_Error(Value As String)
+
+  Print Value
+
+End
+
+Public Sub Task_Kill()
+
+  'Print "Background Task Completed"
+  Me.Root.RevisionLatest = Me.Task.Value
+  Me.Update_User_Interface
 
 End
 
@@ -169,7 +191,7 @@ Public Sub Update_User_Interface()
     If Me.Root.Revision = Me.Root.RevisionLatest Then
       Update.Text = ("&Update")
     Else
-      Update.Text = ("&Updates Available")
+      Update.Text = ("&Update " & Me.Root.RevisionLatest & " Available")
     Endif
 
   Endif
