@@ -3,13 +3,16 @@ Test_001_GetDirectoryName=[3]
 SubversionCommitForm=[42]
 Test_003_Get_Latest_Revision_Info=[5]
 Test_001_Load_And_Save_Recent_Urls=[47]
-CommitForm=[]
+CommitForm=[421]
 
 [Breakpoints]
 Count=0
 
 [DebugWindow]
 Count=0
+
+[DebugWindow/Action]
+Geometry=[-10,-8,224,280]
 
 [DebugWindow/Args]
 Geometry=[832,371,224,280]

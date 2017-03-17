@@ -3,7 +3,7 @@
 Title=gb.subversion
 Startup=CommitForm
 Icon=icons/desktopicon.png
-Version=1.0.62
+Version=1.0.68
 Component=gb.image
 Component=gb.qt4
 Component=gb.form

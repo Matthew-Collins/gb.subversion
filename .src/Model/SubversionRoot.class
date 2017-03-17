@@ -70,12 +70,6 @@ Public Sub Tool_Error(Value As String)
 
 End
 
-Public Sub Checkout(Url As String, NewWorkingDirectory As String, UserName As String, Password As String)
-
-  ExecuteCommand("svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password, Password)
-
-End
-
 Public Sub LoadFromSubversion()
 
   Me.Files.Clear
@@ -348,49 +342,5 @@ Public Function Should_Parent_Expand(Parent As String) As Boolean
       Endif
     Endif
   Next
-
-End
-
-Public Sub Diff(FullPath As String)
-
-  Dim SvnFile As SubversionFile
-
-  Try SvnFile = Me.GetFile(FullPath)
-  If Not IsNull(SvnFile) Then
-    ExecuteCommand("meld \"" & SvnFile.FullPath & "\"", "", False, False)
-  Endif
-
-End
-
-Public Sub Revert(FullPath As String)
-
-  Dim SvnFile As SubversionFile
-
-  Try SvnFile = Me.GetFile(FullPath)
-  If Not IsNull(SvnFile) Then
-    ExecuteCommand("svn revert \"" & SvnFile.FullPath & "\"")
-  Endif
-
-End
-
-Public Sub Add(FullPath As String)
-
-  Dim SvnFile As SubversionFile
-
-  Try SvnFile = Me.GetFile(FullPath)
-  If Not IsNull(SvnFile) Then
-    ExecuteCommand("svn add \"" & SvnFile.FullPath & "\"")
-  Endif
-
-End
-
-Public Sub Delete(FullPath As String)
-
-  Dim SvnFile As SubversionFile
-
-  Try SvnFile = Me.GetFile(FullPath)
-  If Not IsNull(SvnFile) Then
-    ExecuteCommand("svn delete \"" & SvnFile.FullPath & "\" --force")
-  Endif
 
 End

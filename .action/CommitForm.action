@@ -1,0 +1,25 @@
+# Gambas Action File 3.0
+
+{ Actions
+  { Action Add
+    Text = "Add"
+    Shortcut = ""
+    Picture = "icon:/16/add"
+  }
+  { Action Delete
+    Text = "Delete"
+    Shortcut = ""
+    Picture = "icon:/16/delete"
+  }
+  { Action Diff
+    Text = "Show Changes"
+    Shortcut = ""
+    Picture = "icon:/16/pause"
+  }
+  { Action Revert
+    Text = "Revert"
+    Shortcut = ""
+    Picture = "icon:/16/undo"
+  }
+}
+

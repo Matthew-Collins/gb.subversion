@@ -316,73 +316,45 @@ Public Sub BrowseToRepository_Click()
 
 End
 
-Public Sub ListDiff_Click()
+Public Sub FileAction(ActionName As String, FullName As String)
+
+  Dim SvnFile As SubversionFile
 
   If Not IsNull(Me.root)
-    Me.Root.Diff(List.Current.Key)
+    Try SvnFile = Me.Root.GetFile(FullName)
+    If Not IsNull(SvnFile) Then
+
+      If ActionName = "Diff" Then
+        SvnFile.Diff()
+
+      Else If ActionName = "Add" Then
+        SvnFile.Add
+        Me.LoadFromSubversionAndDisplay()
+
+      Else If ActionName = "Delete" Then
+        SvnFile.Delete
+        Me.LoadFromSubversionAndDisplay()
+
+      Else If ActionName = "Revert" Then
+        SvnFile.Revert
+        Me.LoadFromSubversionAndDisplay()
+
+      Endif
+
+    Endif
   End If
 
 End
 
-Public Sub ListRevert_Click()
+Public Sub ListAction_Click()
 
-  If Not IsNull(Me.root)
-    Me.Root.Revert(List.Current.Key)
-    Me.LoadFromSubversionAndDisplay()
-  End If
+  Me.FileAction(Last.Action, List.Current.Key)
 
 End
 
-Public Sub ListAdd_Click()
+Public Sub TreeAction_Click()
 
-  If Not IsNull(Me.root)
-    Me.Root.Add(List.Current.Key)
-    Me.LoadFromSubversionAndDisplay()
-  End If
-
-End
-
-Public Sub ListDelete_Click()
-
-  If Not IsNull(Me.root)
-    Me.Root.Delete(List.Current.Key)
-    Me.LoadFromSubversionAndDisplay()
-  End If
-
-End
-
-Public Sub TreeDiff_Click()
-
-  If Not IsNull(Me.root)
-    Me.Root.Diff(Tree.Current.Key)
-  End If
-
-End
-
-Public Sub TreeRevert_Click()
-
-  If Not IsNull(Me.root)
-    Me.Root.Revert(Tree.Current.Key)
-    Me.LoadFromSubversionAndDisplay()
-  End If
-
-End
-
-Public Sub TreeAdd_Click()
-
-  If Not IsNull(Me.root)
-    Me.Root.Add(Tree.Current.Key)
-    Me.LoadFromSubversionAndDisplay()
-  End If
-
-End
-
-Public Sub TreeDelete_Click()
-
-  If Not IsNull(Me.root)
-    Me.Root.Delete(Tree.Current.Key)
-    Me.LoadFromSubversionAndDisplay()
-  End If
+  Me.FileAction(Last.Action, Tree.Current.Key)
 
 End
 
@@ -392,25 +364,6 @@ Public Sub RootObserver_Progress(Value As String, Optional NewLine As Boolean = 
   Wait
 
 End Sub
-
-Public Sub Form_Move()
-
-  FormSettings.SaveLocationAndSize(Me)
-
-End
-
-Public Sub Form_Resize()
-
-  FormSettings.SaveLocationAndSize(Me)
-
-End
-
-Public Sub Form_Close()
-
-  FormSettings.SaveLocationAndSize(Me)
-  Me.Recent.SaveRecentUrlsAndWorkingDirectories()
-
-End
 
 Public Sub Checkout_Click()
 
@@ -451,8 +404,27 @@ Public Sub Checkout_Click()
 
 End
 
+Public Sub Form_Move()
+
+  FormSettings.SaveLocationAndSize(Me)
+
+End
+
+Public Sub Form_Resize()
+
+  FormSettings.SaveLocationAndSize(Me)
+
+End
+
 Public Sub Exit_Click()
 
   Me.Close
+
+End
+
+Public Sub Form_Close()
+
+  FormSettings.SaveLocationAndSize(Me)
+  Me.Recent.SaveRecentUrlsAndWorkingDirectories()
 
 End

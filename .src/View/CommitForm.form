@@ -19,38 +19,54 @@
   }
   { TreeContextMenu Menu
     Visible = False
-    { TreeDiff Menu
+    { TreeDiff Menu TreeAction
+      Name = "TreeDiff"
+      Action = "Diff"
       Text = ("Show Changes")
       Picture = Picture["icon:/16/pause"]
     }
-    { TreeRevert Menu
+    { TreeRevert Menu TreeAction
+      Name = "TreeRevert"
+      Action = "Revert"
       Text = ("Revert")
       Picture = Picture["icon:/16/undo"]
     }
-    { TreeAdd Menu
+    { TreeAdd Menu TreeAction
+      Name = "TreeAdd"
+      Action = "Add"
       Text = ("Add")
       Picture = Picture["icon:/16/add"]
     }
-    { TreeDelete Menu
+    { TreeDelete Menu TreeAction
+      Name = "TreeDelete"
+      Action = "Delete"
       Text = ("Delete")
       Picture = Picture["icon:/16/delete"]
     }
   }
   { ListContextMenu Menu
     Visible = False
-    { ListDiff Menu
+    { ListDiff Menu ListAction
+      Name = "ListDiff"
+      Action = "Diff"
       Text = ("Show Changes")
       Picture = Picture["icon:/16/pause"]
     }
-    { ListRevert Menu
+    { ListRevert Menu ListAction
+      Name = "ListRevert"
+      Action = "Revert"
       Text = ("Revert")
       Picture = Picture["icon:/16/undo"]
     }
-    { ListAdd Menu
+    { ListAdd Menu ListAction
+      Name = "ListAdd"
+      Action = "Add"
       Text = ("Add")
       Picture = Picture["icon:/16/add"]
     }
-    { ListDelete Menu
+    { ListDelete Menu ListAction
+      Name = "ListDelete"
+      Action = "Delete"
       Text = ("Delete")
       Picture = Picture["icon:/16/delete"]
     }
@@ -161,5 +177,30 @@
       }
       Index = 0
     }
+  }
+}
+
+# Gambas Action File 3.0
+
+{ Actions
+  { Action Add
+    Text = "Add"
+    Shortcut = ""
+    Picture = "icon:/16/add"
+  }
+  { Action Delete
+    Text = "Delete"
+    Shortcut = ""
+    Picture = "icon:/16/delete"
+  }
+  { Action Diff
+    Text = "Show Changes"
+    Shortcut = ""
+    Picture = "icon:/16/pause"
+  }
+  { Action Revert
+    Text = "Revert"
+    Shortcut = ""
+    Picture = "icon:/16/undo"
   }
 }

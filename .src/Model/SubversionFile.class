@@ -229,3 +229,27 @@ Public Function GetCheckedPicture() As Picture
   Return NewImage.Picture
 
 End
+
+Public Sub Diff()
+
+  Global.Run.Execute(["meld", Me.FullPath],, False)
+
+End
+
+Public Sub Revert()
+
+  Global.Run.Execute(["svn", "revert", Me.FullPath])
+
+End
+
+Public Sub Add()
+
+  Global.Run.Execute(["svn", "add", Me.FullPath])
+
+End
+
+Public Sub Delete()
+
+  Global.Run.Execute(["svn", "delete", Me.FullPath, "--force"])
+
+End
