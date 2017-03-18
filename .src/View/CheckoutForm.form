@@ -4,26 +4,54 @@
   MoveScaled(0,0,104,17)
   Icon = Picture["icon:/huge/down"]
   Persistent = True
-  { PickWorkingDirectory Button
-    MoveScaled(98,7,5,4)
-    ToolTip = ("Pick the working directory")
-    Text = ("") & "..."
+  Arrangement = Arrange.Vertical
+  Padding = 5
+  { Panel1 HBox
+    MoveScaled(1,0,104,5)
+    { !Repository ComboBox
+      MoveScaled(0,0,98,5)
+      #Public = True
+      Expand = True
+    }
+    { BrowseToRepository Button
+      MoveScaled(98,0,5,5)
+      Picture = Picture["icon:/16/home"]
+    }
   }
-  { !WorkingDirectory TextBox
-    MoveScaled(1,7,97,4)
-    #Public = True
+  { Panel6 Panel
+    MoveScaled(45,5,13,1)
   }
-  { ButtonCheckout Button
-    MoveScaled(44,12,16,4)
-    Text = Shortcut(("Checkout"), "C")
-    Picture = Picture["icon:/16/down"]
+  { Panel2 HBox
+    MoveScaled(0,6,104,5)
+    { !WorkingDirectory TextBox
+      MoveScaled(0,0,97,5)
+      #Public = True
+      Expand = True
+    }
+    { PickWorkingDirectory Button
+      MoveScaled(98,0,5,5)
+      ToolTip = ("Pick the working directory")
+      Text = ("") & "..."
+    }
   }
-  { BrowseToRepository Button
-    MoveScaled(98,2,5,4)
-    Picture = Picture["icon:/16/home"]
+  { Panel7 Panel
+    MoveScaled(47,11,11,1)
+    Expand = True
   }
-  { !Repository ComboBox
-    MoveScaled(1,2,97,4)
-    #Public = True
+  { Panel3 HBox
+    MoveScaled(8,12,73,4)
+    { Panel5 Panel
+      MoveScaled(5,2,8,2)
+      Expand = True
+    }
+    { ButtonCheckout Button
+      MoveScaled(29,0,16,4)
+      Text = Shortcut(("Checkout"), "C")
+      Picture = Picture["icon:/16/down"]
+    }
+    { Panel4 Panel
+      MoveScaled(56,1,8,2)
+      Expand = True
+    }
   }
 }
