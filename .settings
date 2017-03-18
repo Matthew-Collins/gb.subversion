@@ -17,6 +17,12 @@ Geometry=[-10,-8,224,280]
 [DebugWindow/Args]
 Geometry=[832,371,224,280]
 
+[DebugWindow/CheckoutForm]
+Geometry=[1114,22,643,875]
+
+[DebugWindow/CheckoutForm.Repository]
+Geometry=[1128,36,643,875]
+
 [DebugWindow/Entry]
 Geometry=[840,63,738,596]
 

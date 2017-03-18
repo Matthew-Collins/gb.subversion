@@ -251,6 +251,12 @@ Public Function GetFile(FullPath As String) As SubversionFile
 
 End
 
+Public Sub Checkout(Url As String, NewWorkingDirectory As String, UserName As String, Password As String)
+
+  ExecuteCommand("svn checkout \"" & Url & "\" \"" & NewWorkingDirectory & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password, Password)
+
+End
+
 Public Sub Update(UserName As String, Password As String)
 
   ExecuteCommand("svn update \"" & Me.WorkingDirectory & "\" --no-auth-cache --trust-server-cert --non-interactive --username " & UserName & " --password " & Password, Password)

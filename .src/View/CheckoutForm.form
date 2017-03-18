@@ -22,7 +22,8 @@
     MoveScaled(98,2,5,4)
     Picture = Picture["icon:/16/home"]
   }
-  { Repository ComboBox
+  { !Repository ComboBox
     MoveScaled(1,2,97,4)
+    #Public = True
   }
 }

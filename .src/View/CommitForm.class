@@ -386,7 +386,7 @@ Public Sub Checkout_Click()
       Me.RootObserver = New Observer(Me.Root, True) As "RootObserver"
 
       Me.Root.FlagError = False
-      Me.Root.Checkout(Repository.text, Dialog.Path, Credentials.UserName.Text, Credentials.Password.text)
+      Me.Root.Checkout(CheckoutForm.Repository.text, Dialog.Path, Credentials.UserName.Text, Credentials.Password.text)
 
       Me.Mouse = Mouse.Default
       If Not Me.Root.FlagError Then
