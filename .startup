@@ -5,7 +5,7 @@ gb.subversion
 1.0.70
 
 gb.image
-gb.qt4
+gb.gui.qt
 gb.form
 gb.desktop.x11
 gb.desktop
