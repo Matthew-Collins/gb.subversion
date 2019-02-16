@@ -163,7 +163,7 @@
         Expand = True
         PopupMenu = "ListContextMenu"
         Mode = Select.Multiple
-        AutoResize = False
+        Resizable = True
       }
       Index = 1
       Text = ("Co&mmands")
