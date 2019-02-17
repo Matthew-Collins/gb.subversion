@@ -302,14 +302,21 @@ End
 Public Sub List_DblClick()
 
   Dim Item As SubversionFile
+  Dim IsChecked As Boolean
 
   If Not IsNull(Me.root)
-    Try Item = Me.Root.GetFile(List.Current.Key)
-    If Not IsNull(Item) Then
-      Item.IsChecked = Not Item.IsChecked
-      List.Current.Picture = Item.GetCheckedPicture()
+    If List.Selection.Count > 0
+      Try Item = Me.Root.GetFile(List.Current.Key)
+      IsChecked = Not Item.IsChecked
+      For Each ItemKey As String In List.Selection
+        Try Item = Me.Root.GetFile(ItemKey)
+        If Not IsNull(Item) Then
+          Item.IsChecked = IsChecked
+          List[ItemKey].Picture = Item.GetCheckedPicture()
+        Endif
+      Next
       Me.Update_User_Interface()
-    Endif
+    End If
   End If
 
 End
@@ -333,15 +340,12 @@ Public Sub FileAction(ActionName As String, FullName As String)
 
       Else If ActionName = "Add" Then
         SvnFile.Add
-        Me.LoadFromSubversionAndDisplay()
 
       Else If ActionName = "Delete" Then
         SvnFile.Delete
-        Me.LoadFromSubversionAndDisplay()
 
       Else If ActionName = "Revert" Then
         SvnFile.Revert
-        Me.LoadFromSubversionAndDisplay()
 
       Endif
 
@@ -352,13 +356,17 @@ End
 
 Public Sub ListAction_Click()
 
-  Me.FileAction(Last.Action, List.Current.Key)
+  For Each ItemKey As String In List.Selection
+    Me.FileAction(Last.Action, ItemKey)
+  Next
+  Me.LoadFromSubversionAndDisplay()
 
 End
 
 Public Sub TreeAction_Click()
 
   Me.FileAction(Last.Action, Tree.Current.Key)
+  Me.LoadFromSubversionAndDisplay()
 
 End
 

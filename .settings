@@ -3,7 +3,7 @@ Test_001_GetDirectoryName=[3]
 SubversionCommitForm=[42]
 Test_003_Get_Latest_Revision_Info=[5]
 Test_001_Load_And_Save_Recent_Urls=[47]
-CommitForm=[423]
+CommitForm=[432]
 
 [Breakpoints]
 Count=0
@@ -43,6 +43,9 @@ Geometry=[-8,5,383,648]
 
 [DebugWindow/List]
 Geometry=[840,29,540,907]
+
+[DebugWindow/List.Selection]
+Geometry=[0,14,996,338]
 
 [DebugWindow/Me]
 Geometry=[840,379,445,552]
@@ -141,9 +144,7 @@ Geometry=[0,13,224,280]
 Path="gb.subversion.gambas"
 
 [OpenFile]
-Count=1
-Active=1
-File[1]=".src/View/CommitForm.form"
+Count=0
 
 [VersionControl]
 RememberPassword=0
