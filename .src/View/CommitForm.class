@@ -16,7 +16,7 @@ Public Sub _new()
 
   With List
 
-    .Columns.Count = 4
+    .Columns.Count = 5
 
     With List.Columns[0]
       .Text = ("Name")
@@ -37,6 +37,7 @@ Public Sub _new()
 
     With List.Columns[3]
       .Text = ("Modified")
+      .Alignment = Align.Center
       .Width = 150
     End With
 
