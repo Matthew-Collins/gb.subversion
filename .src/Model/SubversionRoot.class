@@ -322,12 +322,17 @@ Public Sub Add_All_Parent_Folders(FullPath As String, ByRef FileNames As String[
 
       ExecuteCommand("svn add \"" & Folder.FullPath & "\" --depth=empty")
 
-      FileNames.Add(Folder.FullPath)
+      If FileNames.Find(Folder.FullPath, gb.IgnoreCase) = -1 Then
+        FileNames.Add(Folder.FullPath)
+      End If
 
       Folder.MarkAdded()
 
     Else If Folder.IsModified() Or If Folder.IsAdded() Then
-      FileNames.Add(Folder.FullPath)
+      Me.Add_All_Parent_Folders(Folder.GetParent(), FileNames)
+      If FileNames.Find(Folder.FullPath, gb.IgnoreCase) = -1 Then
+        FileNames.Add(Folder.FullPath)
+      End If
 
     Endif
   Endif
