@@ -8,6 +8,7 @@ Public IsFolder As Boolean
 Public Props As String
 Public Status As String
 Public Revision As Integer
+Public CommitRevision As Integer
 Public Author As String
 Public CommitDate As Date
 Public ModifiedDate As Date

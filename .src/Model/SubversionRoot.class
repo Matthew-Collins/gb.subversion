@@ -140,11 +140,12 @@ Public Sub Load_Subversion_Status()
 
         SvnFile.Status = Status.Attributes["item"]
         SvnFile.Props = Status.Attributes["props"]
+        Try SvnFile.Revision = CInt(Status.Attributes["revision"])
 
         For Each Commits In Status.ChildNodes
           If Commits.Name = "commit" Then
 
-            SvnFile.Revision = CInt(Commits.Attributes["revision"])
+            SvnFile.CommitRevision = CInt(Commits.Attributes["revision"])
 
             For Each Value In Commits.ChildNodes
 
