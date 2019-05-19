@@ -1,13 +1,14 @@
 # Gambas Project File 3.0
+# Compiled with Gambas 3.9.1
 Title=gb.subversion
 Startup=CommitForm
 Icon=icons/desktopicon.png
-Version=1.0.80
+Version=1.0.81
 Component=gb.image
 Component=gb.gui.qt
 Component=gb.form
-Component=gb.desktop
 Component=gb.desktop.x11
+Component=gb.desktop
 Component=gb.settings
 Component=gb.xml
 Description="Gambas Subversion (SVN) Client Component and Tools"

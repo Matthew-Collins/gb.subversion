@@ -304,12 +304,13 @@ Public Sub List_DblClick()
 
   Dim Item As SubversionFile
   Dim IsChecked As Boolean
+  Dim ItemKey As String
 
   If Not IsNull(Me.root)
     If List.Selection.Count > 0
       Try Item = Me.Root.GetFile(List.Current.Key)
       IsChecked = Not Item.IsChecked
-      For Each ItemKey As String In List.Selection
+      For Each ItemKey In List.Selection
         Try Item = Me.Root.GetFile(ItemKey)
         If Not IsNull(Item) Then
           Item.IsChecked = IsChecked
@@ -356,8 +357,10 @@ Public Sub FileAction(ActionName As String, FullName As String)
 End
 
 Public Sub ListAction_Click()
+  
+  Dim ItemKey As String
 
-  For Each ItemKey As String In List.Selection
+  For Each ItemKey In List.Selection
     Me.FileAction(Last.Action, ItemKey)
   Next
   Me.LoadFromSubversionAndDisplay()

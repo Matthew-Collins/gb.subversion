@@ -4,7 +4,6 @@ SubversionCommitForm=[42]
 Test_003_Get_Latest_Revision_Info=[5]
 Test_001_Load_And_Save_Recent_Urls=[47]
 CommitForm=[432]
-SubversionRoot=[]
 
 [Breakpoints]
 Count=0
@@ -145,9 +144,7 @@ Geometry=[0,13,224,280]
 Path="gb.subversion.gambas"
 
 [OpenFile]
-Count=1
-Active=1
-File[1]=".src/Model/SubversionRoot.class:0.143"
+Count=0
 
 [VersionControl]
 RememberPassword=0

@@ -2,13 +2,13 @@ CommitForm
 gb.subversion
 0
 0
-1.0.79
+1.0.80
 
 gb.image
 gb.gui.qt
 gb.form
-gb.desktop
 gb.desktop.x11
+gb.desktop
 gb.settings
 gb.xml
 
