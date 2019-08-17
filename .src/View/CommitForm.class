@@ -357,7 +357,7 @@ Public Sub FileAction(ActionName As String, FullName As String)
 End
 
 Public Sub ListAction_Click()
-  
+
   Dim ItemKey As String
 
   For Each ItemKey In List.Selection

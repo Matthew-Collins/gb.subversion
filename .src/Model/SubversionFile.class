@@ -20,7 +20,7 @@ Public Function GetParent() As String
   If Me.RelativePath = Null Then
     Return Null
   Else
-    Return Left(Me.FullPath, - Len(Me.FileName) - 1)
+    Return Left(Me.FullPath, -Len(Me.FileName) - 1)
   Endif
 
 End
@@ -47,7 +47,10 @@ Public Function IsIgnored() As Boolean
   '.lang/*.pot
   '.gambas/*
 
-  If EndsWith(Me.FileName, ".gambas") Then
+  If Me.Status = "ignored" Then
+    Return True
+
+  Else If EndsWith(Me.FileName, ".gambas") Then
     Return True
 
   Else If EndsWith(Me.FileName, ".lock") Then
@@ -143,8 +146,6 @@ End
 Public Function IsCommitable() As Boolean
 
   If Not Me.IsNormal() And Not Me.IsIgnored() And Not Me.IsFolder
-    Return True
-  Else If Me.IsIgnored() And If Not Me.IsUnversioned() Then
     Return True
   Else
     Return False

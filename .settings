@@ -142,6 +142,7 @@ Geometry=[0,13,224,280]
 
 [Executable]
 Path="gb.subversion.gambas"
+DoNotIncrementVersion=False
 
 [OpenFile]
 Count=0
