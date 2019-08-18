@@ -192,6 +192,7 @@ Public Sub Add_Any_Unversioned_Missing_Files()
   Dim FileName As String
   Dim FullPath As String
   Dim FileFound As Boolean
+  Dim FileIgnored As Boolean
   Dim SvnFile As SubversionFile
 
   For Each FileName In RDir(Me.WorkingDirectory)
@@ -199,10 +200,15 @@ Public Sub Add_Any_Unversioned_Missing_Files()
 
       FullPath = Me.WorkingDirectory &/ FileName
       FileFound = False
+      FileIgnored = False
 
       For Each SvnFile In Me.Files
         If Lower(SvnFile.FullPath) = Lower(FullPath) Then
           FileFound = True
+          Break
+        Else If SvnFile.IsIgnored() And If Lower(FullPath) Begins Lower(SvnFile.FullPath) & "/" Then
+          FileFound = True
+          FileIgnored = True
           Break
         Endif
       Next
@@ -211,6 +217,11 @@ Public Sub Add_Any_Unversioned_Missing_Files()
         SvnFile = New SubversionFile
         SvnFile.FullPath = FullPath
         SvnFile.Status = "unversioned"
+        Me.Files.Add(SvnFile)
+      Else If FileFound And FileIgnored Then
+        SvnFile = New SubversionFile
+        SvnFile.FullPath = FullPath
+        SvnFile.Status = "ignored"
         Me.Files.Add(SvnFile)
       Endif
 
