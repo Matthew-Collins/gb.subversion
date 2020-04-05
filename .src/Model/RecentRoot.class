@@ -2,6 +2,7 @@
 
 Public WebAddressses As New RecentWebAddress[]
 Public WorkingDirectories As New RecentWorkingDirectory[]
+'Public CredentialsItems As New RecentCredentials[]
 
 Public Sub LoadRecentUrlsAndWorkingDirectories()
 

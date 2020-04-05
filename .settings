@@ -14,6 +14,12 @@ Count=0
 [DebugWindow/Action]
 Geometry=[-10,-8,224,280]
 
+[DebugWindow/Actual]
+Geometry=[848,380,716,280]
+
+[DebugWindow/Actual.List]
+Geometry=[911,430,716,280]
+
 [DebugWindow/Args]
 Geometry=[832,371,224,280]
 
@@ -55,6 +61,9 @@ Geometry=[840,115,580,797]
 
 [DebugWindow/Node.Attributes]
 Geometry=[848,387,224,280]
+
+[DebugWindow/Object]
+Geometry=[848,380,224,280]
 
 [DebugWindow/Paths]
 Geometry=[848,387,224,498]
@@ -109,6 +118,15 @@ Geometry=[0,13,224,280]
 
 [DebugWindow/Split(List)]
 Geometry=[-8,5,224,280]
+
+[DebugWindow/Store1]
+Geometry=[848,380,224,280]
+
+[DebugWindow/Store1.List]
+Geometry=[951,457,498,280]
+
+[DebugWindow/String]
+Geometry=[848,380,224,280]
 
 [DebugWindow/SvnFile]
 Geometry=[832,371,539,565]

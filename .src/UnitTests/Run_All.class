@@ -2,6 +2,11 @@
 
 Static Public Sub Main()
 
+  'Credentials
+  Test_001_GetCredentials.Main
+  Test_002_SaveCredentials.Main
+  Test_003_CredentialForm.Main ' May prompt
+
   'Directory
   Test_001_GetDirectoryName.Main
   Test_002_CreateDirectory.Main

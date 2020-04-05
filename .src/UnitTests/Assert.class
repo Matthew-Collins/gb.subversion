@@ -52,3 +52,15 @@ Static Public Function IsNotExpected(Actual As String, Expected As String, Comme
   Return Result
 
 End
+
+Static Public Function IsNull(Value As Object, Comment As String) As Boolean
+
+  Return IsTrue(IsNull(Value), Comment)
+
+End
+
+Static Public Function IsNotNull(Value As Object, Comment As String) As Boolean
+
+  Return IsFalse(IsNull(Value), Comment)
+
+End
